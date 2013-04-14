@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Fatture facili{% endblock %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -30,16 +30,9 @@
                         <span class="icon-bar"></span>
                     </a>
                     <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="{{ path('home') }}">Home</a></li>
-                            <li><a href="{{ path('invoices') }}">Fatture</a></li>
-                            <li><a href="{{ path('invoices_archive') }}">Report</a></li>                            
-                            <li><a href="{{ path('clients') }}">Clienti</a></li>
-                            <li><a href="{{ path('projects') }}">Progetti</a></li>
-                            <li><a href="{{ path('recurring_invoices') }}">Ricorrenti</a></li>
-                            <li><a href="{{ path('estimates') }}">Preventivi</a></li>
-                            <li><a href="{{ path('invoices_configure') }}">Configura</a></li>
-                        </ul>
+
+                        {{ knp_menu_render('AgileInvoiceBundle:Builder:topMenu', {'currentClass': 'active'}) }}
+
                         {#<form class="navbar-form pull-right">
                             <input class="span2" type="text" placeholder="Email">
                             <input class="span2" type="password" placeholder="Password">
@@ -57,7 +50,7 @@
                 <div class="span8">
                     <h2>{% block main_title %}Hello, world!{% endblock %}</h2>
                     {% block body %}
-                        &nbsp:;
+                        &nbsp;
                     {% endblock %}
                 </div>
                 <div class="span4">
