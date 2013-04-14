@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Acme\HelloBundle\AcmeHelloBundle(),
             new Acme\TestBundle\AcmeTestBundle(),
             new Agile\InvoiceBundle\AgileInvoiceBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
