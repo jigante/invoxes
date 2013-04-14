@@ -4,5 +4,20 @@
 {% block main_title %}Create New Client{% endblock %}
 
 {% block body %}
-    Form per creazione clienti qui....
+    <form novalidate action="{{ path('clients_new') }}" method="post" {{ form_enctype(form) }}>
+        {#{ form_widget(form) }#}
+        {{ form_errors(form)}}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.address)}}
+        
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Save" class="btn btn-success btn-small " />
+        <a href="{{ path('clients') }}" class="btn btn-small">Cancel</a>
+    </form>
+{% endblock %}
+
+{% block right_column %}
+    <div class="well well-small">Once you've added a client, you can add projects and contacts.</div>
 {% endblock %}
