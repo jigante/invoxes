@@ -31,7 +31,10 @@
                     </a>
                     <div class="nav-collapse collapse">
 
-                        {{ knp_menu_render('AgileInvoiceBundle:Builder:topMenu', {'currentClass': 'active'}) }}
+                        {{
+                            knp_menu_render('AgileInvoiceBundle:Builder:topMenu',
+                            { 'currentClass': 'active', 'ancestorClass': 'active' })
+                        }}
 
                         {#<form class="navbar-form pull-right">
                             <input class="span2" type="text" placeholder="Email">
