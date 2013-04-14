@@ -1,0 +1,31 @@
+home:
+    pattern:  /
+    defaults: { _controller: AgileInvoiceBundle:Default:index }
+
+invoices:
+    pattern:  /invoices
+    defaults: { _controller: AgileInvoiceBundle:Invoices:index }
+
+invoices_archive:
+    pattern:  /invoices/archive
+    defaults: { _controller: AgileInvoiceBundle:Invoices:archive }
+
+clients:
+    pattern:  /clients
+    defaults: { _controller: AgileInvoiceBundle:Clients:index }
+
+projects:
+    pattern:  /projects
+    defaults: { _controller: AgileInvoiceBundle:Projects:index }
+
+recurring_invoices:
+    pattern:  /recurring_invoices
+    defaults: { _controller: AgileInvoiceBundle:Invoices:recurring }
+
+estimates:
+    pattern:  /estimates
+    defaults: { _controller: AgileInvoiceBundle:Estimates:index }
+
+invoices_configure:
+    pattern:  /invoices/configure
+    defaults: { _controller: AgileInvoiceBundle:Invoives:configure }

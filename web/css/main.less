@@ -5,4 +5,20 @@ body {
   padding-bottom: 40px;
 }
 
-@import "../less/bootstrap/responsive.less";
+// Per ora escludiamo la versione responsiva del sito
+// @import "../less/bootstrap/responsive.less";
+
+// Custom less
+
+// Navbar
+@navbarCollapseDesktopWidth:      @navbarCollapseWidth + 1;
+
+@navbarBackgroundHighlight:       #297bba;
+@navbarBackground:                darken(@navbarBackgroundHighlight, 5%);
+@navbarBorder:                    darken(@navbarBackground, 12%);
+
+@navbarText:                      #c3dde8;
+@navbarLinkColor:                 #c3dde8;
+@navbarLinkColorHover:            #fff;
+@navbarLinkColorActive:           #fff;
+@navbarLinkBackgroundActive:      darken(@navbarBackground, 5%);
