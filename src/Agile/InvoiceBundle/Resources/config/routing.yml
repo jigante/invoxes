@@ -6,13 +6,17 @@ invoices:
     pattern:  /invoices
     defaults: { _controller: AgileInvoiceBundle:Invoices:index }
 
-invoices_archive:
-    pattern:  /invoices/archive
-    defaults: { _controller: AgileInvoiceBundle:Invoices:archive }
-
 clients:
     pattern:  /clients
     defaults: { _controller: AgileInvoiceBundle:Clients:index }
+
+clients_new:
+    pattern: /clients/new
+    defaults: { _controller: AgileInvoiceBundle:Clients:new }
+
+invoices_archive:
+    pattern:  /invoices/archive
+    defaults: { _controller: AgileInvoiceBundle:Invoices:archive }
 
 projects:
     pattern:  /projects
