@@ -1,15 +1,16 @@
+{% form_theme form with 'AgileInvoiceBundle:Form:horizontal-fields.html.twig' %}
 {% extends '::base.html.twig' %}
 
 {% block title %}Create New Client - {{ parent() }}{% endblock %}
 {% block main_title %}Create New Client{% endblock %}
 
 {% block body %}
-    <form novalidate action="{{ path('clients_new') }}" method="post" {{ form_enctype(form) }}>
+    <form novalidate class="form-horizontal" action="{{ path('clients_new') }}" method="post" {{ form_enctype(form) }}>
         {#{ form_widget(form) }#}
         {{ form_errors(form)}}
 
-        {{ form_row(form.name) }}
-        {{ form_row(form.address)}}
+        {{ form_row(form.name, { 'attr': {'class': 'input-block-level'} }) }}
+        {{ form_row(form.address, { 'attr': {'rows': 8, 'class': 'input-block-level'} }) }}
         
         {{ form_rest(form) }}
 
