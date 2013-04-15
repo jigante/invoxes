@@ -14,18 +14,7 @@ class ClientsController extends Controller
     {
         // create a $client object
         $client = new Client();
-        // $client->setName('ISMatera 24 S.r.l.');
-        // $client->setAddress(
-        //     "Via Bari 2-4-6\n 75100 Matera\n P.IVA 01137970776"
-        // );
         $client->setCurrency('EUR');
-
-        // $form = $this->createFormBuilder($client)
-        //     ->add('name', 'text')
-        //     ->add('address', 'textarea')
-        //     ->add('currency', 'hidden')
-        //     ->getForm()
-        // ;
 
         $form = $this->createForm(new ClientType(), $client);
 
@@ -33,9 +22,11 @@ class ClientsController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
-                // perform some action, such as saving the task to the database
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($client);
+                $em->flush();
 
-                return $this->redirect($this->generateUrl('task_success'));
+                return $this->redirect($this->generateUrl('clients'));
             }
         }
 
@@ -49,7 +40,6 @@ class ClientsController extends Controller
      */
     public function indexAction()
     {
-        // $this->render('AgileInvoiceBundle')
         return array();
     }
 
