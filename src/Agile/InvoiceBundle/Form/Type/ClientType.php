@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 // While not always necessary, it's generally a good idea to explicitly specify the data_class option
-// by adding the following to your form type class:
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ClientType extends AbstractType
@@ -14,8 +13,8 @@ class ClientType extends AbstractType
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text');
-        $builder->add('address', 'textarea');
+        $builder->add('name');
+        $builder->add('address', 'textarea', array('required' => false));
         $builder->add('currency', 'hidden');
     }
 
@@ -24,6 +23,7 @@ class ClientType extends AbstractType
         return 'client';
     }
 
+    // While not always necessary, it's generally a good idea to explicitly specify the data_class option
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
