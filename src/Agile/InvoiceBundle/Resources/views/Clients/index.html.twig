@@ -4,4 +4,14 @@
 
 {% block body %}
     <a href="{{ path('clients_new') }}" class="btn btn-success btn-small">+ Create Client</a>
+    <br>
+    <br>
+
+    {% for client in clients %}
+    <p>
+        Nome: {{ client.name }} <br>
+        Indirizzo: {{ client.address }} <br>
+        Valuta: {{ client.currency }}
+    </p>
+    {% endfor %}
 {% endblock %}

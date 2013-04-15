@@ -35,12 +35,14 @@ class ClientsController extends Controller
         ));
     }
 
-    /**
-     * @Template("AgileInvoiceBundle:Clients:index.html.twig")
-     */
     public function indexAction()
     {
-        return array();
+        $clients = $this->getDoctrine()
+            ->getRepository('AgileInvoiceBundle:Client')
+            ->findAll()
+        ;
+
+        return $this->render('AgileInvoiceBundle:Clients:index.html.twig', array('clients' => $clients));
     }
 
 }
