@@ -10,6 +10,36 @@ use Agile\InvoiceBundle\Form\Type\ClientType;
 
 class ClientsController extends Controller
 {
+    public function editAction(Request $request, $id)
+    {
+        // get the $client object
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
+
+        if (!$client) {
+            throw $this->createNotFoundException(
+                'No client found for id '.$id
+            );
+        }
+
+        $form = $this->createForm(new ClientType(), $client);
+
+        if ($request->isMethod('POST')) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('clients'));
+            }
+        }
+
+        return $this->render('AgileInvoiceBundle:Clients:edit.html.twig', array(
+            'form' => $form->createView(),
+            'client' => $client
+        ));
+    }
+
     public function newAction(Request $request)
     {
         // create a $client object
