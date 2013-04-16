@@ -11,8 +11,16 @@ clients:
     defaults: { _controller: AgileInvoiceBundle:Clients:index }
 
 clients_new:
-    pattern: /clients/new
+    pattern:  /clients/new
     defaults: { _controller: AgileInvoiceBundle:Clients:new }
+
+clients_edit:
+    pattern:  /clients/{id}/edit
+    defaults: { _controller: AgileInvoiceBundle:Clients:edit }
+
+clients_contacts_new:
+    pattern: /clients/{id}/contacts/new
+    defaults: { _controller: AgileInvoiceBundle:Clients:newContact }
 
 invoices_archive:
     pattern:  /invoices/archive
