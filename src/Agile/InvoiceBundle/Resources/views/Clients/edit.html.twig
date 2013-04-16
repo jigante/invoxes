@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Edit Client - {{ parent() }}{% endblock %}
+{% block main_title %}Edit Client: <em>{{ client.name }}</em>{% endblock %}
+
+{% block body %}
+    
+    {{ include('AgileInvoiceBundle:Clients:form.html.twig', { 'form': form }) }}
+
+{% endblock %}
+
+{% block right_column %}
+    <div class="well well-small">Remove {{ client.name }} from your account</div>
+    <div class="well well-small">Archive {{ client.name }}</div>
+{% endblock %}
