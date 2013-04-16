@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '@AgileInvoice/one-column.html.twig' %}
 
 {% block main_title %}Manage Clients{% endblock %}
 
@@ -7,11 +7,19 @@
     <br>
     <br>
 
-    {% for client in clients %}
-    <p>
-        Nome: {{ client.name }} <br>
-        Indirizzo: {{ client.address }} <br>
-        Valuta: {{ client.currency }}
-    </p>
-    {% endfor %}
+    {% if clients|length > 0 %}
+    <ul class="clients-list">
+        {% for client in clients %}
+        <li>
+            <h2>{{ client.name }}
+                <span>(
+                    <a href="{{ path('clients_edit', {'id': client.id}) }}">Edit</a>
+                    |
+                    <a href="{{ path('clients_contacts_new', {'id': client.id}) }}">Add contact</a>
+                )</span>
+            </h2>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 {% endblock %}
