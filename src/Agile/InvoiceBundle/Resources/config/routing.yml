@@ -6,21 +6,25 @@ invoices:
     pattern:  /invoices
     defaults: { _controller: AgileInvoiceBundle:Invoices:index }
 
-clients:
-    pattern:  /clients
-    defaults: { _controller: AgileInvoiceBundle:Clients:index }
+# clients:
+#     pattern:  /clients
+#     defaults: { _controller: AgileInvoiceBundle:Clients:index }
 
-clients_new:
-    pattern:  /clients/new
-    defaults: { _controller: AgileInvoiceBundle:Clients:new }
+# clients_new:
+#     pattern:  /clients/new
+#     defaults: { _controller: AgileInvoiceBundle:Clients:new }
 
-clients_edit:
-    pattern:  /clients/{id}/edit
-    defaults: { _controller: AgileInvoiceBundle:Clients:edit }
+# clients_edit:
+#     pattern:  /clients/{id}/edit
+#     defaults: { _controller: AgileInvoiceBundle:Clients:edit }
 
-clients_contacts_new:
-    pattern: /clients/{id}/contacts/new
-    defaults: { _controller: AgileInvoiceBundle:Clients:newContact }
+# clients_contacts_new:
+#     pattern: /clients/{id}/contacts/new
+#     defaults: { _controller: AgileInvoiceBundle:Clients:newContact }
+
+client:
+    resource: "@AgileInvoiceBundle/Controller/ClientController.php"
+    type: annotation
 
 invoices_archive:
     pattern:  /invoices/archive
