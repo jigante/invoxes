@@ -2,8 +2,8 @@
 
 {% block main_title %}Manage Clients{% endblock %}
 
-{% block body %}
-    <a href="{{ path('clients_new') }}" class="btn btn-success btn-small">+ Create Client</a>
+{% block body -%}
+    <a href="{{ path('client_new') }}" class="btn btn-success btn-small">+ Create Client</a>
     <br>
     <br>
 
@@ -13,9 +13,9 @@
         <li>
             <h2>{{ client.name }}
                 <span>(
-                    <a href="{{ path('clients_edit', {'id': client.id}) }}">Edit</a>
+                    <a href="{{ path('client_edit', {'id': client.id}) }}">Edit</a>
                     |
-                    <a href="{{ path('clients_contacts_new', {'id': client.id}) }}">Add contact</a>
+                    <a href="{#{ path('client_contact_new', {'id': client.id}) }#}#">Add contact</a>
                 )</span>
             </h2>
         </li>

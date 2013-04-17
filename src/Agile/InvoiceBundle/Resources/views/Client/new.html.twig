@@ -3,10 +3,8 @@
 {% block title %}Create New Client - {{ parent() }}{% endblock %}
 {% block main_title %}Create New Client{% endblock %}
 
-{% block body %}
-
-    {{ include('AgileInvoiceBundle:Clients:form.html.twig', { 'form': form }) }}
-
+{% block body -%}
+    {{ include('AgileInvoiceBundle:Client:form.html.twig', { 'form': form, 'form_action': path('client_create') }) }}
 {% endblock %}
 
 {% block right_column %}

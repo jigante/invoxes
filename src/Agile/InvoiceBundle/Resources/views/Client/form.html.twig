@@ -1,6 +1,12 @@
 {% form_theme form with 'AgileInvoiceBundle:Form:horizontal-fields.html.twig' %}
 
-<form novalidate class="form-horizontal" action="{{ path('clients_new') }}" method="post" {{ form_enctype(form) }}>
+<form novalidate class="form-horizontal" action="{{ form_action }}" method="post" {{ form_enctype(form) }}>
+    
+    {# Se è un form per l'editing, aggiungiamo il seguente campo #}
+    {% if edit is defined %}
+        <input type="hidden" name="_method" value="PUT" />
+    {% endif %}
+
     {#{ form_widget(form) }#}
     {{ form_errors(form)}}
 
@@ -10,5 +16,5 @@
     {{ form_rest(form) }}
 
     <input type="submit" value="Save" class="btn btn-success btn-small " />
-    <a href="{{ path('clients') }}" class="btn btn-small">Cancel</a>
+    <a href="{{ path('client') }}" class="btn btn-small">Cancel</a>
 </form>
