@@ -27,12 +27,11 @@ class ClientController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AgileInvoiceBundle:Client')->findAll();
+        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName();
 
         return array(
-            'clients' => $entities,
+            'clients' => $clients,
         );
     }
 

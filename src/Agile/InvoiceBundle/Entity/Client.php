@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Agile\InvoiceBundle\Entity\ClientRepository")
  * @ORM\Table(name="client")
  */
 class Client
