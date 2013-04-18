@@ -6,50 +6,73 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ClientControllerTest extends WebTestCase
 {
-    /*
+    
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
         $client = static::createClient();
 
         // Create a new entry in the database
-        $crawler = $client->request('GET', '/client/');
+        $crawler = $client->request('GET', '/clients');
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /client/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        $crawler = $client->click($crawler->selectLink('+ Create Client')->link());
 
         // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'agile_invoicebundle_clienttype[field_name]'  => 'Test',
-            // ... other fields to fill
+        $form = $crawler->selectButton('Save')->form(array(
+            'client[name]'  => 'Test Client',
+            'client[address]'  => 'Test Client address',
         ));
 
         $client->submit($form);
+        
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/clients')
+        );
+
         $crawler = $client->followRedirect();
 
-        // Check data in the show view
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
+        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Test Client")')->count() );
 
         // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
+        $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
 
-        $form = $crawler->selectButton('Edit')->form(array(
-            'agile_invoicebundle_clienttype[field_name]'  => 'Foo',
-            // ... other fields to fill
-        ));
+        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Edit Client")')->count() );
+
+        $form = $crawler->selectButton('Save')->form(
+            array(
+                'client[name]'  => 'Test Client edit',
+                'client[address]'  => 'Test Client address edit',
+                ),
+            'PUT'
+        );
 
         $client->submit($form);
+        
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/clients')
+        );
+
         $crawler = $client->followRedirect();
 
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
+        // Check the element contains an attribute with value equals "Test Client edit"
+        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Test Client edit")')->count() );
 
         // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
+        $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
+
+        $form = $crawler->selectButton('Save')->form(array(), 'DELETE');
+
+        $client->submit($form);
+        
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/clients')
+        );
+
         $crawler = $client->followRedirect();
 
         // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->assertEquals( 0, $crawler->filter('html:contains("Test Client edit")')->count() );
+
     }
 
-    */
 }
