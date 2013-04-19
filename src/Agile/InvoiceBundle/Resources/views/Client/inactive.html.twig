@@ -1,0 +1,18 @@
+{% extends '@AgileInvoice/one-column.html.twig' %}
+
+{% block main_title %}Archived Clients{% endblock %}
+
+{% block body -%}
+    
+    <p>Click on a client to reactivate it. When you're done, you can go back to the <strong><a href="{{ path('client') }}">active clients list</a></strong>.</p>
+
+    {% if clients|length > 0 %}
+    <ul class="clients-list-inactive">
+        {% for client in clients %}
+        <li>
+            <a href="{{ path('client_toggle', {'id': client.id}) }}" data-mconfirm-header="Would you like to reactivate {{ client.name }}?"><i class="icon-ok-sign"></i> {{ client.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}
