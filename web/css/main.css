@@ -5260,6 +5260,9 @@ body {
 label.required {
   font-weight: bold;
 }
+div.upper_side_link {
+  float: right;
+}
 ul.clients-list {
   list-style: none;
   margin: 0;
@@ -5274,4 +5277,19 @@ ul.clients-list h2 {
 }
 ul.clients-list h2 span {
   font-weight: normal;
+}
+ul.clients-list-inactive {
+  list-style: none;
+  margin: 0;
+}
+ul.clients-list-inactive li a {
+  display: block;
+  font-weight: bold;
+  padding: 5px 10px;
+  border: 1px solid #D5D5D5;
+  border-left: 0;
+  border-right: 0;
+}
+ul.clients-list-inactive li a:hover {
+  background-color: #e0f5fe;
 }
