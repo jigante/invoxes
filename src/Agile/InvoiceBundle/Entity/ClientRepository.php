@@ -14,8 +14,38 @@ class ClientRepository extends EntityRepository
 {
     public function findAllOrderedByName()
     {
-        return $this->getEntityManager()
-            ->createQuery('SELECT c FROM AgileInvoiceBundle:Client c ORDER BY c.name ASC')
-            ->getResult();
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT c FROM AgileInvoiceBundle:Client c WHERE c.archived = :archived ORDER BY c.name ASC'
+        )->setParameter('archived', 0);
+
+        $clients = $query->getResult();
+
+        return $clients;
     }
+
+    public function findInactive()
+    {
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT c FROM AgileInvoiceBundle:Client c WHERE c.archived = :archived ORDER BY c.name ASC'
+        )->setParameter('archived', 1);
+
+        $clients = $query->getResult();
+
+        return $clients;
+    }
+
+    // public function countInactiveClients()
+    // {
+    //     $em = $this->getEntityManager();
+    //     $query = $em->createQueryBuilder()
+    //         ->select('COUNT(c.archived) as archived')
+    //         ->from('AgileInvoiceBundle:Client', 'c')
+    //         ->where('c.archived = :archived')
+    //         ->setParameter('archived', 1)
+    //     ;
+
+    //     $numArchivedClients = $query->getQuery()->getResult();
+
+    //     return $numArchivedClients; 
+    // }
 }
