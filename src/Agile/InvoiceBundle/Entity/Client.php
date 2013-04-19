@@ -34,6 +34,11 @@ class Client
      */
     protected $currency;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $archived = 0;
+
 
     public function getId() {
         return $this->id;
@@ -67,5 +72,12 @@ class Client
         $this->currency = $currency;
     }
 
+    public function isArchived() {
+        return $this->archived;
+    }
+    
+    public function setArchived($archived) {
+        $this->archived = $archived;
+    }
     
 }
