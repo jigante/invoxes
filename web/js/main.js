@@ -1,8 +1,14 @@
 var links = {
+    init: function() {
+        this.submitByHrefMethod();
+        this.confirmByMconfirmHeader();
+    },
+
     // If there is a link with the data attribute "data-href-method"
     // We build an hidden form to submit the link using the "_method" defined in it
     submitByHrefMethod: function() {
-        $('a[data-href-method]').on('click', function (e){
+        $('a[data-href-method]').on('click', function (e) {
+
             var link = $(this),
             href = link.attr('href'),
             method = link.data('href-method'),
@@ -25,9 +31,21 @@ var links = {
                 form.submit();
             }
         });
+    },
+
+    confirmByMconfirmHeader: function () {
+        $('a[data-mconfirm-header]:not([data-href-method])').on('click', function (e) {
+            confirmMessage = $(this).data('mconfirm-header');
+            if (typeof confirmMessage === 'undefined' || confirmMessage === false) {
+                confirmMessage = "Are you sure?";
+            }
+
+            return confirm(confirmMessage);
+
+        });
     }
 };
 
 $(document).ready(function() {
-    links.submitByHrefMethod();
+    links.init();
 });
