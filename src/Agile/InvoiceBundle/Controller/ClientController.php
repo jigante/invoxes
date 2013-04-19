@@ -36,6 +36,28 @@ class ClientController extends Controller
     }
 
     /**
+     * Toggles the client as archived or not archived
+     *
+     * @Route("/clients/{id}/toggle", name="client_toggle")
+     */
+    public function toggleAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
+
+        if (!$client) {
+            throw $this->createNotFoundException('Unable to found client ' . $id);
+        }
+
+        // Toggle the $archivedProperty
+        $client->setArchived(!$client->isArchived());
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('client'));
+
+    }
+
+    /**
      * Creates a new Client entity.
      *
      * @Route("", name="client_create")
