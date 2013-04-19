@@ -14,7 +14,11 @@
 {% endblock %}
 
 {% block right_column %}
-    <div class="well well-small"><a href="{{ path('client_delete', {'id': client.id}) }}" data-href-method="delete" data-mconfirm-header="Are you sure you want to remove {{ client.name }} from your account?">Remove {{ client.name }} from your account</a></div>
+    <div class="well well-small">
+        <a href="{{ path('client_delete', {'id': client.id}) }}" data-href-method="delete" data-mconfirm-header="Are you sure you want to remove {{ client.name }} from your account?">Remove {{ client.name }} from your account</a>
+    </div>
     
-    <div class="well well-small">Archive {{ client.name }}</div>
+    <div class="well well-small">
+        <a href="{{ path('client_toggle', {'id': client.id}) }}" data-mconfirm-header="Are you sure you want to archive {{ client.name }}?"> Archive {{ client.name }}</a>
+    </div>
 {% endblock %}
