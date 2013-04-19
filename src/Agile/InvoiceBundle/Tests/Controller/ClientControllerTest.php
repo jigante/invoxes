@@ -31,6 +31,10 @@ class ClientControllerTest extends WebTestCase
 
         $crawler = $client->followRedirect();
 
+        // Ora la pagina indice dei clienti non contiene il link "Manage Archived Clients"
+        $this->assertEquals( 0, $crawler->filter('a:contains("Manage Archived Clients")')->count() );
+
+
         $this->assertGreaterThan( 0, $crawler->filter('html:contains("Test Client")')->count() );
 
         // Edit the entity
@@ -54,8 +58,39 @@ class ClientControllerTest extends WebTestCase
 
         $crawler = $client->followRedirect();
 
-        // Check the element contains an attribute with value equals "Test Client edit"
+        // Check that html contains "Test Client edit"
         $this->assertGreaterThan( 0, $crawler->filter('html:contains("Test Client edit")')->count() );
+
+        // Archive the entity
+        // Andiamo prima nella pagina di editing del cliente di test
+        $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
+
+        // Clicchiamo sul link per archiviare il cliente
+        $crawler = $client->click($crawler->filter('a:contains("Archive")')->eq(0)->link());
+
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/clients')
+        );
+
+        $crawler = $client->followredirect();
+
+        // Ora la pagina indice dei clienti contiene il link "Manage Archived Clients"
+        $this->assertGreaterThan( 0, $crawler->filter('a:contains("Manage Archived Clients")')->count() );
+
+
+        // De-archive the entity
+        // Andiamo nella pagina dei clienti archiviati
+        $crawler = $client->click($crawler->filter('a:contains("Manage Archived Clients")')->eq(0)->link());
+
+        $this->assertGreaterThan(0, $crawler->filter('ul.clients-list-inactive li a')->count());
+
+        $crawler = $client->click($crawler->filter('ul.clients-list-inactive li a')->eq(0)->link());
+
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/clients')
+        );
+
+        $crawler = $client->followredirect();
 
         // Delete the entity
         $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
