@@ -3,9 +3,17 @@
 {% block main_title %}Manage Clients{% endblock %}
 
 {% block body -%}
-    <a href="{{ path('client_new') }}" class="btn btn-success btn-small">+ Create Client</a>
-    <br>
-    <br>
+    <div id="toolbar" class="clearfix">
+        {% if archivedClients|length > 0 %}
+        <div id="inactive_clients_link" class="upper_side_link">
+            <a href="{{ path('client_inactive') }}" class="muted" ><small>Manage Archived Clients</small> <i class="icon-circle-arrow-right"></i> </a>
+        </div>
+        {% endif %}
+
+        <div>
+            <a href="{{ path('client_new') }}" class="btn btn-success btn-small">+ Create Client</a>
+        </div>
+    </div>
 
     {% if clients|length > 0 %}
     <ul class="clients-list">
