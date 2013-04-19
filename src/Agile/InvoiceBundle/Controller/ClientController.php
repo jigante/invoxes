@@ -30,6 +30,23 @@ class ClientController extends Controller
 
         $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName();
 
+        $archivedClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findInactive();
+
+        return array(
+            'clients' => $clients,
+            'archivedClients' => $archivedClients,
+        );
+    }
+
+    /** Show inactive clients
+     *
+     * @Route("/clients/inactive", name="client_inactive") 
+     * @Template()
+     */
+    public function inactiveAction()
+    {
+        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findInactive();
+
         return array(
             'clients' => $clients,
         );
