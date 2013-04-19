@@ -4,7 +4,7 @@
 
 {% block body -%}
     <div id="toolbar" class="clearfix">
-        {% if archivedClients|length > 0 %}
+        {% if numInactiveClients > 0 %}
         <div id="inactive_clients_link" class="upper_side_link">
             <a href="{{ path('client_inactive') }}" class="muted" ><small>Manage Archived Clients</small> <i class="icon-circle-arrow-right"></i> </a>
         </div>

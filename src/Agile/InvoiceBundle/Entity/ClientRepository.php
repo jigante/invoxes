@@ -34,6 +34,22 @@ class ClientRepository extends EntityRepository
         return $clients;
     }
 
+    public function countInactiveClients()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder()
+            ->select('count(c.id)')
+            ->from('AgileInvoiceBundle:Client', 'c')
+            ->where('c.archived = :archived')
+            ->setParameter('archived', 1)
+            ->getQuery()
+        ;
+
+        $count = $query->getSingleScalarResult();
+
+        return $count;
+    }
+
     // public function countInactiveClients()
     // {
     //     $em = $this->getEntityManager();

@@ -30,11 +30,11 @@ class ClientController extends Controller
 
         $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName();
 
-        $archivedClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findInactive();
+        $numInactiveClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->countInactiveClients();
 
         return array(
             'clients' => $clients,
-            'archivedClients' => $archivedClients,
+            'numInactiveClients' => $numInactiveClients,
         );
     }
 
