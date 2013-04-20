@@ -12,6 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class ClientRepository extends EntityRepository
 {
+    public function findContacts($client_id)
+    {
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT c FROM AgileInvoiceBundle:Contact c WHERE c.client = :client_id ORDER BY c.firstName ASC'
+        )->setParameter('client_id', $client_id);
+
+        $contacts = $query->getResult();
+
+        return $contacts;
+    }
+
     public function findAllOrderedByName()
     {
         $query = $this->getEntityManager()->createQuery(

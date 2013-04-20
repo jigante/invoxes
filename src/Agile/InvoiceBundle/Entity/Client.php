@@ -4,6 +4,7 @@ namespace Agile\InvoiceBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="Agile\InvoiceBundle\Entity\ClientRepository")
@@ -39,6 +40,20 @@ class Client
      */
     protected $archived = 0;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Contact", mappedBy="client")
+     */
+    protected $contacts;
+
+    public function _construct()
+    {
+        $this->contacts = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     public function getId() {
         return $this->id;
@@ -80,4 +95,54 @@ class Client
         $this->archived = $archived;
     }
     
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get archived
+     *
+     * @return boolean 
+     */
+    public function getArchived()
+    {
+        return $this->archived;
+    }
+
+    /**
+     * Add contacts
+     *
+     * @param \Agile\InvoiceBundle\Entity\Contact $contacts
+     * @return Client
+     */
+    public function addContact(\Agile\InvoiceBundle\Entity\Contact $contacts)
+    {
+        $this->contacts[] = $contacts;
+    
+        return $this;
+    }
+
+    /**
+     * Remove contacts
+     *
+     * @param \Agile\InvoiceBundle\Entity\Contact $contacts
+     */
+    public function removeContact(\Agile\InvoiceBundle\Entity\Contact $contacts)
+    {
+        $this->contacts->removeElement($contacts);
+    }
+
+    /**
+     * Get contacts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
 }

@@ -57,6 +57,13 @@ class Contact
     private $email;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="contacts")
+     * @ORM\joinColumn(name="client_id", referencedColumnName="id")
+     * @Assert\NotBlank();
+     */
+    private $client;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="phone_office", type="string", length=20, nullable=true)
@@ -67,10 +74,10 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="phone_mobile", type="string", length=20, nullable=true)
+     * @ORM\Column(name="mobile", type="string", length=20, nullable=true)
      * @Assert\Length(min=3, max=20)
      */
-    private $phoneMobile;
+    private $mobile;
 
     /**
      * @var string
@@ -207,26 +214,26 @@ class Contact
     }
 
     /**
-     * Set phoneMobile
+     * Set mobile
      *
-     * @param string $phoneMobile
+     * @param string $mobile
      * @return Contact
      */
-    public function setPhoneMobile($phoneMobile)
+    public function setMobile($mobile)
     {
-        $this->phoneMobile = $phoneMobile;
+        $this->mobile = $mobile;
     
         return $this;
     }
 
     /**
-     * Get phoneMobile
+     * Get mobile
      *
      * @return string 
      */
-    public function getPhoneMobile()
+    public function getMobile()
     {
-        return $this->phoneMobile;
+        return $this->mobile;
     }
 
     /**
@@ -250,5 +257,28 @@ class Contact
     public function getFax()
     {
         return $this->fax;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \Agile\InvoiceBundle\Entity\Client $client
+     * @return Contact
+     */
+    public function setClient(\Agile\InvoiceBundle\Entity\Client $client = null)
+    {
+        $this->client = $client;
+    
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \Agile\InvoiceBundle\Entity\Client 
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 }
