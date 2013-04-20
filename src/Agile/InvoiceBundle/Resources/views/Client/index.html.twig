@@ -12,6 +12,7 @@
 
         <div>
             <a href="{{ path('client_new') }}" class="btn btn-success btn-small">+ Create Client</a>
+            <a href="{{ path('contact_new') }}" class="btn btn-small">+ Add Contact</a>
         </div>
     </div>
 
@@ -26,6 +27,9 @@
                     <a href="{#{ path('client_contact_new', {'id': client.id}) }#}#">Add contact</a>
                 )</span>
             </h2>
+
+            {{ render(controller('AgileInvoiceBundle:Client:contactList', {'client_id': client.id})) }}
+
         </li>
         {% endfor %}
     </ul>
