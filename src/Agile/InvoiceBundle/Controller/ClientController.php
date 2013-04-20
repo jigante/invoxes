@@ -31,6 +31,18 @@ class ClientController extends Controller
     }
 
     /**
+     * @Route("/{id}/contacts/new", name="client_contact_new")
+     */
+    public function clientContactNewAction($id)
+    {
+        $response = $this->forward('AgileInvoiceBundle:Contact:new', array(
+            'client_id' => $id
+        ));
+
+        return $response;
+    }
+
+    /**
      * @Route("/{client_id}/contacts/{contact_id}/edit", name="client_contact_edit")
      */
     public function clientContactEditAction($client_id, $contact_id)
