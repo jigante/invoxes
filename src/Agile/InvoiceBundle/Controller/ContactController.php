@@ -48,13 +48,21 @@ class ContactController extends Controller
     /**
      * Displays a form to create a new Contact entity.
      *
-     * @Route("/new", name="contact_new")
+     * @Route("/new/{client_id}", name="contact_new", defaults={"client_id" = null})
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($client_id)
     {
         $entity = new Contact();
+
+        if ($client_id) {
+            $client = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->find($client_id);
+            if ($client) {
+                $entity->setClient($client);
+            }
+        }
+
         $form   = $this->createForm(new ContactType(), $entity);
 
         return array(
