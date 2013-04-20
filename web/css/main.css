@@ -5274,6 +5274,7 @@ ul.clients-list h2 {
   font-size: 14px;
   font-weight: bold;
   padding: 0 10px;
+  margin-bottom: 0;
 }
 ul.clients-list h2 span {
   font-weight: normal;
@@ -5281,6 +5282,8 @@ ul.clients-list h2 span {
 ul.clients-list ul.manage-list {
   list-style: none;
   margin: 0;
+  padding-bottom: 8px;
+  background-color: #fff;
 }
 ul.clients-list ul.manage-list li.manage-list-item {
   background-color: #fff;
