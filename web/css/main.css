@@ -5269,14 +5269,47 @@ ul.clients-list {
 }
 ul.clients-list li {
   background-color: #DDD;
-  padding: 0 10px;
 }
 ul.clients-list h2 {
   font-size: 14px;
   font-weight: bold;
+  padding: 0 10px;
 }
 ul.clients-list h2 span {
   font-weight: normal;
+}
+ul.clients-list ul.manage-list {
+  list-style: none;
+  margin: 0;
+}
+ul.clients-list ul.manage-list li.manage-list-item {
+  background-color: #fff;
+  border-bottom: 1px solid #DDD;
+  position: relative;
+  padding: 10px 0;
+}
+ul.clients-list ul.manage-list li.manage-list-item div.meta-meta-info {
+  float: right;
+  width: 275px;
+}
+ul.clients-list ul.manage-list li.manage-list-item .edit-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+ul.clients-list ul.manage-list li.manage-list-item .contact-main-info {
+  margin-left: 65px;
+}
+ul.clients-list ul.manage-list li.manage-list-item .contact-main-info h4 {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+ul.clients-list ul.manage-list li.manage-list-item .contact-main-info p {
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  color: #555555;
 }
 ul.clients-list-inactive {
   list-style: none;
