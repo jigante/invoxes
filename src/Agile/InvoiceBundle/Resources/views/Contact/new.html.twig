@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Add Contact - {{ parent() }}{% endblock %}
+{% block main_title %}Add Contact{% endblock %}
+
+{% block body -%}
+    {{ include('AgileInvoiceBundle:Contact:form.html.twig', { 'form': form, 'form_action': path('contact_create') }) }}
+{% endblock %}
+
+{% block right_column %}
+    <div class="well well-small"><small><stron>NOTE:</strong> No email is sent when adding a contact. The email address is captured for your own reference and for the convenience of sending invoices to the client directly from Fatture Facili.</small></div>
+{% endblock %}
+

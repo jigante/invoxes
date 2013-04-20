@@ -26,6 +26,10 @@ client:
     resource: "@AgileInvoiceBundle/Controller/ClientController.php"
     type: annotation
 
+contact:
+    resource: "@AgileInvoiceBundle/Controller/ContactController.php"
+    type: annotation
+
 invoices_archive:
     pattern:  /invoices/archive
     defaults: { _controller: AgileInvoiceBundle:Invoices:archive }

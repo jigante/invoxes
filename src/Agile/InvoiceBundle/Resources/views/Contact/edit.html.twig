@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Edit Contact - {{ parent() }}{% endblock %}
+{% block main_title %}{{ contact.firstName }} {{ contact.lastName }} ({{ contact.client.name }}){% endblock %}
+
+{% block body -%}
+    {{
+        include('AgileInvoiceBundle:Contact:form.html.twig', {
+            'form': form,
+            'form_action': path('contact_update', { 'id': contact.id }),
+            'edit': true
+        })
+    }}
+{% endblock %}
+
+{% block right_column %}
+    <div class="well well-small">
+        <a href="{{ path('contact_delete', {'id': contact.id}) }}" data-href-method="delete" data-mconfirm-header="All contact data will be lost (there is no undo)" class="text-error"><small>Remove {{ contact.firstName ~ ' ' ~ contact.lastName}} from client contacts</small></a><br />
+        <small>Note: There is no undo if you remove a contact.</small>
+    </div>
+{% endblock %}

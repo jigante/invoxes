@@ -17,6 +17,31 @@ use Agile\InvoiceBundle\Form\ClientType;
  */
 class ClientController extends Controller
 {
+
+    /**
+     * @Template()
+     */
+    public function contactListAction($client_id)
+    {
+        $contacts = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findContacts($client_id);
+
+        return array(
+            'contacts' => $contacts
+        );
+    }
+
+    /**
+     * @Route("/{client_id}/contacts/{contact_id}/edit", name="client_contact_edit")
+     */
+    public function clientContactEditAction($client_id, $contact_id)
+    {
+        $response = $this->forward('AgileInvoiceBundle:Contact:edit', array(
+            'id' => $contact_id
+        ));
+
+        return $response;
+    }
+
     /**
      * Lists all Client entities.
      *

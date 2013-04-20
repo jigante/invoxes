@@ -1,0 +1,18 @@
+{% if contacts|length > 0 %}
+<ul class="manage-list">
+    {% for contact in contacts %}
+    <li class="manage-list-item with-meta-info clearfix js-link-row-click" data-row-click=".edit-button">
+        <div class="meta-meta-info">
+            {{ contact.email }}<br />
+            {{ contact.phoneOffice }} (office)
+        </div>
+        {#/clients/1632241/contacts/2824015/edit#}
+        <a href="{{ path('client_contact_edit', {'client_id': contact.client.id, 'contact_id': contact.id}) }}" class="edit-button left-button btn-action btn-small">Edit</a>
+        <div style=" display: inline-block;">
+          <h3>{{ contact.firstName }} {{ contact.lastName }}</h3>
+          <p>{{ contact.title }}</p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
