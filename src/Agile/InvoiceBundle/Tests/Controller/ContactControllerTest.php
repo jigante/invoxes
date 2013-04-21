@@ -2,54 +2,119 @@
 
 namespace Agile\InvoiceBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Agile\InvoiceBundle\Tests\TestCase;
 
-class ContactControllerTest extends WebTestCase
+class ContactControllerTest extends TestCase
 {
-    /*
+    public function __construct()
+    {
+        // Svuotiamo all'inizio del test la tabella "Contact"
+        $this->emptyEntityTable('AgileInvoiceBundle:Contact');
+    }
+
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
         $client = static::createClient();
 
-        // Create a new entry in the database
-        $crawler = $client->request('GET', '/contact/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /contact/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
+        // Add a new contact
+        $crawler = $client->request('GET', '/clients');
 
-        // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'agile_invoicebundle_contacttype[field_name]'  => 'Test',
-            // ... other fields to fill
+        // Before all, we need to create a new client
+        // without testing Client creation because it is done in a different test
+        $link = $crawler->selectLink('+ Create Client')->link();
+        $crawler = $client->click($link);
+
+        $form = $crawler->selectButton('Save')->form(array(
+            'client[name]' => 'Test Client for contact',
+            'client[address]' => 'Address of Test Client for contact'
         ));
 
-        $client->submit($form);
+        $crawler = $client->submit($form);
+
         $crawler = $client->followRedirect();
 
-        // Check data in the show view
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
+        // So now we again in "/clients" page and can start adding a Contact
+        $link = $crawler->selectLink('+ Add Contact')->link();
 
-        // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
+        $this->assertRegExp('/\/contacts\/new/', $link->getUri());
+        // var_dump($link->getUri());
 
-        $form = $crawler->selectButton('Edit')->form(array(
-            'agile_invoicebundle_contacttype[field_name]'  => 'Foo',
-            // ... other fields to fill
+        $crawler = $client->click($link);
+
+        $this->assertRegExp('/Add Contact/', $client->getResponse()->getContent());
+
+        $form = $crawler->selectButton('Save')->form();
+
+        // Testiamo l'invio del form vuoto
+        $crawler = $client->submit($form);
+
+        // Dobbiamo avere due messaggi di errore "This value should not be blank."
+        $formErrors = $crawler->filter('li.help-inline:contains("This value should not be blank.")');
+        $this->assertEquals(2, $formErrors->count());
+
+        // Send again the form only with First name and Last Name
+        $form = $crawler->selectButton('Save')->form(array(
+            'contact[firstName]' => 'Test Contact First name',
+            'contact[lastName]' => 'Test Contact Last name'
         ));
+        $crawler = $client->submit($form);
 
-        $client->submit($form);
+        $this->assertTrue($client->getResponse()->isRedirect('/clients'));
+
         $crawler = $client->followRedirect();
 
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
+        $contact = $crawler->filter('.contact-main-info:contains("Test Contact First name Test Contact Last name")');
+        $this->assertGreaterThan(0, $contact->count(), 'Il contatto non è stato creato');
+        
+        // Modifichiamo il dato appena creato, inserendo gli altri valori
+        $link = $contact->parents()->filter('a.edit-button')->eq(0)->link();
+        // $link = $crawler->selectLink($contactEditButton)->link();
+        $crawler = $client->click($link);
 
-        // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
+        // need to be sure the Client form field is not present
+        $this->assertEquals(
+            0,
+            $crawler->filter('select#contact_client')->count(),
+            'Il campo "Cliente" non deve essere presente nel form di editing di un contatto'
+        );
+
+        $form = $crawler->selectButton('Save')->form(
+            array(
+                // 'contact[firstName]' => 'Test Contact First name edited',
+                // 'contact[lastName]' => 'Test Contact Last name edited',
+                'contact[title]' => 'Test title',
+                'contact[email]' => 'test@email.it',
+                'contact[phoneOffice]' => 'Test phone office',
+                'contact[mobile]' => 'Test mobile',
+                'contact[fax]' => 'Test fax',
+            ),
+            'PUT'
+        );
+        $crawler = $client->submit($form);
+
+        // var_dump($crawler);exit;
+        $this->assertTrue($client->getResponse()->isRedirect('/clients'), 'You have not been redirected to "/clients" page');
+
         $crawler = $client->followRedirect();
 
-        // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        // Testiamo l'eliminazione del contatto di test
+        $link = $crawler->filter('.contact-main-info:contains("Test Contact First name Test Contact Last name")')->parents()->filter('a.edit-button')->eq(0)->link();
+        $crawler = $client->click($link);
+
+        $form = $crawler->selectButton('Save')->form(
+            array(),
+            'DELETE'
+        );
+
+        $crawler = $client->submit($form);
+
+        $this->assertTrue($client->getResponse()->isRedirect('/clients'), 'You have not been redirected to "/clients" page');
+
+        $crawler = $client->followRedirect();
+
+        $contact = $crawler->filter('.contact-main-info:contains("Test Contact First name Test Contact Last name")');
+        $this->assertEquals(0, $contact->count(), 'Il contatto non dovrebbe esistere più');
+
     }
-
-    */
 }
