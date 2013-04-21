@@ -2,13 +2,26 @@
 
 namespace Agile\InvoiceBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Agile\InvoiceBundle\Tests\TestCase;
 
-class ClientControllerTest extends WebTestCase
+class ClientControllerTest extends TestCase
 {
+
+    public function __construct()
+    {
+        // Svuotiamo all'inizio del test le tabelle "Client" e "Contact"
+        $this->emptyEntityTable('AgileInvoiceBundle:Contact');
+        $this->emptyEntityTable('AgileInvoiceBundle:Client');
+    }
     
     public function testCompleteScenario()
     {
+
+        // $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
+        // $sql = 'TRUNCATE TABLE client';
+        // $query = $this->em->createNativeQuery($sql, $rsm);
+        // $query->execute();
+
         // Create a new client to browse the application
         $client = static::createClient();
 
