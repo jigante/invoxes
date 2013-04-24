@@ -48,4 +48,6 @@ var links = {
 
 $(document).ready(function() {
     links.init();
+
+    $(".alert").alert();
 });
