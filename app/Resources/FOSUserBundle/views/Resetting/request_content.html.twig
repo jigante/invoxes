@@ -10,3 +10,8 @@
         <input class="btn btn-success" type="submit" value="{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}" />
     </div>
 </form>
+
+<p>
+    <strong>{{ 'or'|trans }}</strong><br /><br />
+    <a href="{{ path('fos_user_security_login') }}" class="muted">{{ 'signin.with.email_password'|trans }}</a>
+</p>
