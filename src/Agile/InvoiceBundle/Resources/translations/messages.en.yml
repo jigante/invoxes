@@ -1,2 +1,9 @@
 or: or
 signin.with.email_password: "Sign in with Email/Password"
+registration:
+    form:
+        first_name: First Name
+        last_name: Last Name
+        contact_phone: Contact Phone
+
+create.my.account: Create My Account
