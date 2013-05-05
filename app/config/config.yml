@@ -72,4 +72,7 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Agile\InvoiceBundle\Entity\User
+    registration:
+        form:
+            type: agile_user_registration
 
