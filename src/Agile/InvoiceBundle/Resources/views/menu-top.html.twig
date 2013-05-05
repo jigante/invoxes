@@ -31,7 +31,7 @@
                         <ul class="dropdown-menu">
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 <li>
-                                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
+                                    <a href="{{ path('fos_user_profile_edit') }}">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a>
                                 </li>
                                 <li>
                                     <a href="{{ path('fos_user_security_logout') }}">
