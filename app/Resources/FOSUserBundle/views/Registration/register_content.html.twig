@@ -1,0 +1,24 @@
+{% form_theme form with 'AgileInvoiceBundle:Form:horizontal-fields.html.twig' %}
+
+<form novalidate class="form-horizontal" action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }} class="fos_user_registration_register">
+
+    {{ form_errors(form)}}
+
+    {{ form_row(form.firstName, { 'attr': {'class': 'input-block-level'} }) }}
+    {{ form_row(form.lastName, { 'attr': {'class': 'input-block-level'} }) }}
+    {{ form_row(form.company, { 'attr': {'class': 'input-block-level'} }) }}
+    {{ form_row(form.email, { 'attr': {'class': 'input-block-level'} }) }}
+    {{ form_row(form.contactPhone, { 'attr': {'class': 'input-block-level'} }) }}
+    {{ form_row(form.username, { 'attr': {'class': 'input-block-level'} }) }}
+    {{ form_row(form.plainPassword, { 'attr': {'class': 'input-block-level'} }) }}
+    
+    {{ form_rest(form) }}
+
+    <div class="control-group">
+        <div class="controls">
+            <br />
+            <input type="submit" value="{{ 'create.my.account'|trans }}" class="btn btn-success" />
+        </div>
+    </div>
+
+</form>

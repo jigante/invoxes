@@ -1,0 +1,22 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block main_title %}Start your free 30 day trial{% endblock %}
+
+{% block fos_user_content %}
+    <p class="lead">Fully functional, no credit card required</p>
+
+    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}
+
+{% block right_column %}
+    <div class="well well-small">
+        <strong>5 Reasons You'll Love Fatture Facili</strong>
+        <ul>
+            <li>Fast to set up and easy to use</li>
+            <li>Look professional with style</li>
+            <li>Your data stays safe and secure</li>
+            <li>Track and grow your business</li>
+            <li>Real people to answer your questions</li>
+        </ul>
+    </div>
+{% endblock %}
