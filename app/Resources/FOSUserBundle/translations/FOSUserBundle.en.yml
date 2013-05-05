@@ -2,3 +2,7 @@
 resetting:
     request:
         username: "What email address do you use to sign into Fatture facili?"
+
+# Global strings
+layout:
+    logged_in_as: Logged in as "%username%"
