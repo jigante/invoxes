@@ -1,0 +1,4 @@
+# Password resetting
+resetting:
+    request:
+        username: "What email address do you use to sign into Fatture facili?"
