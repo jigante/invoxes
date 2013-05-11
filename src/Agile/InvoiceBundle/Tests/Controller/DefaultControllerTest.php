@@ -26,12 +26,12 @@ class DefaultControllerTest extends TestCase
 
         // Register as a new user
         $form = $crawler->selectButton('create.my.account')->form(array(
-            'fos_user_registration_form[firstName]' => 'Cristiano',
-            'fos_user_registration_form[lastName]' => 'Santeramo',
-            'fos_user_registration_form[company]' => 'Agile VPS',
-            'fos_user_registration_form[email]' => 'cristiano@agileweb.it',
-            'fos_user_registration_form[contactPhone]' => '07955588592',
-            'fos_user_registration_form[username]' => 'jigante',
+            'fos_user_registration_form[firstName]' => 'MyFirstname',
+            'fos_user_registration_form[lastName]' => 'MyLastname',
+            'fos_user_registration_form[company]' => 'MyCompany',
+            'fos_user_registration_form[email]' => 'myfirstname@mylastname.it',
+            'fos_user_registration_form[contactPhone]' => '079782435647689273',
+            'fos_user_registration_form[username]' => 'myfirstname',
             'fos_user_registration_form[plainPassword][first]' => 'testpassword',
             'fos_user_registration_form[plainPassword][second]' => 'testpassword',
         ));
@@ -45,7 +45,7 @@ class DefaultControllerTest extends TestCase
 
         $crawler = $client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("Hello, Cristiano!")')->count() > 0);
+        $this->assertTrue($crawler->filter('html:contains("Hello, MyFirstname!")')->count() > 0);
 
         $this->assertTrue($crawler->filter('html:contains("Here are a few simple steps to get started")')->count() > 0);
     }
