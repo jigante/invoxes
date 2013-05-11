@@ -6,16 +6,14 @@ use Agile\InvoiceBundle\Tests\TestCase;
 
 class ContactControllerTest extends TestCase
 {
-    public function __construct()
-    {
-        // Svuotiamo all'inizio del test la tabella "Contact"
-        $this->emptyEntityTable('AgileInvoiceBundle:Contact');
-    }
 
     public function testCompleteScenario()
     {
-        // Create a new client to browse the application
-        $client = static::createClient();
+        // Get the client to browse the application
+        $client = $this->client;
+
+        // Login as "testuser"
+        $this->logIn('testuser');
 
         // Add a new contact
         $crawler = $client->request('GET', '/clients');
@@ -38,7 +36,6 @@ class ContactControllerTest extends TestCase
         $link = $crawler->selectLink('+ Add Contact')->link();
 
         $this->assertRegExp('/\/contacts\/new/', $link->getUri());
-        // var_dump($link->getUri());
 
         $crawler = $client->click($link);
 
@@ -93,7 +90,6 @@ class ContactControllerTest extends TestCase
         );
         $crawler = $client->submit($form);
 
-        // var_dump($crawler);exit;
         $this->assertTrue($client->getResponse()->isRedirect('/clients'), 'You have not been redirected to "/clients" page');
 
         $crawler = $client->followRedirect();
