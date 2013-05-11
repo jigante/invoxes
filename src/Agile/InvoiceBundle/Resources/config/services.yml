@@ -15,3 +15,8 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: agile_user_profile }
+    agile_user.user_registration_success:
+        class: Agile\InvoiceBundle\EventListener\UserRegistrationSuccessListener
+        arguments: [@router]
+        tags:
+            - { name: kernel.event_subscriber }
