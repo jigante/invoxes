@@ -1,6 +1,8 @@
-{% for key, message in app.session.flashbag %}
-    <div class="alert alert-{{ key }} fade in">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message|trans({}, 'FOSUserBundle') }}
-    </div>
+{% for type, messages in app.session.flashbag.all() %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }} fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endfor %}
