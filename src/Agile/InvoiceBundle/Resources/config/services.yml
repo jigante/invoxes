@@ -10,3 +10,8 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: agile_user_registration }
+    agile_user.profile.form.type:
+        class: Agile\InvoiceBundle\Form\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: agile_user_profile }
