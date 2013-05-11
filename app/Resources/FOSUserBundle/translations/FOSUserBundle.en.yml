@@ -6,3 +6,8 @@ resetting:
 # Global strings
 layout:
     logged_in_as: Logged in as "%username%"
+
+#Registration
+registration:
+    flash:
+        user_created: Congratulations! Your registration has been successful!
