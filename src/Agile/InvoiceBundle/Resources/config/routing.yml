@@ -2,10 +2,6 @@ home:
     pattern:  /
     defaults: { _controller: AgileInvoiceBundle:Default:index }
 
-account:
-    resource: "@AgileInvoiceBundle/Controller/AccountController.php"
-    type: annotation
-
 invoices:
     pattern:  /invoices
     defaults: { _controller: AgileInvoiceBundle:Invoices:index }
