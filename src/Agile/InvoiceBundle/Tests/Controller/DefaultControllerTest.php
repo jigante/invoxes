@@ -15,7 +15,7 @@ class DefaultControllerTest extends TestCase
         $crawler = $client->request('GET', '/');
 
         // The first time we access the home page, the client is redirected to login page
-        $this->assertTrue($client->getResponse()->isRedirect());
+        $this->assertTrue($client->getResponse()->isRedirect(), 'Il cliente non è stato redirezionato verso la login page');
         // $this->assertTrue($client->getResponse()->isRedirect('login'), 'Page has not been redirected to "/login" page');
 
         $crawler = $client->followRedirect();
@@ -41,6 +41,13 @@ class DefaultControllerTest extends TestCase
         $this->assertTrue(
             $client->getResponse()->isRedirect('/'),
             'Page has not been redirected to "home" page'
+        );
+
+        $crawler = $client->followRedirect();
+
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/welcome'),
+            'Page has not been redirected to Welcome page'
         );
 
         $crawler = $client->followRedirect();
