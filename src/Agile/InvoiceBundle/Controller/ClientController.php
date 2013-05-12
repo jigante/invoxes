@@ -100,7 +100,7 @@ class ClientController extends Controller
         $client = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
 
         if (!$client) {
-            throw $this->createNotFoundException('Unable to found client ' . $id);
+            throw $this->createNotFoundException('Unable to find client ' . $id);
         }
 
         // Toggle the $archivedProperty
