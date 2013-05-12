@@ -62,6 +62,10 @@ class User extends BaseUser
      */
     private $contactPhone;
 
+    /**
+     * @ORM\Column(name="disabled_welcome", type="boolean")
+     */
+    private $disabledWelcome = 0;
 
     /**
      * Set firstName
@@ -153,6 +157,14 @@ class User extends BaseUser
     public function getContactPhone()
     {
         return $this->contactPhone;
+    }
+
+    public function isDisabledWelcome() {
+        return $this->disabledWelcome;
+    }
+    
+    public function setDisabledWelcome($disabledWelcome) {
+        $this->disabledWelcome = $disabledWelcome;
     }
 
 }
