@@ -2,6 +2,14 @@ home:
     pattern:  /
     defaults: { _controller: AgileInvoiceBundle:Default:index }
 
+welcome:
+    pattern:  /welcome
+    defaults: { _controller: AgileInvoiceBundle:Default:welcome }
+
+overview:
+    pattern:  /overview
+    defaults: { _controller: AgileInvoiceBundle:Default:overview }
+
 invoices:
     pattern:  /invoices
     defaults: { _controller: AgileInvoiceBundle:Invoices:index }
@@ -33,3 +41,7 @@ estimates:
 invoices_configure:
     pattern:  /invoices/configure
     defaults: { _controller: AgileInvoiceBundle:Invoives:configure }
+
+user:
+    resource: "@AgileInvoiceBundle/Controller/UserController.php"
+    type: annotation

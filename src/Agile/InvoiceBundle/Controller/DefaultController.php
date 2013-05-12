@@ -8,10 +8,25 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        //TODO: get the name of the user from db for the currently logged in user
-        $name = 'Cristiano';
+        $user = $this->getUser();
+        // If is not disabled welcome in DB for user, show thw welcome page
+        if (!$user->isDisabledWelcome()) {
+            return $this->redirect($this->generateUrl('welcome'));
+        } else {
+            // Else show the overview page
+            return $this->redirect($this->generateUrl('overview'));
+        }
+    }
 
+    public function welcomeAction()
+    {
+        // render the welcome page
+        return $this->render('AgileInvoiceBundle:Default:welcome.html.twig');
+    }
+
+    public function overviewAction()
+    {
         // render the dashboard page
-        return $this->render('AgileInvoiceBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('AgileInvoiceBundle:Default:overview.html.twig');
     }
 }
