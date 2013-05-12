@@ -42,18 +42,72 @@ class DefaultControllerTest extends TestCase
             $client->getResponse()->isRedirect('/'),
             'Page has not been redirected to "home" page'
         );
-
         $crawler = $client->followRedirect();
 
         $this->assertTrue(
             $client->getResponse()->isRedirect('/welcome'),
             'Page has not been redirected to Welcome page'
         );
-
         $crawler = $client->followRedirect();
 
-        $this->assertTrue($crawler->filter('html:contains("Hello, MyFirstname!")')->count() > 0);
+        $this->assertTrue(
+            $crawler->filter('html:contains("Hello, MyFirstname!")')->count() > 0,
+            'Html doesn\'t contain "Hello, MyFirstname"'
+        );
 
-        $this->assertTrue($crawler->filter('html:contains("Here are a few simple steps to get started")')->count() > 0);
+        $this->assertTrue($crawler->filter(
+            'html:contains("Here are a few simple steps to get started")')->count() > 0,
+            'Html doesn\'t contain "Here are a few simple steps to get started"'
+        );
+
+        // Verify it's not possible access overview page when welcome screen is still not disabled
+        $crawler = $client->request('GET', '/overview');
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/welcome'),
+            'Page has not ben redirected to welcome page'
+        );
+        $crawler = $client->followRedirect();
+
+        // Verify it's not possible to hide a welcome screen for a different usera than the one logged in
+        $crawler = $client->request('GET', '/user/999999/disable_welcome_screen');
+        $this->assertTrue(
+            $client->getResponse()->isNotFound(),
+            'It\'s not possible to edit a different user'
+        );
+
+        // Return to welcome page
+        $crawler = $client->request('GET', '/welcome');
+
+        // Click the "Hide welcome screen"
+        $link = $crawler->selectLink('Hide it!')->link();
+        $crawler = $client->click($link);
+
+        // Follow redirect to home page
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/'),
+            'Page has not ben redirected to home page'
+        );
+        $crawler = $client->followRedirect();
+
+        // Follow redirect to overview page
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/overview'),
+            'Page has not ben redirected to overview page'
+        );
+        $crawler = $client->followRedirect();
+
+        $this->assertTrue(
+            $crawler->filter('html:contains("Dashboard")')->count() > 0,
+            'Html doesn\'t contain "Dashboard"'
+        );
+
+        // Verify it's not possible access welcome page when welcome screen is disabled
+        $crawler = $client->request('GET', '/welcome');
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/overview'),
+            'Page has not ben redirected to overview page'
+        );
+        $crawler = $client->followRedirect();
+
     }
 }
