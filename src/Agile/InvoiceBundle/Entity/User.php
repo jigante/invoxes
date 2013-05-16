@@ -5,7 +5,7 @@ namespace Agile\InvoiceBundle\Entity;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -13,11 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser
 {
-    // public function __construct()
-    // {
-    //     parent::__construct();
-    //     // your own logic
-    // }
+
+    public function __construct()
+    {
+        $this->clients = new ArrayCollection();
+    }
 
     /**
      * @ORM\Id
@@ -25,6 +25,11 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Client", mappedBy="user")
+     */
+    protected $clients;
 
     /**
      * @var string
@@ -66,6 +71,7 @@ class User extends BaseUser
      * @ORM\Column(name="disabled_welcome", type="boolean")
      */
     private $disabledWelcome = 0;
+
 
     /**
      * Set firstName
@@ -167,4 +173,57 @@ class User extends BaseUser
         $this->disabledWelcome = $disabledWelcome;
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get disabledWelcome
+     *
+     * @return boolean 
+     */
+    public function getDisabledWelcome()
+    {
+        return $this->disabledWelcome;
+    }
+
+    /**
+     * Add clients
+     *
+     * @param \Agile\InvoiceBundle\Entity\Client $clients
+     * @return User
+     */
+    public function addClient(\Agile\InvoiceBundle\Entity\Client $clients)
+    {
+        $this->clients[] = $clients;
+
+        return $this;
+    }
+
+    /**
+     * Remove clients
+     *
+     * @param \Agile\InvoiceBundle\Entity\Client $clients
+     */
+    public function removeClient(\Agile\InvoiceBundle\Entity\Client $clients)
+    {
+        $this->clients->removeElement($clients);
+    }
+
+    /**
+     * Get clients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClients()
+    {
+        return $this->clients;
+    }
 }

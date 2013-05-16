@@ -13,11 +13,25 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Client
 {
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="clients")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -96,14 +110,6 @@ class Client
     }
     
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
      * Get archived
      *
      * @return boolean 
@@ -144,5 +150,28 @@ class Client
     public function getContacts()
     {
         return $this->contacts;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Agile\InvoiceBundle\Entity\User $user
+     * @return Client
+     */
+    public function setUser(\Agile\InvoiceBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Agile\InvoiceBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
