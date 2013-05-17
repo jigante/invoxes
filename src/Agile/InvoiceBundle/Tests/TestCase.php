@@ -16,21 +16,22 @@ class TestCase extends WebTestCase
  * - http://symfony.com/doc/current/cookbook/testing/simulating_authentication.html
  */
 
-    public function __construct()
-    {
-        $this->emptyEntityTable('AgileInvoiceBundle:User');
-        $this->createLoginUser();
-
-        $this->emptyEntityTable('AgileInvoiceBundle:Contact');
-        $this->emptyEntityTable('AgileInvoiceBundle:Client');
-    }
-
     /**
      * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
 
     protected $client = null;
+
+    public function __construct()
+    {
+        $this->emptyEntityTable('AgileInvoiceBundle:Contact');
+
+        $this->emptyEntityTable('AgileInvoiceBundle:Client');
+
+        $this->emptyEntityTable('AgileInvoiceBundle:User');
+        $this->createLoginUser();
+    }
 
     /**
      * {@inheritDoc}
@@ -54,6 +55,14 @@ class TestCase extends WebTestCase
         $numDeleted = $q->execute(); 
         $this->tearDown();       
     }
+
+    // public function emptyEntityTable($entity)
+    // {
+    //     $this->setUp();
+    //     $q = $this->em->createQuery('TRUNCATE TABLE '.$entity);
+    //     $truncateTable = $q->execute(); 
+    //     $this->tearDown();       
+    // }
 
     public function createLoginUser()
     {
