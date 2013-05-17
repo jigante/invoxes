@@ -121,6 +121,10 @@ class ClientController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new Client();
+
+        // Always assign actual user id to Client
+        $entity->setUser($this->getUser());
+
         $form = $this->createForm(new ClientType(), $entity);
         $form->bind($request);
 

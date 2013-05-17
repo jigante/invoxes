@@ -16,6 +16,9 @@ class User extends BaseUser
 
     public function __construct()
     {
+        // Always call when extending "FOS\UserBundle\Entity\User" if using the constructor
+        parent::__construct();
+
         $this->clients = new ArrayCollection();
     }
 
@@ -25,11 +28,6 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Client", mappedBy="user")
-     */
-    protected $clients;
 
     /**
      * @var string
@@ -72,6 +70,20 @@ class User extends BaseUser
      */
     private $disabledWelcome = 0;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Client", mappedBy="user")
+     */
+    protected $clients;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set firstName
@@ -171,17 +183,6 @@ class User extends BaseUser
     
     public function setDisabledWelcome($disabledWelcome) {
         $this->disabledWelcome = $disabledWelcome;
-    }
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
