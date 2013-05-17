@@ -3,6 +3,7 @@
 namespace Agile\InvoiceBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Agile\InvoiceBundle\Entity\User;
 
 /**
  * ClientRepository
@@ -23,11 +24,24 @@ class ClientRepository extends EntityRepository
         return $contacts;
     }
 
-    public function findAllOrderedByName()
+    public function findAllOrderedByName(User $user)
     {
-        $query = $this->getEntityManager()->createQuery(
-            'SELECT c FROM AgileInvoiceBundle:Client c WHERE c.archived = :archived ORDER BY c.name ASC'
-        )->setParameter('archived', 0);
+        // $em = $this->getEntityManager();
+        // $query = $em->createQuery(
+        //     'SELECT c FROM AgileInvoiceBundle:Client c
+        //     WHERE c.archived = :archived AND c.user = :user
+        //     ORDER BY c.name ASC'
+        // )->setParameters(array('archived' => 0, 'user' => $user,));
+
+        $repository = $this->getEntityManager()->getRepository('AgileInvoiceBundle:Client');
+        $query = $repository->createQueryBuilder('c')
+            ->where('c.archived = :archived')
+            ->andWhere('c.user = :user')
+            // ->setParameter('archived', 0)
+            ->setParameters(array('archived' => 0, 'user' => $user))
+            ->orderBy('c.name', 'ASC')
+            ->getQuery()
+        ;
 
         $clients = $query->getResult();
 
