@@ -65,7 +65,8 @@ class ClientController extends Controller
     public function indexAction()
     {
 
-        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName();
+        $user = $this->getUser();
+        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName($user);
 
         $numInactiveClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->countInactiveClients();
 
@@ -171,12 +172,15 @@ class ClientController extends Controller
      */
     public function editAction($id)
     {
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
+        $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
+            'id' => $id,
+            'user' => $user
+        ));
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Client ' . $id);
+            throw $this->createNotFoundException('Unable to find Client');
         }
 
         $editForm = $this->createForm(new ClientType(), $entity);
