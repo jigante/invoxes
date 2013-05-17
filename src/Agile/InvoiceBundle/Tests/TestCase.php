@@ -56,14 +56,6 @@ class TestCase extends WebTestCase
         $this->tearDown();       
     }
 
-    // public function emptyEntityTable($entity)
-    // {
-    //     $this->setUp();
-    //     $q = $this->em->createQuery('TRUNCATE TABLE '.$entity);
-    //     $truncateTable = $q->execute(); 
-    //     $this->tearDown();       
-    // }
-
     public function createLoginUser()
     {
         $client = static::createClient();
