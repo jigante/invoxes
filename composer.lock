@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fe38ddd8507b5d2ac45a0d1aafb87a9d",
+    "hash": "199379d2868c9d45d0eb7bac01e8d1b6",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -279,6 +279,47 @@
             "time": "2013-05-09 21:35:24"
         },
         {
+            "name": "doctrine/data-fixtures",
+            "version": "v1.0.0-ALPHA3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/data-fixtures.git",
+                "reference": "v1.0.0-ALPHA3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/data-fixtures/zipball/v1.0.0-ALPHA3",
+                "reference": "v1.0.0-ALPHA3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\DataFixtures": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                }
+            ],
+            "description": "Data Fixtures for all Doctrine Object Managers",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database"
+            ],
+            "time": "2012-09-20 03:26:34"
+        },
+        {
             "name": "doctrine/dbal",
             "version": "2.4.0-BETA2",
             "source": {
@@ -417,6 +458,64 @@
                 "persistence"
             ],
             "time": "2013-03-25 20:13:59"
+        },
+        {
+            "name": "doctrine/doctrine-fixtures-bundle",
+            "version": "dev-master",
+            "target-dir": "Doctrine/Bundle/FixturesBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
+                "reference": "5696cd636df7cbfaf4d1c45ed2922438968cf890"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/5696cd636df7cbfaf4d1c45ed2922438968cf890",
+                "reference": "5696cd636df7cbfaf4d1c45ed2922438968cf890",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/data-fixtures": "*",
+                "doctrine/doctrine-bundle": ">=1.0,<2.0",
+                "php": ">=5.3.2",
+                "symfony/doctrine-bridge": ">=2.1.0,<2.4-dev"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Bundle\\FixturesBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Doctrine Project",
+                    "homepage": "http://www.doctrine-project.org"
+                }
+            ],
+            "description": "Symfony DoctrineFixturesBundle",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "Fixture",
+                "persistence"
+            ],
+            "time": "2013-04-27 11:57:35"
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
@@ -722,12 +821,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "3ddc575429f867a379375e9e8d336adb2a9bb04e"
+                "reference": "2c3b05b52c96b91255afc6d0d03dd97b03d17c4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/3ddc575429f867a379375e9e8d336adb2a9bb04e",
-                "reference": "3ddc575429f867a379375e9e8d336adb2a9bb04e",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/2c3b05b52c96b91255afc6d0d03dd97b03d17c4d",
+                "reference": "2c3b05b52c96b91255afc6d0d03dd97b03d17c4d",
                 "shasum": ""
             },
             "require": {
@@ -779,7 +878,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-05-09 21:16:30"
+            "time": "2013-05-17 17:32:40"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1261,21 +1360,21 @@
         },
         {
             "name": "kriswallsmith/assetic",
-            "version": "v1.1.0-alpha4",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "v1.1.0-alpha4"
+                "reference": "v1.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/v1.1.0-alpha4",
-                "reference": "v1.1.0-alpha4",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/v1.1.0",
+                "reference": "v1.1.0",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.1",
-                "symfony/process": ">=2.1.0,<2.3-dev"
+                "symfony/process": ">=2.1,<3.0"
             },
             "require-dev": {
                 "cssmin/cssmin": "*",
@@ -1285,9 +1384,9 @@
                 "leafo/scssphp": "*",
                 "leafo/scssphp-compass": "*",
                 "mrclay/minify": "*",
-                "phpunit/phpunit": "3.7.*",
+                "phpunit/phpunit": ">=3.7,<4.0",
                 "ptachoire/cssembed": "*",
-                "twig/twig": ">=1.6.0,<2.0"
+                "twig/twig": ">=1.6,<2.0"
             },
             "suggest": {
                 "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
@@ -1328,7 +1427,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2013-02-24 17:22:20"
+            "time": "2013-05-16 05:28:39"
         },
         {
             "name": "monolog/monolog",
@@ -2052,7 +2151,8 @@
         "knplabs/knp-menu": 20,
         "knplabs/knp-menu-bundle": 20,
         "doctrine/doctrine-migrations-bundle": 20,
-        "friendsofsymfony/user-bundle": 20
+        "friendsofsymfony/user-bundle": 20,
+        "doctrine/doctrine-fixtures-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"
