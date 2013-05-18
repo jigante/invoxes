@@ -64,7 +64,6 @@ class ClientController extends Controller
      */
     public function indexAction()
     {
-
         $user = $this->getUser();
         $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName($user);
 
@@ -200,12 +199,16 @@ class ClientController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
 
-        $entity = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
+            'id' => $id,
+            'user' => $user
+        ));
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Client entity.');
+            throw $this->createNotFoundException('Unable to find Client');
         }
 
         $editForm = $this->createForm(new ClientType(), $entity);
@@ -232,11 +235,16 @@ class ClientController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        $user = $this->getUser();
+
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
+        $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
+            'id' => $id,
+            'user' => $user
+        ));
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Client entity.');
+            throw $this->createNotFoundException('Unable to find Client');
         }
 
         $em->remove($entity);
