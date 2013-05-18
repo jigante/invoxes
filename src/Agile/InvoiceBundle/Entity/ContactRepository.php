@@ -3,6 +3,7 @@
 namespace Agile\InvoiceBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Agile\InvoiceBundle\Entity\User;
 
 /**
  * ContactRepository
@@ -12,4 +13,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class ContactRepository extends EntityRepository
 {
+    public function findOneByIdAndUser($id, User $user)
+    {
+        $repository = $this->getEntityManager()->getRepository('AgileInvoiceBundle:Contact');
+        $query = $repository->createQueryBuilder('c')
+            ->where('c.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+        ;
+
+        $contact = $query->getSingleResult();
+
+        // Return the contact only if belongs to acual logged in user
+        if ($user == $contact->getClient()->getUser()) {
+            return $contact;
+        }
+        
+    }
 }
