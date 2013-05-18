@@ -2,14 +2,21 @@
 
 namespace Agile\InvoiceBundle\Tests;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+// ### Without using "LiipFunctionalTestBundle" ###
+// use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+// ### Using "LiipFunctionalTestBundle" ###
+use Liip\FunctionalTestBundle\Test\WebTestCase;
+
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-// use Doctrine\Common\DataFixtures\Loader
-use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Agile\InvoiceBundle\Entity\User;
+
+// ### Without using "LiipFunctionalTestBundle" ###
+// // use Doctrine\Common\DataFixtures\Loader
+// use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
+// use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+// use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 
 class TestCase extends WebTestCase
 {
@@ -47,12 +54,22 @@ class TestCase extends WebTestCase
 
         $this->client = static::createClient();
 
-        // $loader = new Loader;
-        $loader = new ContainerAwareLoader($container);
-        $loader->loadFromDirectory('src/Agile/InvoiceBundle/Tests/DataFixtures/ORM');
-        $purger = new ORMPurger($this->em);
-        $executor = new ORMExecutor($this->em, $purger);
-        $executor->execute($loader->getFixtures());
+        // ### Without using "LiipFunctionalTestBundle" ###
+        // // $loader = new Loader;
+        // $loader = new ContainerAwareLoader($container);
+        // $loader->loadFromDirectory('src/Agile/InvoiceBundle/Tests/DataFixtures/ORM');
+        // $purger = new ORMPurger($this->em);
+        // $executor = new ORMExecutor($this->em, $purger);
+        // $executor->execute($loader->getFixtures());
+
+        // ### Using "LiipFunctionalTestBundle" ###
+        // Add doctrine fixtures classes
+        $fixtureClasses = array(
+            // classes implementing Doctrine\Common\DataFixtures\FixtureInterface
+            'Agile\InvoiceBundle\Tests\DataFixtures\ORM\LoadUserData',
+        );
+
+        $this->loadFixtures($fixtureClasses);
     }
 
     /**
