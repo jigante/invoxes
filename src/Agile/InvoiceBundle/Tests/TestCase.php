@@ -63,8 +63,8 @@ class TestCase extends WebTestCase
         $factory = $container->get('security.encoder_factory');
         $user = new User();
 
-        $user->setFirstName('Test User First Name');
-        $user->setLastName('Test User Last Name');
+        $user->setFirstName('Test User Firstname');
+        $user->setLastName('Test User Lastname');
         $user->setCompany('Test User Company');
         $user->setEmail('test@user.it');
         $user->setContactPhone('34789786756');
