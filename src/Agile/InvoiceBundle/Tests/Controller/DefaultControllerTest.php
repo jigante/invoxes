@@ -25,7 +25,7 @@ class DefaultControllerTest extends TestCase
         $crawler = $client->click($link);
 
         // Register as a new user
-        $form = $crawler->selectButton('create.my.account')->form(array(
+        $form = $crawler->selectButton('Create My Account')->form(array(
             'fos_user_registration_form[firstName]' => 'MyFirstname',
             'fos_user_registration_form[lastName]' => 'MyLastname',
             'fos_user_registration_form[company]' => 'MyCompany',
