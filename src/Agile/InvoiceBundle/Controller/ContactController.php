@@ -80,9 +80,11 @@ class ContactController extends Controller
      */
     public function editAction($id)
     {
+        $user = $this->getUser();
+        
+        // Contact has to belong to logged in user
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->find($id);
+        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndUser($id, $user);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Contact entity.');
@@ -105,9 +107,11 @@ class ContactController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        $user = $this->getUser();
+        
+        // Contact has to belong to logged in user
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->find($id);
+        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndUser($id, $user);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Contact entity.');
@@ -137,8 +141,11 @@ class ContactController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        $user = $this->getUser();
+        
+        // Contact has to belong to logged in user
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->find($id);
+        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndUser($id, $user);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Contact entity.');
