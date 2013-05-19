@@ -12,8 +12,8 @@ class ContactControllerTest extends TestCase
         // Get the client to browse the application
         $client = $this->client;
 
-        // Login as "testuser"
-        $this->logIn('testuser');
+        // Login as "walter.zenga"
+        $this->logIn();
 
         // Add a new contact
         $crawler = $client->request('GET', '/clients');
