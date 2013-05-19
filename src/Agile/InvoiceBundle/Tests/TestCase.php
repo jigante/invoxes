@@ -67,6 +67,8 @@ class TestCase extends WebTestCase
         $fixtureClasses = array(
             // classes implementing Doctrine\Common\DataFixtures\FixtureInterface
             'Agile\InvoiceBundle\Tests\DataFixtures\ORM\LoadUserData',
+            'Agile\InvoiceBundle\Tests\DataFixtures\ORM\LoadClientData',
+            'Agile\InvoiceBundle\Tests\DataFixtures\ORM\LoadContactData',
         );
 
         $this->loadFixtures($fixtureClasses);
@@ -81,7 +83,7 @@ class TestCase extends WebTestCase
         $this->em->close();
     }
 
-    protected function logIn($username)
+    protected function logIn($username = 'walter.zenga')
     {
         $container = $this->client->getContainer();
         $session = $container->get('session');
