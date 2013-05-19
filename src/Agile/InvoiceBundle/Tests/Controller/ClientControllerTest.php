@@ -13,8 +13,8 @@ class ClientControllerTest extends TestCase
         // Get the client to browse the application
         $client = $this->client;
 
-        // Login as "testuser"
-        $this->logIn('testuser');
+        // Login as "walter.zenga"
+        $this->logIn();
 
         // Create a new entry in the database
         $crawler = $client->request('GET', '/clients');
@@ -109,7 +109,7 @@ class ClientControllerTest extends TestCase
         $crawler = $client->followRedirect();
 
         // Check the entity has been delete on the list
-        $this->assertEquals( 0, $crawler->filter('html:contains("Test Client edit")')->count() );
+        $this->assertEquals( 0, $crawler->filter('html:contains("Walter Zenga edit")')->count() );
 
     }
 
