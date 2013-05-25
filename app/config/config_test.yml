@@ -18,13 +18,13 @@ swiftmailer:
 doctrine:
     dbal:
         ### Disable when using "driver: pdo_sqlite"
-        # dbname:   fattureonline_test
+        dbname:   fattureonline_test
 
-        # default_connection: default
-        connections:
-            default:
-                driver:   pdo_sqlite
-                path:     %kernel.cache_dir%/test.db
+        # # default_connection: default
+        # connections:
+        #     default:
+        #         driver:   pdo_sqlite
+        #         path:     %kernel.cache_dir%/test.db
 
-liip_functional_test:
-    cache_sqlite_db: true
+liip_functional_test: ~
+    # cache_sqlite_db: true
