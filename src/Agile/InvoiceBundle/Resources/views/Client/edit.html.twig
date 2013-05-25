@@ -14,11 +14,19 @@
 {% endblock %}
 
 {% block right_column %}
-    <div class="well well-small">
-        <a href="{{ path('client_delete', {'id': client.id}) }}" data-href-method="delete" data-mconfirm-header="Are you sure you want to remove {{ client.name }} from your account?" class="text-error"><small>Remove {{ client.name }} from your account</small></a>
-    </div>
+    {% if client.contacts|length == 0 %}
+        <div class="well well-small">
+            <a href="{{ path('client_delete', {'id': client.id}) }}" data-href-method="delete" data-mconfirm-header="Are you sure you want to remove {{ client.name }} from your account?" class="text-error"><small>Remove {{ client.name }} from your account</small></a>
+        </div>
+    {% endif %}
     
     <div class="well well-small">
         <a href="{{ path('client_toggle', {'id': client.id}) }}" data-mconfirm-header="Are you sure you want to archive {{ client.name }}?" class="text-error"><small>Archive {{ client.name }}</small></a>
     </div>
+
+    {% if client.contacts|length > 0 %}
+        <div class="well well-small">
+            <small><em>You cannot remove {{ client.name }} because it has contacts.</em></small>
+        </div>
+    {% endif %}
 {% endblock %}
