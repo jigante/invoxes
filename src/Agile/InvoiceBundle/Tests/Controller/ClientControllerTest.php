@@ -19,12 +19,17 @@ class ClientControllerTest extends TestCase
         // Create a new entry in the database
         $crawler = $client->request('GET', '/clients');
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /client/");
+
+        $this->assertEquals(1, $crawler->filter('html:contains("Inter FGCI")')->count(), "User 'Walter Zenga' has to have 'Inter FGCI' in its client list");
+
+        $this->assertEquals(0, $crawler->filter('html:contains("Argentina Football Club")')->count(), "User 'Walter Zenga' has not to have 'Argentina Football Club' in its client list");
+
         $crawler = $client->click($crawler->selectLink('+ Create Client')->link());
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Save')->form(array(
-            'client[name]'  => 'Test Client',
-            'client[address]'  => 'Test Client address',
+            'client[name]'  => 'Verona FGCI',
+            'client[address]'  => "via Venezia, 11\n08100 Verona (VR)",
         ));
 
         $client->submit($form);
@@ -38,7 +43,7 @@ class ClientControllerTest extends TestCase
         // Ora la pagina indice dei clienti non contiene il link "Manage Archived Clients"
         $this->assertEquals( 0, $crawler->filter('a:contains("Manage Archived Clients")')->count() );
 
-        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Test Client")')->count() );
+        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Verona FGCI")')->count() );
 
         // Edit the entity
         $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
@@ -47,8 +52,8 @@ class ClientControllerTest extends TestCase
 
         $form = $crawler->selectButton('Save')->form(
             array(
-                'client[name]'  => 'Test Client edit',
-                'client[address]'  => 'Test Client address edit',
+                'client[name]'  => 'Verona Calcio FGCI',
+                'client[address]'  => "via Venezia, 12\n08200 Verona (VR)",
                 ),
             'PUT'
         );
@@ -61,8 +66,8 @@ class ClientControllerTest extends TestCase
 
         $crawler = $client->followRedirect();
 
-        // Check that html contains "Test Client edit"
-        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Test Client edit")')->count() );
+        // Check that html contains "Verona Calcio FGCI"
+        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Verona Calcio FGCI")')->count() );
 
         // Archive the entity
         // Andiamo prima nella pagina di editing del cliente di test
@@ -90,20 +95,34 @@ class ClientControllerTest extends TestCase
         $crawler = $client->click($crawler->filter('ul.clients-list-inactive li a')->eq(0)->link());
 
         $this->assertTrue(
-            $client->getResponse()->isRedirect('/clients')
+            $client->getResponse()->isRedirect('/clients'),
+            'After de-archiving of client the page has to be redirected to "/clients"'
         );
 
         $crawler = $client->followredirect();
 
-        // Delete the entity
         $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
 
-        $form = $crawler->selectButton('Save')->form(array(), 'DELETE');
+        // The entity "client" can't be deleted when it has contacts
+        // var_dump($client->getResponse());exit;
+        $this->assertGreaterThan(0, $crawler->filter('em:contains("You cannot remove ")')->count());
+        $this->assertEquals(0, $crawler->filter('a:contains("Remove ")')->count());
 
+        // So try to delete a client without clients (the last client)
+        $crawler = $client->request('GET', '/clients');
+
+        $crawler = $client->click($crawler->filter('a:contains("Edit")')->last()->link());
+
+        $this->assertGreaterThan(0, $crawler->filter('a:contains("Remove ")')->count());
+        $this->assertEquals(0, $crawler->filter('em:contains("You cannot remove ")')->count());
+
+        //Delete the entity
+        $form = $crawler->selectButton('Save')->form(array(), 'DELETE');
         $client->submit($form);
-        
+
         $this->assertTrue(
-            $client->getResponse()->isRedirect('/clients')
+            $client->getResponse()->isRedirect('/clients'),
+            'After deletion of client the page has to be redirected to "/clients"'
         );
 
         $crawler = $client->followRedirect();
