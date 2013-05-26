@@ -5,10 +5,12 @@ namespace Agile\InvoiceBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="Agile\InvoiceBundle\Entity\ClientRepository")
  * @ORM\Table(name="client")
+ * @UniqueEntity(fields = {"name", "user"}, message = "Name has already been taken")
  */
 class Client
 {
@@ -35,7 +37,7 @@ class Client
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank();
+     * @Assert\NotBlank()
      */
     protected $name;
 
