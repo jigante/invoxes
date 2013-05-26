@@ -28,7 +28,7 @@ class ClientControllerTest extends TestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Save')->form(array(
-            'client[name]'  => 'Verona FGCI',
+            'client[name]'  => 'A.C. Verona',
             'client[address]'  => "via Venezia, 11\n08100 Verona (VR)",
         ));
 
@@ -43,7 +43,7 @@ class ClientControllerTest extends TestCase
         // Ora la pagina indice dei clienti non contiene il link "Manage Archived Clients"
         $this->assertEquals( 0, $crawler->filter('a:contains("Manage Archived Clients")')->count() );
 
-        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Verona FGCI")')->count() );
+        $this->assertGreaterThan( 0, $crawler->filter('html:contains("A.C. Verona")')->count() );
 
         // Edit the entity
         $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
@@ -52,7 +52,7 @@ class ClientControllerTest extends TestCase
 
         $form = $crawler->selectButton('Save')->form(
             array(
-                'client[name]'  => 'Verona Calcio FGCI',
+                'client[name]'  => 'A.C. Hellas Verona',
                 'client[address]'  => "via Venezia, 12\n08200 Verona (VR)",
                 ),
             'PUT'
@@ -67,7 +67,7 @@ class ClientControllerTest extends TestCase
         $crawler = $client->followRedirect();
 
         // Check that html contains "Verona Calcio FGCI"
-        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Verona Calcio FGCI")')->count() );
+        $this->assertGreaterThan( 0, $crawler->filter('html:contains("A.C. Hellas Verona")')->count() );
 
         // Archive the entity
         // Andiamo prima nella pagina di editing del cliente di test
@@ -101,10 +101,9 @@ class ClientControllerTest extends TestCase
 
         $crawler = $client->followredirect();
 
-        $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
-
         // The entity "client" can't be deleted when it has contacts
-        // var_dump($client->getResponse());exit;
+        $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(1)->link());
+
         $this->assertGreaterThan(0, $crawler->filter('em:contains("You cannot remove ")')->count());
         $this->assertEquals(0, $crawler->filter('a:contains("Remove ")')->count());
 
@@ -130,6 +129,46 @@ class ClientControllerTest extends TestCase
         // Check the entity has been delete on the list
         $this->assertEquals( 0, $crawler->filter('html:contains("Walter Zenga edit")')->count() );
 
+
+        // Cannot create a new client with the same name of another client for the actual user
+        $crawler = $client->request('GET', '/clients');
+
+        $crawler = $client->click($crawler->selectLink('+ Create Client')->link());
+
+        // Fill in the form and submit it
+        $form = $crawler->selectButton('Save')->form(array(
+            'client[name]'  => 'A.C. Hellas Verona',
+        ));
+
+        $crawler = $client->submit($form);
+
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('li:contains("Name has already been taken")')->count()
+        );
+
+        // But a client with the same name can be created for a different user
+        $this->login('diego.armando.maradona');
+
+        $crawler = $client->request('GET', '/clients');
+        
+        $crawler = $client->click($crawler->selectLink('+ Create Client')->link());
+
+        // Fill in the form and submit it
+        $form = $crawler->selectButton('Save')->form(array(
+            'client[name]'  => 'A.C. Hellas Verona',
+        ));
+
+        $client->submit($form);
+
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/clients')
+        );
+
+        $crawler = $client->followRedirect();
+
+        // Check the client is in the list of clients
+        $this->assertGreaterThan( 0, $crawler->filter('html:contains("A.C. Hellas Verona")')->count() );
     }
 
 }
