@@ -20,7 +20,7 @@ class ClientControllerTest extends TestCase
         $crawler = $client->request('GET', '/clients');
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /client/");
 
-        $this->assertEquals(1, $crawler->filter('html:contains("Inter FGCI")')->count(), "User 'Walter Zenga' has to have 'Inter FGCI' in its client list");
+        $this->assertEquals(1, $crawler->filter('html:contains("Inter FGCI")')->count(), "User 'Walter Zenga' needs to have 'Inter FGCI' in its client list");
 
         $this->assertEquals(0, $crawler->filter('html:contains("Argentina Football Club")')->count(), "User 'Walter Zenga' has not to have 'Argentina Football Club' in its client list");
 
@@ -85,14 +85,33 @@ class ClientControllerTest extends TestCase
         // Ora la pagina indice dei clienti contiene il link "Manage Archived Clients"
         $this->assertGreaterThan( 0, $crawler->filter('a:contains("Manage Archived Clients")')->count() );
 
-
         // De-archive the entity
         // Andiamo nella pagina dei clienti archiviati
         $crawler = $client->click($crawler->filter('a:contains("Manage Archived Clients")')->eq(0)->link());
 
         $this->assertGreaterThan(0, $crawler->filter('ul.clients-list-inactive li a')->count());
 
-        $crawler = $client->click($crawler->filter('ul.clients-list-inactive li a')->eq(0)->link());
+        $link = $crawler->filter('ul.clients-list-inactive li a')->eq(0)->link();
+
+        // First verify that a different cannot toggle a client that belongs to another user
+
+        // There has not to be the link "Manage Archived Clients" for anoter user, too
+        $this->login('diego.armando.maradona');
+        $crawler = $client->request('GET', '/clients');
+        $this->assertEquals( 0, $crawler->filter('a:contains("Manage Archived Clients")')->count() );
+
+        $crawler = $client->request('GET', $link->getUri());
+        $this->assertTrue(
+            $client->getResponse()->isNotFound(),
+            'A user cannot toggle the client that belongs to a different user'
+        );
+        // var_dump($crawler); exit;
+
+        // Continue with the default user
+        $this->login();
+        $crawler = $client->request('GET', '/clients');
+
+        $crawler = $client->click($link);
 
         $this->assertTrue(
             $client->getResponse()->isRedirect('/clients'),
@@ -144,7 +163,7 @@ class ClientControllerTest extends TestCase
 
         $this->assertGreaterThan(
             0,
-            $crawler->filter('li:contains("Name has already been taken")')->count()
+            $crawler->filter('li.help-inline:contains("Name has already been taken")')->count()
         );
 
         // But a client with the same name can be created for a different user
