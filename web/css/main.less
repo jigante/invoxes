@@ -22,6 +22,7 @@ body {
 @navbarLinkColorHover:            #fff;
 @navbarLinkColorActive:           #fff;
 @navbarLinkBackgroundActive:      darken(@navbarBackground, 5%);
+@tableBackgroundHover:            #F0F0F0;        
 
 label.required { font-weight: bold; }
 
@@ -31,6 +32,24 @@ div.upper_side_link { float:right; }
 
 /* Overview page */
 body.overview-page #main-title h3 { line-height: 25px; margin-top: 18px; }
+
+#tbl-invoicesummary { background: #F6F6F6; }
+#tbl-invoicesummary .type-smallgrey { display:block; }
+#tbl-invoicesummary a:hover { text-decoration: none; }
+.overview .table-hover {
+  tbody {
+    tr:hover > td,
+    tr:hover > th {
+      cursor: pointer;
+    }
+  }
+}
+.overview .big_link i { float:right; }
+.overview .type-cost { color: #000; font-size: 16px; line-height: 1.5em; font-weight: bold;}
+.overview .type-smallgrey { font-size:11px; line-height:15px; color: #999;}
+.overview .type-red { color: #c7041b; font-weight: bold; }
+.overview .type-note-black { color: #666666; font-size: 10px; font-weight: normal; line-height: 1.3em; }
+
 #sidebar-news a:hover { text-decoration: none; color: @grayDarker; }
 #sidebar-news a span { color: @grayLight; }
 
