@@ -1,18 +1,22 @@
 {% extends '::base.html.twig' %}
 
 {% block title %} Dashboard - {{ app.user.company }}{% endblock %}
-
+{% block body_class %}overview-page{% endblock %}
 {% block main_title %}
     Dashboard
+
+    <a href="{{ path('invoices') }}" class="btn btn-mini">Create invoice</a>
+
     <hr>
 {% endblock %}
 
 {% block body %}
-    <h3>Invoice Summary</h3>
+    <h5>Invoice Summary</h5>
 {% endblock %}
 
 {% block right_column %}
-    <div class="well well-small">
-        ...
+    <h5>News</h5>
+    <div id="sidebar-news" class="well well-small">
+        <a href="#"><small><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit</strong> <span class="date">· 27 May 2013</span></small></a>
     </div>
 {% endblock %}
