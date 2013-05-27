@@ -5,6 +5,7 @@ namespace Agile\InvoiceBundle\Entity;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Bafford\PasswordStrengthBundle\Validator\Constraints as BAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -28,6 +29,14 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @Assert\Length(min = 6, groups={"Registration", "Profile", "ResetPassword", "ChangePassword"})
+     * @BAssert\PasswordStrength(minLength=0, requireNumbers=true, groups={"Registration", "Profile", "ResetPassword", "ChangePassword"})
+     */
+    protected $plainPassword;
 
     /**
      * @var string
