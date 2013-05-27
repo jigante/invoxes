@@ -24,18 +24,40 @@ class DefaultControllerTest extends TestCase
         $link = $crawler->selectLink('Try Fatture Online for free')->link();
         $crawler = $client->click($link);
 
-        // Register as a new user
-        $form = $crawler->selectButton('Create My Account')->form(array(
+        $newAccountArray = array(
             'fos_user_registration_form[firstName]' => 'MyFirstname',
             'fos_user_registration_form[lastName]' => 'MyLastname',
             'fos_user_registration_form[company]' => 'MyCompany',
             'fos_user_registration_form[email]' => 'myfirstname@mylastname.it',
             'fos_user_registration_form[contactPhone]' => '079782435647689273',
             'fos_user_registration_form[username]' => 'myfirstname',
-            'fos_user_registration_form[plainPassword][first]' => 'pwd981',
-            'fos_user_registration_form[plainPassword][second]' => 'pwd981',
-        ));
+            'fos_user_registration_form[plainPassword][first]' => 'pwd',
+            'fos_user_registration_form[plainPassword][second]' => 'pwd',
+        );
 
+        // Register as a new user
+        $form = $crawler->selectButton('Create My Account')->form($newAccountArray);
+
+        $crawler = $client->submit($form);
+
+        // The password validation rules are not respected
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('li.help-inline:contains("This value is too short")')->count(),
+            'The password has to be longer than 6 characters'
+        );
+
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('li.help-inline:contains("Your password must include at least one number")')->count(),
+            'The password must include at least one number'
+        );
+
+        // Give passwords respecting validation parameters to create the new user
+        $newAccountArray['fos_user_registration_form[plainPassword][first]'] = 'pwd981';
+        $newAccountArray['fos_user_registration_form[plainPassword][second]'] = 'pwd981';
+
+        $form = $crawler->selectButton('Create My Account')->form($newAccountArray);
         $client->submit($form);
 
         $this->assertTrue(
