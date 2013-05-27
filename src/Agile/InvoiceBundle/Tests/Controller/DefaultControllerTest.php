@@ -32,8 +32,8 @@ class DefaultControllerTest extends TestCase
             'fos_user_registration_form[email]' => 'myfirstname@mylastname.it',
             'fos_user_registration_form[contactPhone]' => '079782435647689273',
             'fos_user_registration_form[username]' => 'myfirstname',
-            'fos_user_registration_form[plainPassword][first]' => 'testpassword',
-            'fos_user_registration_form[plainPassword][second]' => 'testpassword',
+            'fos_user_registration_form[plainPassword][first]' => 'pwd981',
+            'fos_user_registration_form[plainPassword][second]' => 'pwd981',
         ));
 
         $client->submit($form);
