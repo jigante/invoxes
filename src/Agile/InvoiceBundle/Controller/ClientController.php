@@ -77,7 +77,7 @@ class ClientController extends Controller
 
     /** Show inactive clients
      *
-     * @Route("/clients/inactive", name="client_inactive") 
+     * @Route("/inactive", name="client_inactive") 
      * @Template()
      */
     public function inactiveAction()
@@ -93,7 +93,7 @@ class ClientController extends Controller
     /**
      * Toggles the client as archived or not archived
      *
-     * @Route("/clients/{id}/toggle", name="client_toggle")
+     * @Route("/{id}/toggle", name="client_toggle")
      */
     public function toggleAction($id)
     {
