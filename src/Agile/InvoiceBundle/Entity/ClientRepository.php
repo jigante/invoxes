@@ -48,25 +48,26 @@ class ClientRepository extends EntityRepository
         return $clients;
     }
 
-    public function findInactive()
+    public function findInactive($user)
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT c FROM AgileInvoiceBundle:Client c WHERE c.archived = :archived ORDER BY c.name ASC'
-        )->setParameter('archived', 1);
+            'SELECT c FROM AgileInvoiceBundle:Client c WHERE c.user = :user AND c.archived = :archived ORDER BY c.name ASC'
+        )->setParameters(array('user' => $user, 'archived' => 1));
 
         $clients = $query->getResult();
 
         return $clients;
     }
 
-    public function countInactiveClients()
+    public function countInactiveClients($user)
     {
         $em = $this->getEntityManager();
         $query = $em->createQueryBuilder()
             ->select('count(c.id)')
             ->from('AgileInvoiceBundle:Client', 'c')
-            ->where('c.archived = :archived')
-            ->setParameter('archived', 1)
+            ->where('c.user = :user')
+            ->andWhere('c.archived = :archived')
+            ->setParameters(array('user' => $user, 'archived' => 1))
             ->getQuery()
         ;
 

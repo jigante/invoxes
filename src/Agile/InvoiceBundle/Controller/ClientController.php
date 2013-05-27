@@ -67,7 +67,7 @@ class ClientController extends Controller
         $user = $this->getUser();
         $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName($user);
 
-        $numInactiveClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->countInactiveClients();
+        $numInactiveClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->countInactiveClients($user);
 
         return array(
             'clients' => $clients,
@@ -82,7 +82,8 @@ class ClientController extends Controller
      */
     public function inactiveAction()
     {
-        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findInactive();
+        $user = $this->getUser();
+        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findInactive($user);
 
         return array(
             'clients' => $clients,
@@ -96,8 +97,12 @@ class ClientController extends Controller
      */
     public function toggleAction($id)
     {
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $client = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
+        $client = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
+            'id' => $id,
+            'user' => $user
+        ));
 
         if (!$client) {
             throw $this->createNotFoundException('Unable to find client ' . $id);
