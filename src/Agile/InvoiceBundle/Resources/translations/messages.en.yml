@@ -15,4 +15,4 @@ invoice.summary: Invoice Summary
 amount.outstanding: Amount Outstanding
 amount.invoiced.this.month: Amount Invoiced This Month
 payments.received.last.month: Payments Received Last Month
-payments.received.year.to.Date: "Payments Received Year-to-Date"
+payments.received.year.to.date: "Payments Received Year-to-Date"
