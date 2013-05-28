@@ -11,8 +11,8 @@ overview:
     defaults: { _controller: AgileInvoiceBundle:Default:overview }
 
 invoices:
-    pattern:  /invoices
-    defaults: { _controller: AgileInvoiceBundle:Invoices:index }
+    resource: "@AgileInvoiceBundle/Controller/InvoiceController.php"
+    type: annotation
 
 client:
     resource: "@AgileInvoiceBundle/Controller/ClientController.php"
@@ -21,10 +21,6 @@ client:
 contact:
     resource: "@AgileInvoiceBundle/Controller/ContactController.php"
     type: annotation
-
-invoices_archive:
-    pattern:  /invoices/archive
-    defaults: { _controller: AgileInvoiceBundle:Invoices:archive }
 
 projects:
     pattern:  /projects
@@ -37,10 +33,6 @@ recurring_invoices:
 estimates:
     pattern:  /estimates
     defaults: { _controller: AgileInvoiceBundle:Estimates:index }
-
-invoices_configure:
-    pattern:  /invoices/configure
-    defaults: { _controller: AgileInvoiceBundle:Invoives:configure }
 
 user:
     resource: "@AgileInvoiceBundle/Controller/UserController.php"
