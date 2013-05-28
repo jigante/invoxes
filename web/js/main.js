@@ -2,6 +2,8 @@ var links = {
     init: function() {
         this.submitByHrefMethod();
         this.confirmByMconfirmHeader();
+        this.hideTips();
+        this.showTips();
     },
 
     // If there is a link with the data attribute "data-href-method"
@@ -43,11 +45,31 @@ var links = {
             return confirm(confirmMessage);
 
         });
+    },
+
+    hideTips: function () {
+        $('[data-dismiss-tips="alert"]').on('click', function (e) {
+            tipsShow = $('.tips-show');
+            tips = $(this).parent();
+
+            tipsShow.show('highlight');
+            tips.hide();
+        });
+    },
+
+    showTips: function () {
+        $('a.tips-show-link').on('click', function (e) {
+            tipsShow = $('.tips-show');
+            tips = tipsShow.next();
+
+            tipsShow.hide();
+            tips.show();
+        });
     }
 };
 
 $(document).ready(function() {
     links.init();
 
-    $(".alert").alert();
+    // $(".alert").alert();
 });
