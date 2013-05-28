@@ -5268,6 +5268,23 @@ div.upper_side_link {
   display: block;
   float: right;
 }
+.tips .close {
+  font-size: 13px;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  font-weight: normal;
+}
+.tips .close:hover,
+.tips .close:focus {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.tips h5,
+.tips p,
+.tips ol li,
+.tips ul li {
+  color: #000000;
+}
 /* Overview page */
 body.overview-page #main-title h3 {
   line-height: 25px;
