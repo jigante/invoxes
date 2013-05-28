@@ -25,8 +25,10 @@
 
         <div class="container">
             <div class="row">
+                {% block tips %}{% endblock %}
+
                 <div id="main-title" class="span12">
-                    <h3>{% block main_title %}Fatture Facili{% endblock %}</h3>
+                    <h3>{% block main_title %}{{ 'site.title'|trans }}{% endblock %}</h3>
                 </div>
             </div>
 
