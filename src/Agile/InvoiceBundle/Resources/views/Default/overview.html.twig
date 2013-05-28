@@ -5,7 +5,7 @@
 {% block main_title %}
     Dashboard
 
-    <a href="{{ path('invoices') }}" class="btn btn-mini">{{ 'create.invoice'|trans }}</a>
+    <a href="{{ path('invoice') }}" class="btn btn-mini">{{ 'create.invoice'|trans }}</a>
 
     <hr>
 {% endblock %}
@@ -17,10 +17,10 @@
         <table id="tbl-invoicesummary" class="table table-bordered table-hover">
             <tr>
                 <td class="big_link clickable">
-                    <a href="{{ path('invoices') }}">
+                    <a href="{{ path('invoice') }}">
                         <span class="type-smallgrey">{{ 'amount.outstanding'|trans }}</span>
-                        <span class="type-cost type-red">€1.974,00</span>
-                        <span class="type-note-black">(3 invoices)</span>
+                        <span class="type-cost type-red">€0,00</span>
+                        <span class="type-note-black">(0 invoices)</span>
                         <i class="icon-play-circle"></i>
                     </a> 
                 </td>
@@ -29,8 +29,8 @@
                 <td class="big_link clickable">
                     <a href="/invoices/archive?timeframe=20130501%2C20130531">
                         <span class="type-smallgrey">{{ 'amount.invoiced.this.month'|trans }}</span>
-                        <span class="type-cost type-red">€1.080,00</span>
-                        <span class="type-note-black">(1 invoice)</span>
+                        <span class="type-cost type-red">€0,00</span>
+                        <span class="type-note-black">(0 invoices)</span>
                         <i class="icon-play-circle"></i>
                     </a>
                 </td>
