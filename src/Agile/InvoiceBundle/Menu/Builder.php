@@ -14,8 +14,8 @@ class Builder extends ContainerAware
         $menu->setChildrenAttribute('class', 'nav');
 
         $menu->addChild('Home', array('route' => 'home'));
-        $menu->addChild('Fatture', array('route' => 'invoices'));
-        $menu->addChild('Report', array('route' => 'invoices_archive'));
+        $menu->addChild('Fatture', array('route' => 'invoice'));
+        $menu->addChild('Report', array('route' => 'invoice_archive'));
 
         $menu->addChild('Clienti', array('route' => 'client'));
         $menu['Clienti']->addChild('Create New Client', array('route' => 'client_new'));
@@ -24,7 +24,7 @@ class Builder extends ContainerAware
         $menu->addChild('Progetti', array('route' => 'projects'));
         $menu->addChild('Ricorrenti', array('route' => 'recurring_invoices'));
         $menu->addChild('Preventivi', array('route' => 'estimates'));
-        $menu->addChild('Configura', array('route' => 'invoices_configure'));
+        $menu->addChild('Configura', array('route' => 'invoice_configure'));
 
         return $menu;
     }
