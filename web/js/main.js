@@ -48,22 +48,20 @@ var links = {
     },
 
     hideTips: function () {
-        $('[data-dismiss-tips="alert"]').on('click', function (e) {
-            tipsShow = $('.tips-show');
+        $('[data-dismiss="tips"]').on('click', function (e) {
             tips = $(this).parent();
-
-            tipsShow.show('highlight');
             tips.hide();
+            $('[data-show="tips"]').show('highlight');
+            e.preventDefault();
         });
     },
 
     showTips: function () {
-        $('a.tips-show-link').on('click', function (e) {
-            tipsShow = $('.tips-show');
-            tips = tipsShow.next();
-
-            tipsShow.hide();
+        $('[data-show="tips"]').on('click', function (e) {
+            tips = $(this).next();
             tips.show();
+            $(this).hide();
+            e.preventDefault();
         });
     }
 };
