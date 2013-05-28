@@ -1,0 +1,26 @@
+{% extends '@AgileInvoice/one-column.html.twig' %}
+
+{% block title %}Invoices - {{ parent() }}{% endblock %}
+
+{% block tips %}
+    <div class="alert alert-block tips fade in">
+        <button type="button" class="close" data-dismiss="alert">Close <i class="icon-remove-sign"></i></button>
+        
+        <h5><i class="icon-info-sign"></i>  Tip: Invoicing</h5>
+        
+        <ol>
+            <li><small>Customize invoice, default values and messages under <a href="{{ path('invoice_configure') }}">Invoices > Configure</a>.</small></li>
+            <li><small>Run invoice and payment report under <a href="{{ path('invoice_archive') }}">Invoices > Report</a>.</small></li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block main_title %}
+    Invoices Overview
+
+    <a href="{{ path('invoice_new') }}" class="btn btn-success btn-small">+ {{ 'create.invoice'|trans }}</a>
+{% endblock %}
+
+{% block body -%}
+
+{% endblock %}
