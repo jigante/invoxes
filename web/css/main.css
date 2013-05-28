@@ -5268,11 +5268,11 @@ div.upper_side_link {
   display: block;
   float: right;
 }
-.tips-show {
+.tips .show {
   float: right;
   margin-bottom: 8px;
 }
-.tips-show a {
+.tips .show a {
   text-decoration: none;
 }
 .tips .close {
