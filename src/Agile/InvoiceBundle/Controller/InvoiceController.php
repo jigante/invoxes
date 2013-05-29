@@ -28,7 +28,23 @@ class InvoiceController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        
+        // Show tips on page?
+        $invoiceTips = $em->getRepository('AgileInvoiceBundle:UserSetting')->findOneBy(array(
+            'user' => $user,
+            'name' => 'InvoicePageTips',
+        ));
+
+        $tips = array('show' => false);
+        if ($invoiceTips AND $invoiceTips->getValue()) {
+            $tips['show'] = true;
+        }
+
+        return array(
+            'tips' => $tips,
+        );
     }
 
     /**
