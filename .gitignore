@@ -10,3 +10,4 @@
 /app/config/parameters.yml
 
 *.DS_Store
+/FattureOnline.ormdesigner2
