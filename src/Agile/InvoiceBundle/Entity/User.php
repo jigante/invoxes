@@ -21,6 +21,8 @@ class User extends BaseUser
         parent::__construct();
 
         $this->clients = new ArrayCollection();
+
+        $this->settings = new ArrayCollection();
     }
 
     /**
@@ -83,6 +85,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Client", mappedBy="user")
      */
     protected $clients;
+
+    /**
+     * @ORM\OneToMany(targetEntity="UserSetting", mappedBy="user")
+     */
+    protected $settings;
 
     /**
      * Get id
@@ -235,5 +242,38 @@ class User extends BaseUser
     public function getClients()
     {
         return $this->clients;
+    }
+
+    /**
+     * Add settings
+     *
+     * @param \Agile\InvoiceBundle\Entity\UserSetting $settings
+     * @return User
+     */
+    public function addSetting(\Agile\InvoiceBundle\Entity\UserSetting $settings)
+    {
+        $this->settings[] = $settings;
+
+        return $this;
+    }
+
+    /**
+     * Remove settings
+     *
+     * @param \Agile\InvoiceBundle\Entity\UserSetting $settings
+     */
+    public function removeSetting(\Agile\InvoiceBundle\Entity\UserSetting $settings)
+    {
+        $this->settings->removeElement($settings);
+    }
+
+    /**
+     * Get settings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSettings()
+    {
+        return $this->settings;
     }
 }
