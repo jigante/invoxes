@@ -20,18 +20,22 @@ class UserController extends Controller
      */
     public function disableWelcomeScreen($id)
     {
-
-        // Get the actual user
         $user = $this->getUser();
+        $settingName = 'disable_welcome_screen';
 
         // The user can disable welcome screen only for itself
         if ($user->getId() != $id) {
             throw $this->createNotFoundException("Unable to find user " . $id);
         }
 
-        // exit('Il prossimo passo è impostare il flag di disattivazione');
-        $user->setDisabledWelcome(1);
-        $this->get('fos_user.user_manager')->updateUser($user);
+        // Set the user setting
+        $em = $this->getDoctrine()->getManager();
+        $setting = $em->getRepository('AgileInvoiceBundle:UserSetting')->setUserSetting(
+            $user, $settingName, 1
+        );
+
+        // $user->setDisabledWelcome(1);
+        // $this->get('fos_user.user_manager')->updateUser($user);
 
         return $this->redirect($this->generateUrl('home'));
     }
