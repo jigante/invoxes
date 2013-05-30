@@ -16,9 +16,9 @@ class UserSettingController extends Controller
 {
 
     /**
-    * @Route("/{user}/{settingName}/{settingValue}", name="set_user_setting", options={"expose"=true})
+    * @Route("/xhr/{user}/{settingName}/{settingValue}", name="set_ajax_user_setting", options={"expose"=true})
     */
-    public function setUserSetting($settingName, $settingValue)
+    public function setAjaxUserSetting($settingName, $settingValue)
     {
         $user = $this->getUser();
         $request = $this->getRequest();
