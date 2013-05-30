@@ -59,6 +59,15 @@ class UserSettingRepository extends EntityRepository
     }
 
     /**
+     * Is a setting disabled?
+     * This is the inverse of "isActive()"
+     */
+    public function isDisabled($user, $settingName)
+    {
+        return !$this->isActive($user, $settingName);
+    }
+
+    /**
      * Retrieve a user setting given the "user" and the "setting name"
      */
     public function retrieveUserSetting($user, $settingName)
