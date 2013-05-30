@@ -1,7 +1,7 @@
 <div class="tips">
     <a href="#" class="show muted" data-show="tips" style="display:{{ tips.show ? 'none' : 'block' }};"><small>Page Tips</small></a>
 
-    <div class="alert alert-block" style="display:{{ tips.show ? 'block' : 'none' }};">
+    <div class="alert alert-block" data-user="{{ app.user.id }}" data-setting-name="{{ settingName }}" style="display:{{ tips.show ? 'block' : 'none' }};">
         <button type="button" class="close" data-dismiss="tips">Close <i class="icon-remove-sign"></i></button>
         
         <h5><i class="icon-info-sign"></i>  Tip: Invoicing</h5>
