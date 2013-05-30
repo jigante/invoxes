@@ -37,3 +37,7 @@ estimates:
 user:
     resource: "@AgileInvoiceBundle/Controller/UserController.php"
     type: annotation
+
+user_setting:
+    resource: "@AgileInvoiceBundle/Controller/UserSettingController.php"
+    type: annotation
