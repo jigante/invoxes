@@ -7,9 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Bafford\PasswordStrengthBundle\Validator\Constraints as BAssert;
 use Doctrine\Common\Collections\ArrayCollection;
+use Agile\InvoiceBundle\Entity\UserSettingRepository;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Agile\InvoiceBundle\Entity\UserRepository")
  * @ORM\Table(name="user_account")
  */
 class User extends BaseUser
@@ -75,11 +76,6 @@ class User extends BaseUser
      * @Assert\Length(min=3, max=20, groups={"Registration", "Profile"})
      */
     private $contactPhone;
-
-    /**
-     * @ORM\Column(name="disabled_welcome", type="boolean")
-     */
-    private $disabledWelcome = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="Client", mappedBy="user")
@@ -191,24 +187,6 @@ class User extends BaseUser
     public function getContactPhone()
     {
         return $this->contactPhone;
-    }
-
-    public function isDisabledWelcome() {
-        return $this->disabledWelcome;
-    }
-    
-    public function setDisabledWelcome($disabledWelcome) {
-        $this->disabledWelcome = $disabledWelcome;
-    }
-
-    /**
-     * Get disabledWelcome
-     *
-     * @return boolean 
-     */
-    public function getDisabledWelcome()
-    {
-        return $this->disabledWelcome;
     }
 
     /**
