@@ -1,9 +1,67 @@
+var userSettings = {
+    // ajaxSet : null,
+
+    setUserSetting: function(element, value) {
+        var ajaxSet;
+
+        if (ajaxSet) {
+            ajaxSet.abort();
+        }
+
+        url = Routing.generate('set_user_setting', {
+            user: element.data('user'),
+            settingName: element.data('setting-name'),
+            settingValue: value
+        });
+        ajaxSet = $.ajax(url, {
+            complete: function(result) {
+                ajaxSet = null;
+            }
+        });
+    }
+};
+
+var pageTips = {
+    init: function() {
+        this.hideTips();
+        this.showTips();
+    },
+
+    hideTips: function () {
+        $('[data-dismiss="tips"]').on('click', function (e) {
+            e.preventDefault();
+
+            tips = $(this).parent();
+            tips.hide();
+            $('[data-show="tips"]').show('highlight');
+
+            // Set the user setting via Ajax
+            // The tips setting are "disable" user settings
+            // and has to be 1 to hide/disable and 0 to show/enable
+            userSettings.setUserSetting(tips, 1);
+        });
+    },
+
+    showTips: function () {
+        $('[data-show="tips"]').on('click', function (e) {
+            e.preventDefault();
+
+            tips = $(this).next();
+            tips.show();
+            $(this).hide();
+
+            // Set the user setting via Ajax
+            // The tips setting are "disable" user settings
+            // and has to be 1 to hide/disable and 0 to show/enable
+            userSettings.setUserSetting(tips, 0);
+        });
+    }
+};
+
 var links = {
     init: function() {
         this.submitByHrefMethod();
         this.confirmByMconfirmHeader();
-        this.hideTips();
-        this.showTips();
     },
 
     // If there is a link with the data attribute "data-href-method"
@@ -45,29 +103,13 @@ var links = {
             return confirm(confirmMessage);
 
         });
-    },
-
-    hideTips: function () {
-        $('[data-dismiss="tips"]').on('click', function (e) {
-            tips = $(this).parent();
-            tips.hide();
-            $('[data-show="tips"]').show('highlight');
-            e.preventDefault();
-        });
-    },
-
-    showTips: function () {
-        $('[data-show="tips"]').on('click', function (e) {
-            tips = $(this).next();
-            tips.show();
-            $(this).hide();
-            e.preventDefault();
-        });
     }
+
 };
 
 $(document).ready(function() {
     links.init();
+    pageTips.init();
 
     // $(".alert").alert();
 });
