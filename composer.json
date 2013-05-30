@@ -24,7 +24,8 @@
         "friendsofsymfony/user-bundle": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "liip/functional-test-bundle": "dev-master",
-        "jbafford/password-strength-bundle": "dev-master"
+        "jbafford/password-strength-bundle": "dev-master",
+        "friendsofsymfony/jsrouting-bundle": "~1.1"
     },
     "scripts": {
         "post-install-cmd": [
