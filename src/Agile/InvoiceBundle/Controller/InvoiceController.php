@@ -28,22 +28,20 @@ class InvoiceController extends Controller
      */
     public function indexAction()
     {
+        $settingName = 'disable_invoice_page_tips';
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        
-        // Show tips on page?
-        $invoiceTips = $em->getRepository('AgileInvoiceBundle:UserSetting')->findOneBy(array(
-            'user' => $user,
-            'name' => 'InvoicePageTips',
-        ));
 
-        $tips = array('show' => false);
-        if ($invoiceTips AND $invoiceTips->getValue()) {
-            $tips['show'] = true;
-        }
+        $isActiveSetting = $em->getRepository('AgileInvoiceBundle:UserSetting')->isActive(
+            $user,
+            $settingName
+        );
+
+        $tips = array('show' => $isActiveSetting);
 
         return array(
             'tips' => $tips,
+            'settingName' => $settingName,
         );
     }
 
