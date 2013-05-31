@@ -7,9 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class DefaultController extends Controller
 {
     public function indexAction()
-    {
+    {        
         // If is not disabled welcome in DB for user, show the welcome page
-        if (!$this->isDisabledWelcome()) {
+        if (!$this->getUser()->isDisabledWelcome()) {
             return $this->redirect($this->generateUrl('welcome'));
         } else {
             // Else show the overview page
@@ -20,7 +20,7 @@ class DefaultController extends Controller
     public function welcomeAction()
     {        
         // If is disabled welcome in DB for user, show the overview page
-        if ($this->isDisabledWelcome()) {
+        if ($this->getUser()->isDisabledWelcome()) {
             return $this->redirect($this->generateUrl('overview'));
         }
 
@@ -31,17 +31,12 @@ class DefaultController extends Controller
     public function overviewAction()
     {
         // If is not disabled welcome in DB for user, show the welcome page
-        if (!$this->isDisabledWelcome()) {
+        if (!$this->getUser()->isDisabledWelcome()) {
             return $this->redirect($this->generateUrl('welcome'));
         }
 
         // render the dashboard page
         return $this->render('AgileInvoiceBundle:Default:overview.html.twig');
     }
-
-    private function isDisabledWelcome()
-    {
-        $user = $this->getUser();
-        return $this->getDoctrine()->getRepository('AgileInvoiceBundle:User')->isDisabledWelcome($user);
-    }
+    
 }
