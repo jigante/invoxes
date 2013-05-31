@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Agile\InvoiceBundle\Entity\User;
 
 /**
  * User Controller
@@ -16,12 +15,11 @@ use Agile\InvoiceBundle\Entity\User;
 class UserController extends Controller
 {
     /**
-     * @Route("/{id}/disable_welcome_screen", name="disable_welcome_screen")
+     * @Route("/disable_welcome_screen", name="disable_welcome_screen")
      */
-    public function disableWelcomeScreen($id)
+    public function disableWelcomeScreen()
     {
         $user = $this->getUser();
-        $settingName = 'disable_welcome_screen';
 
         $user->setDisabledWelcome(1);
         $this->get('fos_user.user_manager')->updateUser($user);
