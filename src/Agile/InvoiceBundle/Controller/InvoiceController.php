@@ -7,8 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Agile\InvoiceBundle\Entity\Invoice;
+// use Agile\InvoiceBundle\Entity\Invoice;
 use Agile\InvoiceBundle\Form\InvoiceType;
+use Agile\InvoiceBundle\Entity\UserSetting;
 
 /**
  * Client controller.
@@ -28,7 +29,7 @@ class InvoiceController extends Controller
      */
     public function indexAction()
     {
-        $settingName = 'disable_invoice_page_tips';
+        $settingName = UserSetting::DISABLE_INVOICE_PAGE_TIPS;
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
