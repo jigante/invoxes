@@ -264,7 +264,7 @@ class User extends BaseUser
         $disabledWelcome = $this->getDisabledWelcome();
         if(!is_object($disabledWelcome)) {
             $disabledWelcome = new UserSetting();
-            $disabledWelcome->setName('disable_welcome_screen');
+            $disabledWelcome->setName(UserSetting::DISABLE_WELCOME_SCREEN);
         }
 
         $disabledWelcome->setValue($disabled);
@@ -279,7 +279,7 @@ class User extends BaseUser
     public function getDisabledWelcome()
     {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq('name', 'disable_welcome_screen'))
+            ->where(Criteria::expr()->eq('name', UserSetting::DISABLE_WELCOME_SCREEN))
         ;
 
         $disabledWelcome = $this->getSettings()->matching($criteria)->first();
