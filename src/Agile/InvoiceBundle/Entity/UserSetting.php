@@ -14,6 +14,20 @@ class UserSetting
 {
 
     /**
+     * The DISABLE_WELCOME_SCREEN user setting
+     *
+     * This setting indicates if the welcome screen for the user has to be disabled
+     */
+    const DISABLE_WELCOME_SCREEN = 'disable_welcome_screen';
+
+    /**
+     * The DISABLE_INVOICE_PAGE_TIPS user setting
+     *
+     * This setting indicates if the tips for the invoice page have to be shown
+     */
+    const DISABLE_INVOICE_PAGE_TIPS = 'disable_invoice_page_tips';
+
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
