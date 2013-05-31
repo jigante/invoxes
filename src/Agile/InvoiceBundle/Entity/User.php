@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Bafford\PasswordStrengthBundle\Validator\Constraints as BAssert;
 use Doctrine\Common\Collections\ArrayCollection;
-use Agile\InvoiceBundle\Entity\UserSettingRepository;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @ORM\Entity(repositoryClass="Agile\InvoiceBundle\Entity\UserRepository")
@@ -83,7 +83,7 @@ class User extends BaseUser
     protected $clients;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserSetting", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="UserSetting", mappedBy="user", cascade={"persist"})
      */
     protected $settings;
 
@@ -190,26 +190,26 @@ class User extends BaseUser
     }
 
     /**
-     * Add clients
+     * Add client
      *
-     * @param \Agile\InvoiceBundle\Entity\Client $clients
+     * @param Client $client
      * @return User
      */
-    public function addClient(\Agile\InvoiceBundle\Entity\Client $clients)
+    public function addClient(Client $client)
     {
-        $this->clients[] = $clients;
+        $this->clients[] = $client;
 
         return $this;
     }
 
     /**
-     * Remove clients
+     * Remove client
      *
-     * @param \Agile\InvoiceBundle\Entity\Client $clients
+     * @param Client $client
      */
-    public function removeClient(\Agile\InvoiceBundle\Entity\Client $clients)
+    public function removeClient(Client $client)
     {
-        $this->clients->removeElement($clients);
+        $this->clients->removeElement($client);
     }
 
     /**
@@ -223,26 +223,27 @@ class User extends BaseUser
     }
 
     /**
-     * Add settings
+     * Add setting
      *
-     * @param \Agile\InvoiceBundle\Entity\UserSetting $settings
+     * @param UserSetting $setting
      * @return User
      */
-    public function addSetting(\Agile\InvoiceBundle\Entity\UserSetting $settings)
+    public function addSetting(UserSetting $setting)
     {
-        $this->settings[] = $settings;
 
-        return $this;
+        $setting->setUser($this);
+
+        $this->settings->add($setting);
     }
 
     /**
-     * Remove settings
+     * Remove setting
      *
-     * @param \Agile\InvoiceBundle\Entity\UserSetting $settings
+     * @param UserSetting $settings
      */
-    public function removeSetting(\Agile\InvoiceBundle\Entity\UserSetting $settings)
+    public function removeSetting(UserSetting $setting)
     {
-        $this->settings->removeElement($settings);
+        $this->settings->removeElement($setting);
     }
 
     /**
@@ -253,5 +254,50 @@ class User extends BaseUser
     public function getSettings()
     {
         return $this->settings;
+    }
+
+    /**
+     * Set disabled welcome screen
+     */
+    public function setDisabledWelcome($disabled)
+    {
+        $disabledWelcome = $this->getDisabledWelcome();
+        if(!is_object($disabledWelcome)) {
+            $disabledWelcome = new UserSetting();
+            $disabledWelcome->setName('disable_welcome_screen');
+        }
+
+        $disabledWelcome->setValue($disabled);
+        $this->addSetting($disabledWelcome);
+    
+        return $this;
+    }
+
+    /**
+     * Get disabled welcome screen
+     */
+    public function getDisabledWelcome()
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('name', 'disable_welcome_screen'))
+        ;
+
+        $disabledWelcome = $this->getSettings()->matching($criteria)->first();
+
+        return $disabledWelcome;
+    }
+
+    /**
+     * Check if it's disabled welcome screen for the user
+     */
+    public function isDisabledWelcome()
+    {
+        $disabledWelcome = $this->getDisabledWelcome();
+
+        if (!$disabledWelcome OR $disabledWelcome->getValue() == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
