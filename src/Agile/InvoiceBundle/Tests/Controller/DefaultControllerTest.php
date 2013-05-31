@@ -90,16 +90,6 @@ class DefaultControllerTest extends TestCase
         );
         $crawler = $client->followRedirect();
 
-        // Verify it's not possible to hide a welcome screen for a different usera than the one logged in
-        $crawler = $client->request('GET', '/user/999999/disable_welcome_screen');
-        $this->assertTrue(
-            $client->getResponse()->isNotFound(),
-            'It\'s not possible to edit a different user'
-        );
-
-        // Return to welcome page
-        $crawler = $client->request('GET', '/welcome');
-
         // Click the "Hide welcome screen"
         $link = $crawler->selectLink('Hide it!')->link();
         $crawler = $client->click($link);
