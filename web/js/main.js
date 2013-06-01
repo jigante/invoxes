@@ -9,7 +9,6 @@ var userSettings = {
         }
 
         url = Routing.generate('set_ajax_user_setting', {
-            user: element.data('user'),
             settingName: element.data('setting-name'),
             settingValue: value
         });
