@@ -25,6 +25,8 @@ class User extends BaseUser
         $this->clients = new ArrayCollection();
 
         $this->settings = new ArrayCollection();
+
+        $this->invoices = new ArrayCollection();
     }
 
     /**
@@ -87,6 +89,11 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="UserSetting", mappedBy="user", cascade={"persist"})
      */
     protected $settings;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Invoice", mappedBy="user")
+     */
+    protected $invoices;
 
     /**
      * @var datetime $created
@@ -269,6 +276,39 @@ class User extends BaseUser
     public function getSettings()
     {
         return $this->settings;
+    }
+
+    /**
+     * Add invoice
+     *
+     * @param Invoice $invoice
+     * @return User
+     */
+    public function addInvoive(Invoice $invoice)
+    {
+        $this->invoices[] = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Remove invoice
+     *
+     * @param Invoice $invoice
+     */
+    public function removeInvoice(Invoice $invoice)
+    {
+        $this->invoices->removeElement($invoice);
+    }
+
+    /**
+     * Get invoices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
     }
 
     public function getCreated()
