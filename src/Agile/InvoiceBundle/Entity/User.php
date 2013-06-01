@@ -2,7 +2,8 @@
 
 namespace Agile\InvoiceBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use Gedmo\Mapping\Annotation as Gedmo;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Bafford\PasswordStrengthBundle\Validator\Constraints as BAssert;
@@ -86,6 +87,20 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="UserSetting", mappedBy="user", cascade={"persist"})
      */
     protected $settings;
+
+    /**
+     * @var datetime $created
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
     /**
      * Get id
@@ -254,6 +269,16 @@ class User extends BaseUser
     public function getSettings()
     {
         return $this->settings;
+    }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 
     /**
