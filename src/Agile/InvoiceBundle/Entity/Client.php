@@ -2,6 +2,7 @@
 
 namespace Agile\InvoiceBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,7 +20,12 @@ class Client
      */
     public function __construct()
     {
-        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contacts = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     /**
@@ -61,15 +67,20 @@ class Client
      */
     protected $contacts;
 
-    public function _construct()
-    {
-        $this->contacts = new ArrayCollection();
-    }
+    /**
+     * @var datetime $created
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
 
-    public function __toString()
-    {
-        return $this->name;
-    }
+    /**
+     * @var datetime $updated
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
+
 
     public function getId() {
         return $this->id;
@@ -176,4 +187,15 @@ class Client
     {
         return $this->user;
     }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
 }
