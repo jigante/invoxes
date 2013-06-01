@@ -82,3 +82,9 @@ fos_user:
         form:
             type: agile_user_registration
 
+stof_doctrine_extensions:
+    default_locale: en
+    orm:
+        default:
+            timestampable: true
+
