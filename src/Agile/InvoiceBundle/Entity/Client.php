@@ -21,6 +21,8 @@ class Client
     public function __construct()
     {
         $this->contacts = new ArrayCollection();
+        
+        $this->invoices = new ArrayCollection();
     }
 
     public function __toString()
@@ -66,6 +68,11 @@ class Client
      * @ORM\OneToMany(targetEntity="Contact", mappedBy="client")
      */
     protected $contacts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Invoice", mappedBy="client")
+     */
+    protected $invoices;
 
     /**
      * @var datetime $created
@@ -133,26 +140,26 @@ class Client
     }
 
     /**
-     * Add contacts
+     * Add contact
      *
-     * @param \Agile\InvoiceBundle\Entity\Contact $contacts
+     * @param Contact $contact
      * @return Client
      */
-    public function addContact(\Agile\InvoiceBundle\Entity\Contact $contacts)
+    public function addContact(Contact $contact)
     {
-        $this->contacts[] = $contacts;
+        $this->contacts[] = $contact;
     
         return $this;
     }
 
     /**
-     * Remove contacts
+     * Remove contact
      *
-     * @param \Agile\InvoiceBundle\Entity\Contact $contacts
+     * @param Contact $contact
      */
-    public function removeContact(\Agile\InvoiceBundle\Entity\Contact $contacts)
+    public function removeContact(Contact $contact)
     {
-        $this->contacts->removeElement($contacts);
+        $this->contacts->removeElement($contact);
     }
 
     /**
@@ -163,6 +170,39 @@ class Client
     public function getContacts()
     {
         return $this->contacts;
+    }
+
+    /**
+     * Add invoice
+     *
+     * @param Invoice $invoice
+     * @return Client
+     */
+    public function addInvoice(Invoice $invoice)
+    {
+        $this->invoices[] = $invoice;
+    
+        return $this;
+    }
+
+    /**
+     * Remove invoice
+     *
+     * @param Invoice $invoice
+     */
+    public function removeInvoice(Invoice $invoice)
+    {
+        $this->invoices->removeElement($invoice);
+    }
+
+    /**
+     * Get invoices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
     }
 
     /**
