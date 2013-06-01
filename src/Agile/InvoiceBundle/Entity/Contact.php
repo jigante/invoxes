@@ -4,6 +4,7 @@ namespace Agile\InvoiceBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Contact
@@ -86,6 +87,20 @@ class Contact
      * @Assert\Length(min=3, max=20)
      */
     private $fax;
+
+    /**
+     * @var datetime $created
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
 
 
     /**
@@ -280,5 +295,15 @@ class Contact
     public function getClient()
     {
         return $this->client;
+    }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }
