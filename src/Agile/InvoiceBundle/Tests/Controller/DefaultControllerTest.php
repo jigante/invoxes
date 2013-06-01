@@ -109,8 +109,13 @@ class DefaultControllerTest extends TestCase
         $crawler = $client->followRedirect();
 
         $this->assertTrue(
-            $crawler->filter('html:contains("Dashboard")')->count() > 0,
-            'Html doesn\'t contain "Dashboard"'
+            $crawler->filter('html:contains("Invoice Summary")')->count() > 0,
+            'Html doesn\'t contain "Invoice Summary"'
+        );
+
+        $this->assertTrue(
+            $crawler->filter('a:contains("Create invoice")')->count() == 1,
+            'There is no "Create invoice" link'
         );
 
         // Verify it's not possible access welcome page when welcome screen is disabled
