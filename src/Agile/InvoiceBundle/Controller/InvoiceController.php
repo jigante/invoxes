@@ -7,8 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-// use Agile\InvoiceBundle\Entity\Invoice;
-use Agile\InvoiceBundle\Form\InvoiceType;
+use Agile\InvoiceBundle\Form\InvoiceFirstStepType;
+use Agile\InvoiceBundle\Entity\Invoice;
 use Agile\InvoiceBundle\Entity\UserSetting;
 
 /**
@@ -40,10 +40,26 @@ class InvoiceController extends Controller
 
         $tips = array('show' => $isActiveSetting);
 
+        // Build the invoice form for the first step creation
+        $invoice = new Invoice();
+        $form = $this->createForm(new InvoiceFirstStepType(), $invoice);
         return array(
-            'tips' => $tips,
             'settingName' => $settingName,
+            'tips' => $tips,
+            'form' => $form->createView(),
         );
+    }
+
+    /**
+     * Invoices creation page
+     *
+     * @Route("/new", name="invoice_new")
+     * @Method("GET")
+     * @Template()
+     */
+    public function newAction()
+    {
+        
     }
 
     /**
@@ -66,18 +82,6 @@ class InvoiceController extends Controller
      * @Template()
      */
     public function archiveAction()
-    {
-        
-    }
-
-    /**
-     * Invoices creation page
-     *
-     * @Route("/new", name="invoice_new")
-     * @Method("GET")
-     * @Template()
-     */
-    public function newAction()
     {
         
     }

@@ -10,8 +10,18 @@
     Invoices Overview
 
     <a href="{{ path('invoice_new') }}" class="btn btn-success btn-small">+ {{ 'create.invoice'|trans }}</a>
+
 {% endblock %}
 
 {% block body -%}
+    <div id="invoice-first-step" style="display:block">
 
+        <form action="{{ path('invoice_new') }}" method="get">
+            {{ form_widget(form) }}
+
+            <input type="submit" value="Next Step" class="btn btn-success btn-small " />
+            <a href="#" class="btn btn-small">Cancel</a>
+        </form>
+        
+    </div>
 {% endblock %}

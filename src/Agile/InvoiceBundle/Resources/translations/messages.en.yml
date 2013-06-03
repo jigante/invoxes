@@ -18,3 +18,5 @@ amount.outstanding: Amount Outstanding
 amount.invoiced.this.month: Amount Invoiced This Month
 payments.received.last.month: Payments Received Last Month
 payments.received.year.to.date: "Payments Received Year-to-Date"
+
+which.client.is.the.invoice.for: Which client is the invoice for?
