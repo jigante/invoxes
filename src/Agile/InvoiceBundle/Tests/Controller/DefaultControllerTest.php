@@ -27,7 +27,7 @@ class DefaultControllerTest extends TestCase
         $newAccountArray = array(
             'fos_user_registration_form[firstName]' => 'MyFirstname',
             'fos_user_registration_form[lastName]' => 'MyLastname',
-            'fos_user_registration_form[company]' => 'MyCompany',
+            'fos_user_registration_form[company][name]' => 'MyCompany',
             'fos_user_registration_form[email]' => 'myfirstname@mylastname.it',
             'fos_user_registration_form[contactPhone]' => '079782435647689273',
             'fos_user_registration_form[username]' => 'myfirstname',
