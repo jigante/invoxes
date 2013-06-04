@@ -33,6 +33,15 @@ class UserRegistrationSuccessListener implements EventSubscriberInterface
 
     public function onRegistrationSuccess(FormEvent $event)
     {
+        // Set default values for the company
+        $user = $event->getForm()->getData();
+        $company = $user->getCompany();
+        $company->setOwner($user);
+        $company->setReceiptRecipients($user->getEmail());
+        // $company->setFiscalYearStart(1);
+        // $company->setCurrency('EUR');
+
+        // redirect user to home page
         $url = $this->router->generate('home');
 
         $event->setResponse(new RedirectResponse($url));
