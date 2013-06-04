@@ -1,20 +1,35 @@
 parameters:
 #    agile_invoice.example.class: Agile\InvoiceBundle\Example
+    agile_invoice.user_factory.class: Agile\InvoiceBundle\Factory\UserFactory
 
 services:
 #    agile_invoice.example:
 #        class: %agile_invoice.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    # Current User Factory
+    agile_invoice.user_factory:
+        class: "%agile_invoice.user_factory.class%"
+        arguments: [@security.context]
+
+    # Current User
+    context.user:
+        class: Agile\InvoiceBundle\Entity\User
+        factory_service: agile_invoice.user_factory
+        factory_method: get
+
     agile_user.registration.form.type:
         class: Agile\InvoiceBundle\Form\RegistrationFormType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: agile_user_registration }
+
     agile_user.profile.form.type:
         class: Agile\InvoiceBundle\Form\ProfileFormType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: agile_user_profile }
+
     agile_user.user_registration_success:
         class: Agile\InvoiceBundle\EventListener\UserRegistrationSuccessListener
         arguments: [@router]
