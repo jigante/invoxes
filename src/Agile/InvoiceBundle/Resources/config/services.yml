@@ -1,6 +1,10 @@
 parameters:
 #    agile_invoice.example.class: Agile\InvoiceBundle\Example
+
     agile_invoice.user_factory.class: Agile\InvoiceBundle\Factory\UserFactory
+
+    agile_invoice.company_factory.class: Agile\InvoiceBundle\Factory\CompanyFactory
+
 
 services:
 #    agile_invoice.example:
@@ -16,6 +20,17 @@ services:
     context.user:
         class: Agile\InvoiceBundle\Entity\User
         factory_service: agile_invoice.user_factory
+        factory_method: get
+
+    # Current Company Factory
+    agile_invoice.company_factory:
+        class: "%agile_invoice.company_factory.class%"
+        arguments: [@context.user]
+
+    # The Current Company
+    context.company:
+        class: Agile\InvoiceBundle\Entity\Company
+        factory_service: agile_invoice.company_factory
         factory_method: get
 
     agile_user.registration.form.type:
