@@ -51,7 +51,7 @@ class User extends BaseUser
      * @Assert\NotBlank(groups={"Registration", "Profile"});
      * @Assert\Length(min=3, max=100, groups={"Registration", "Profile"})
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @var string
@@ -60,16 +60,18 @@ class User extends BaseUser
      * @Assert\NotBlank(groups={"Registration", "Profile"});
      * @Assert\Length(min=3, max=100, groups={"Registration", "Profile"})
      */
-    private $lastName;
+    protected $lastName;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="company", type="string", length=100)
-     * @Assert\Length(min=5, max=100, groups={"Registration"})
-     * @Assert\NotBlank(groups={"Registration"});
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="users")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
-    private $company;
+    protected $company;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Company", mappedBy="owner")
+     */
+    protected $companyOwner;
 
     /**
      * @var string
@@ -78,7 +80,7 @@ class User extends BaseUser
      * @Assert\NotBlank(groups={"Registration", "Profile"});
      * @Assert\Length(min=3, max=20, groups={"Registration", "Profile"})
      */
-    private $contactPhone;
+    protected $contactPhone;
 
     /**
      * @ORM\OneToMany(targetEntity="Client", mappedBy="user")
@@ -100,14 +102,14 @@ class User extends BaseUser
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @var datetime $updated
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */
-    private $updated;
+    protected $updated;
 
     /**
      * Get id
@@ -166,22 +168,45 @@ class User extends BaseUser
     }
 
     /**
+     * Set companyOwner
+     *
+     * @param Company $companyOwner
+     * @return User
+     */
+    public function setCompanyOwner(Company $companyOwner = null)
+    {
+        $this->companyOwner = $companyOwner;
+
+        return $this;
+    }
+
+    /**
+     * Get companyOwner
+     *
+     * @return Company 
+     */
+    public function getCompanyOwner()
+    {
+        return $this->companyOwner;
+    }
+
+    /**
      * Set company
      *
-     * @param string $company
-     * @return Account
+     * @param Company $company
+     * @return User
      */
-    public function setCompany($company)
+    public function setCompany(Company $company = null)
     {
         $this->company = $company;
-    
+
         return $this;
     }
 
     /**
      * Get company
      *
-     * @return string 
+     * @return Company 
      */
     public function getCompany()
     {
@@ -284,7 +309,7 @@ class User extends BaseUser
      * @param Invoice $invoice
      * @return User
      */
-    public function addInvoive(Invoice $invoice)
+    public function addInvoice(Invoice $invoice)
     {
         $this->invoices[] = $invoice;
 
@@ -311,9 +336,35 @@ class User extends BaseUser
         return $this->invoices;
     }
 
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return User
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
     public function getCreated()
     {
         return $this->created;
+    }
+    
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return User
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
     }
 
     public function getUpdated()
@@ -365,4 +416,5 @@ class User extends BaseUser
             return true;
         }
     }
+
 }
