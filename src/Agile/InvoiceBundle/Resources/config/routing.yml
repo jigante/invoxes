@@ -1,17 +1,17 @@
-home:
-    pattern:  /
-    defaults: { _controller: AgileInvoiceBundle:Default:index }
+default:
+    resource: "@AgileInvoiceBundle/Controller/DefaultController.php"
+    type: annotation
 
-welcome:
-    pattern:  /welcome
-    defaults: { _controller: AgileInvoiceBundle:Default:welcome }
+user:
+    resource: "@AgileInvoiceBundle/Controller/UserController.php"
+    type: annotation
 
-overview:
-    pattern:  /overview
-    defaults: { _controller: AgileInvoiceBundle:Default:overview }
+user_setting:
+    resource: "@AgileInvoiceBundle/Controller/UserSettingController.php"
+    type: annotation
 
-invoices:
-    resource: "@AgileInvoiceBundle/Controller/InvoiceController.php"
+company:
+    resource: "@AgileInvoiceBundle/Controller/CompanyController.php"
     type: annotation
 
 client:
@@ -22,22 +22,19 @@ contact:
     resource: "@AgileInvoiceBundle/Controller/ContactController.php"
     type: annotation
 
-projects:
-    pattern:  /projects
-    defaults: { _controller: AgileInvoiceBundle:Projects:index }
+invoices:
+    resource: "@AgileInvoiceBundle/Controller/InvoiceController.php"
+    type: annotation
 
 recurring_invoices:
     pattern:  /recurring_invoices
     defaults: { _controller: AgileInvoiceBundle:Invoices:recurring }
 
+projects:
+    pattern:  /projects
+    defaults: { _controller: AgileInvoiceBundle:Projects:index }
+
 estimates:
     pattern:  /estimates
     defaults: { _controller: AgileInvoiceBundle:Estimates:index }
 
-user:
-    resource: "@AgileInvoiceBundle/Controller/UserController.php"
-    type: annotation
-
-user_setting:
-    resource: "@AgileInvoiceBundle/Controller/UserSettingController.php"
-    type: annotation
