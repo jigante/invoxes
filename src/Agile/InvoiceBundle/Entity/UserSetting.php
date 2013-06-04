@@ -46,7 +46,7 @@ class UserSetting
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="settings")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
 

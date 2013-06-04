@@ -63,8 +63,9 @@ class User extends BaseUser
     protected $lastName;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="users")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")
+     * @Assert\Type(type="Agile\InvoiceBundle\Entity\Company")
      */
     protected $company;
 

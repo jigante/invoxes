@@ -13,10 +13,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Company
 {
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
 
     /**
      * @ORM\Id
@@ -27,13 +23,14 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Registration"});
+     * @Assert\Length(min=5, max="100", groups={"Registration"})
      */
     protected $name;
 
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="companyOwner")
-     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $owner;
 
@@ -65,7 +62,7 @@ class Company
     /**
      * @ORM\Column(name="fiscal_year_start", type="string", length=100)
      */
-    protected $fiscalYearStart;
+    protected $fiscalYearStart = 1;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -80,7 +77,7 @@ class Company
     /**
      * @ORM\Column(type="string", length=3)
      */
-    protected $currency;
+    protected $currency = 'EUR';
 
     /**
      * @ORM\Column(name="currency_placement", type="string", length=100, nullable=true)
@@ -121,6 +118,15 @@ class Company
      */
     protected $updated;
 
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     /**
      * Get id
@@ -493,10 +499,10 @@ class Company
     /**
      * Set owner
      *
-     * @param \Agile\InvoiceBundle\Entity\User $owner
+     * @param User $owner
      * @return Company
      */
-    public function setOwner(\Agile\InvoiceBundle\Entity\User $owner = null)
+    public function setOwner(User $owner = null)
     {
         $this->owner = $owner;
 
@@ -516,10 +522,10 @@ class Company
     /**
      * Add user
      *
-     * @param \Agile\InvoiceBundle\Entity\User $user
+     * @param User $user
      * @return Company
      */
-    public function addUser(\Agile\InvoiceBundle\Entity\User $user)
+    public function addUser(User $user)
     {
         $this->users[] = $user;
 
@@ -529,9 +535,9 @@ class Company
     /**
      * Remove user
      *
-     * @param \Agile\InvoiceBundle\Entity\User $user
+     * @param User $user
      */
-    public function removeUser(\Agile\InvoiceBundle\Entity\User $user)
+    public function removeUser(User $user)
     {
         $this->users->removeElement($user);
     }
