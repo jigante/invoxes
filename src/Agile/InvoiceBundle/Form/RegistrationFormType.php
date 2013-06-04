@@ -15,15 +15,17 @@ class RegistrationFormType extends BaseType
         $builder
             ->add('firstName', null, array('label' => 'registration.form.first_name'))
             ->add('lastName', null, array('label' => 'registration.form.last_name'))
-            ->add('company')
             ->add('contactPhone', null, array('label' => 'registration.form.contact_phone'))
         ;
+
+        $builder->add('company', new CompanyType());
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Agile\InvoiceBundle\Entity\User',
+            'cascade_validation' => true,
         ));
     }
 
