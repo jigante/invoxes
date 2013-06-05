@@ -22,8 +22,6 @@ class User extends BaseUser
         // Always call when extending "FOS\UserBundle\Entity\User" if using the constructor
         parent::__construct();
 
-        $this->clients = new ArrayCollection();
-
         $this->settings = new ArrayCollection();
 
         $this->invoices = new ArrayCollection();
@@ -82,11 +80,6 @@ class User extends BaseUser
      * @Assert\Length(min=3, max=20, groups={"Registration", "Profile"})
      */
     protected $contactPhone;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Client", mappedBy="user")
-     */
-    protected $clients;
 
     /**
      * @ORM\OneToMany(targetEntity="UserSetting", mappedBy="user", cascade={"persist"})
@@ -235,39 +228,6 @@ class User extends BaseUser
     public function getContactPhone()
     {
         return $this->contactPhone;
-    }
-
-    /**
-     * Add client
-     *
-     * @param Client $client
-     * @return User
-     */
-    public function addClient(Client $client)
-    {
-        $this->clients[] = $client;
-
-        return $this;
-    }
-
-    /**
-     * Remove client
-     *
-     * @param Client $client
-     */
-    public function removeClient(Client $client)
-    {
-        $this->clients->removeElement($client);
-    }
-
-    /**
-     * Get clients
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getClients()
-    {
-        return $this->clients;
     }
 
     /**

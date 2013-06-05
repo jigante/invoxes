@@ -3,7 +3,7 @@
 namespace Agile\InvoiceBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Agile\InvoiceBundle\Entity\User;
+use Agile\InvoiceBundle\Entity\Company;
 
 /**
  * ClientRepository
@@ -24,21 +24,21 @@ class ClientRepository extends EntityRepository
         return $contacts;
     }
 
-    public function findAllOrderedByName(User $user)
+    public function findAllOrderedByName(Company $company)
     {
         // $em = $this->getEntityManager();
         // $query = $em->createQuery(
         //     'SELECT c FROM AgileInvoiceBundle:Client c
-        //     WHERE c.archived = :archived AND c.user = :user
+        //     WHERE c.archived = :archived AND c.company = :company
         //     ORDER BY c.name ASC'
-        // )->setParameters(array('archived' => 0, 'user' => $user,));
+        // )->setParameters(array('archived' => 0, 'company' => $company,));
 
         $repository = $this->getEntityManager()->getRepository('AgileInvoiceBundle:Client');
         $query = $repository->createQueryBuilder('c')
             ->where('c.archived = :archived')
-            ->andWhere('c.user = :user')
+            ->andWhere('c.company = :company')
             // ->setParameter('archived', 0)
-            ->setParameters(array('archived' => 0, 'user' => $user))
+            ->setParameters(array('archived' => 0, 'company' => $company))
             ->orderBy('c.name', 'ASC')
             ->getQuery()
         ;
@@ -48,26 +48,26 @@ class ClientRepository extends EntityRepository
         return $clients;
     }
 
-    public function findInactive($user)
+    public function findInactive($company)
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT c FROM AgileInvoiceBundle:Client c WHERE c.user = :user AND c.archived = :archived ORDER BY c.name ASC'
-        )->setParameters(array('user' => $user, 'archived' => 1));
+            'SELECT c FROM AgileInvoiceBundle:Client c WHERE c.company = :company AND c.archived = :archived ORDER BY c.name ASC'
+        )->setParameters(array('company' => $company, 'archived' => 1));
 
         $clients = $query->getResult();
 
         return $clients;
     }
 
-    public function countInactiveClients($user)
+    public function countInactiveClients($company)
     {
         $em = $this->getEntityManager();
         $query = $em->createQueryBuilder()
             ->select('count(c.id)')
             ->from('AgileInvoiceBundle:Client', 'c')
-            ->where('c.user = :user')
+            ->where('c.company = :company')
             ->andWhere('c.archived = :archived')
-            ->setParameters(array('user' => $user, 'archived' => 1))
+            ->setParameters(array('company' => $company, 'archived' => 1))
             ->getQuery()
         ;
 

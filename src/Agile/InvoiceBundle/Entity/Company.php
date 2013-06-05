@@ -45,6 +45,11 @@ class Company
     protected $users;
 
     /**
+     * @ORM\OneToMany(targetEntity="Client", mappedBy="company")
+     */
+    protected $clients;
+
+    /**
      * @ORM\Column(name="billing_info", type="string", length=100, nullable=true)
      */
     protected $billingInfo;
@@ -121,6 +126,7 @@ class Company
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->clients = new ArrayCollection();
     }
 
     public function __toString()
@@ -551,4 +557,38 @@ class Company
     {
         return $this->users;
     }
+
+    /**
+     * Add client
+     *
+     * @param Client $client
+     * @return Company
+     */
+    public function addClient(Client $client)
+    {
+        $this->clients[] = $client;
+
+        return $this;
+    }
+
+    /**
+     * Remove client
+     *
+     * @param Client $client
+     */
+    public function removeClient(Client $client)
+    {
+        $this->clients->removeElement($client);
+    }
+
+    /**
+     * Get clients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClients()
+    {
+        return $this->clients;
+    }
+
 }

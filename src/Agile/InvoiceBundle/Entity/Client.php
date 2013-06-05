@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="Agile\InvoiceBundle\Entity\ClientRepository")
  * @ORM\Table(name="client")
- * @UniqueEntity(fields = {"name", "user"}, message = "Name has already been taken")
+ * @UniqueEntity(fields = {"name", "company"}, message = "Name has already been taken")
  */
 class Client
 {
@@ -38,10 +38,10 @@ class Client
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="clients")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="clients")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    protected $user;
+    protected $company;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -206,26 +206,26 @@ class Client
     }
 
     /**
-     * Set user
+     * Set company
      *
-     * @param \Agile\InvoiceBundle\Entity\User $user
+     * @param \Agile\InvoiceBundle\Entity\Company $company
      * @return Client
      */
-    public function setUser(\Agile\InvoiceBundle\Entity\User $user = null)
+    public function setCompany(Company $company = null)
     {
-        $this->user = $user;
+        $this->company = $company;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get company
      *
-     * @return \Agile\InvoiceBundle\Entity\User 
+     * @return \Agile\InvoiceBundle\Entity\Company
      */
-    public function getUser()
+    public function getCompany()
     {
-        return $this->user;
+        return $this->company;
     }
 
     public function getCreated()
