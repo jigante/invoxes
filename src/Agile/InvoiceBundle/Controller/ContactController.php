@@ -80,11 +80,11 @@ class ContactController extends Controller
      */
     public function editAction($id)
     {
-        $user = $this->getUser();
+        $company = $this->get('context.company');
         
-        // Contact has to belong to logged in user
+        // Contact has to belong to logged in user company
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndUser($id, $user);
+        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndCompany($id, $company);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Contact entity.');
@@ -107,11 +107,11 @@ class ContactController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $user = $this->getUser();
+        $company = $this->get('context.company');
         
-        // Contact has to belong to logged in user
+        // Contact has to belong to logged in user company
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndUser($id, $user);
+        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndCompany($id, $company);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Contact entity.');
@@ -141,11 +141,11 @@ class ContactController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $user = $this->getUser();
+        $company = $this->get('context.company');
         
-        // Contact has to belong to logged in user
+        // Contact has to belong to logged in user company
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndUser($id, $user);
+        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndCompany($id, $company);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Contact entity.');
