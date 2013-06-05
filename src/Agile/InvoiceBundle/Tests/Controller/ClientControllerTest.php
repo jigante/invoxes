@@ -18,7 +18,7 @@ class ClientControllerTest extends TestCase
 
         // Create a new entry in the database
         $crawler = $client->request('GET', '/clients');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /client/");
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /clients/");
 
         $this->assertEquals(1, $crawler->filter('html:contains("Inter FGCI")')->count(), "User 'Walter Zenga' needs to have 'Inter FGCI' in its client list");
 
