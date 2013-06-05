@@ -19,6 +19,28 @@ class ClientController extends Controller
 {
 
     /**
+     * Lists all Client entities.
+     *
+     * @Route("", name="client")
+     * @Route("/", name="client_slash")
+     * @Method("GET")
+     * @Template()
+     */
+    public function indexAction()
+    {
+        $company = $this->get('context.company');
+        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName($company);
+
+        $numInactiveClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->countInactiveClients($company);
+
+
+        return array(
+            'clients' => $clients,
+            'numInactiveClients' => $numInactiveClients,
+        );
+    }
+
+    /**
      * @Template()
      */
     public function contactListAction($client_id)
@@ -54,27 +76,6 @@ class ClientController extends Controller
         return $response;
     }
 
-    /**
-     * Lists all Client entities.
-     *
-     * @Route("", name="client")
-     * @Route("/", name="client_slash")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $user = $this->getUser();
-        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName($user);
-
-        $numInactiveClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->countInactiveClients($user);
-
-        return array(
-            'clients' => $clients,
-            'numInactiveClients' => $numInactiveClients,
-        );
-    }
-
     /** Show inactive clients
      *
      * @Route("/inactive", name="client_inactive") 
@@ -82,8 +83,8 @@ class ClientController extends Controller
      */
     public function inactiveAction()
     {
-        $user = $this->getUser();
-        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findInactive($user);
+        $company = $this->get('context.company');
+        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findInactive($company);
 
         return array(
             'clients' => $clients,
@@ -97,11 +98,11 @@ class ClientController extends Controller
      */
     public function toggleAction($id)
     {
-        $user = $this->getUser();
+        $company = $this->get('context.company');
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
             'id' => $id,
-            'user' => $user
+            'company' => $company
         ));
 
         if (!$client) {
@@ -127,8 +128,8 @@ class ClientController extends Controller
     {
         $entity  = new Client();
 
-        // Always assign actual user id to Client
-        $entity->setUser($this->getUser());
+        // Always assign actual company to Client
+        $entity->setCompany($this->get('context.company'));
 
         $form = $this->createForm(new ClientType(), $entity);
         $form->bind($request);
@@ -176,11 +177,11 @@ class ClientController extends Controller
      */
     public function editAction($id)
     {
-        $user = $this->getUser();
+        $company = $this->get('context.company');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
             'id' => $id,
-            'user' => $user
+            'company' => $company
         ));
 
         if (!$entity) {
@@ -204,12 +205,12 @@ class ClientController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $user = $this->getUser();
+        $company = $this->get('context.company');
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
             'id' => $id,
-            'user' => $user
+            'company' => $company
         ));
 
         if (!$entity) {
@@ -240,12 +241,12 @@ class ClientController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $user = $this->getUser();
+        $company = $this->get('context.company');
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
             'id' => $id,
-            'user' => $user
+            'company' => $company
         ));
 
         if (!$entity) {
