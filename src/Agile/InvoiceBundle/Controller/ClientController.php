@@ -29,7 +29,8 @@ class ClientController extends Controller
     public function indexAction()
     {
         $company = $this->get('context.company');
-        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllOrderedByName($company);
+        // $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllByCompany($company);
+        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllJoinedToContacts($company);
 
         $numInactiveClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->countInactiveClients($company);
 

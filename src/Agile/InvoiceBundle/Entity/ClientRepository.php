@@ -13,33 +13,29 @@ use Agile\InvoiceBundle\Entity\Company;
  */
 class ClientRepository extends EntityRepository
 {
-    public function findContacts($client_id)
+    // public function findContacts($client_id)
+    // {
+    //     $query = $this->getEntityManager()->createQuery(
+    //         'SELECT c FROM AgileInvoiceBundle:Contact c WHERE c.client = :client_id ORDER BY c.firstName ASC'
+    //     )->setParameter('client_id', $client_id);
+
+    //     $contacts = $query->getResult();
+
+    //     return $contacts;
+    // }
+
+    public function findAllJoinedToContacts(Company $company)
     {
-        $query = $this->getEntityManager()->createQuery(
-            'SELECT c FROM AgileInvoiceBundle:Contact c WHERE c.client = :client_id ORDER BY c.firstName ASC'
-        )->setParameter('client_id', $client_id);
-
-        $contacts = $query->getResult();
-
-        return $contacts;
-    }
-
-    public function findAllOrderedByName(Company $company)
-    {
-        // $em = $this->getEntityManager();
-        // $query = $em->createQuery(
-        //     'SELECT c FROM AgileInvoiceBundle:Client c
-        //     WHERE c.archived = :archived AND c.company = :company
-        //     ORDER BY c.name ASC'
-        // )->setParameters(array('archived' => 0, 'company' => $company,));
-
-        $repository = $this->getEntityManager()->getRepository('AgileInvoiceBundle:Client');
-        $query = $repository->createQueryBuilder('c')
-            ->where('c.archived = :archived')
-            ->andWhere('c.company = :company')
-            // ->setParameter('archived', 0)
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder()
+            ->select(array('cl', 'co'))
+            ->from('AgileInvoiceBundle:Client', 'cl')
+            ->leftJoin('cl.contacts', 'co')
+            ->where('cl.archived = :archived')
+            ->andWhere('cl.company = :company')
             ->setParameters(array('archived' => 0, 'company' => $company))
-            ->orderBy('c.name', 'ASC')
+            ->orderBy('cl.name', 'ASC')
+            ->addOrderBy('co.firstName', 'ASC')
             ->getQuery()
         ;
 
@@ -47,6 +43,30 @@ class ClientRepository extends EntityRepository
 
         return $clients;
     }
+
+    // public function findAllByCompany(Company $company)
+    // {
+    //     // $em = $this->getEntityManager();
+    //     // $query = $em->createQuery(
+    //     //     'SELECT c FROM AgileInvoiceBundle:Client c
+    //     //     WHERE c.archived = :archived AND c.company = :company
+    //     //     ORDER BY c.name ASC'
+    //     // )->setParameters(array('archived' => 0, 'company' => $company,));
+
+    //     $repository = $this->getEntityManager()->getRepository('AgileInvoiceBundle:Client');
+    //     $query = $repository->createQueryBuilder('c')
+    //         ->where('c.archived = :archived')
+    //         ->andWhere('c.company = :company')
+    //         // ->setParameter('archived', 0)
+    //         ->setParameters(array('archived' => 0, 'company' => $company))
+    //         ->orderBy('c.name', 'ASC')
+    //         ->getQuery()
+    //     ;
+
+    //     $clients = $query->getResult();
+
+    //     return $clients;
+    // }
 
     public function findInactive($company)
     {
