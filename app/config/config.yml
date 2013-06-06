@@ -28,9 +28,6 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    globals:
-        currentUser: @context.user
-        currentCompany: @context.company
 
 # Assetic Configuration
 assetic:
