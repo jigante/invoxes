@@ -58,9 +58,12 @@ class ContactController extends Controller
 
         if ($client_id) {
             $client = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->find($client_id);
-            if ($client) {
-                $entity->setClient($client);
+            
+            if (!$this->get('security.context')->isGranted(array('CONTEXT'), $client)) {
+                throw $this->createNotFoundException('Unable to find client');
             }
+            
+            $entity->setClient($client);
         }
 
         $form   = $this->createForm(new ContactType(), $entity);
@@ -79,15 +82,13 @@ class ContactController extends Controller
      * @Template()
      */
     public function editAction($id)
-    {
-        $company = $this->get('context.company');
-        
+    {   
         // Contact has to belong to logged in user company
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndCompany($id, $company);
+        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Contact entity.');
+        if (!$this->get('security.context')->isGranted(array('CONTEXT'), $entity)) {
+            throw $this->createNotFoundException('Unable to find Contact');
         }
 
         $editForm = $this->createForm(new ContactType(), $entity);
@@ -107,14 +108,12 @@ class ContactController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $company = $this->get('context.company');
-        
         // Contact has to belong to logged in user company
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndCompany($id, $company);
+        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Contact entity.');
+        if (!$this->get('security.context')->isGranted(array('CONTEXT'), $entity)) {
+            throw $this->createNotFoundException('Unable to find Contact');
         }
 
         $editForm = $this->createForm(new ContactType(), $entity);
@@ -140,14 +139,12 @@ class ContactController extends Controller
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
-    {
-        $company = $this->get('context.company');
-        
+    {   
         // Contact has to belong to logged in user company
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->findOneByIdAndCompany($id, $company);
+        $entity = $em->getRepository('AgileInvoiceBundle:Contact')->find($id);
 
-        if (!$entity) {
+        if (!$this->get('security.context')->isGranted(array('CONTEXT'), $entity)) {
             throw $this->createNotFoundException('Unable to find Contact entity.');
         }
 
