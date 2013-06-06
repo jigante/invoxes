@@ -13,21 +13,5 @@ use Agile\InvoiceBundle\Entity\Company;
  */
 class ContactRepository extends EntityRepository
 {
-    public function findOneByIdAndCompany($id, Company $company)
-    {
-        $repository = $this->getEntityManager()->getRepository('AgileInvoiceBundle:Contact');
-        $query = $repository->createQueryBuilder('c')
-            ->where('c.id = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-        ;
 
-        $contact = $query->getSingleResult();
-
-        // Return the contact only if belongs to acual logged in user company
-        if ($company == $contact->getClient()->getCompany()) {
-            return $contact;
-        }
-        
-    }
 }
