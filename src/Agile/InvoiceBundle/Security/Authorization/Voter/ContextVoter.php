@@ -22,15 +22,20 @@ class ContextVoter implements VoterInterface
 
     public function supportsClass($class)
     {
-        return true;
+        if (is_object($class) AND method_exists($class, 'getCompany')) {
+            return true;
+        } else {
+            return false;
+        }
+        
     }
 
     public function vote(TokenInterface $token, $object, array $attributes)
     {
-        if ($this->supportsClass($object) && $this->container->get('context.company')) {
+        if ($company = $this->container->get('context.company')) {
             foreach ($attributes as $attribute) {
                 if ($this->supportsAttribute($attribute)) {
-                    if ($company == $object->getCompany()) {
+                    if ($this->supportsClass($object) AND $company == $object->getCompany()) {
                         return VoterInterface::ACCESS_GRANTED;
                     }
                     return VoterInterface::ACCESS_DENIED;

@@ -25,13 +25,21 @@ services:
     # Current Company Factory
     agile_invoice.company_factory:
         class: "%agile_invoice.company_factory.class%"
-        arguments: [@context.user]
+        arguments: [@context.user, @session, @doctrine.orm.default_entity_manager]
 
     # The Current Company
     context.company:
         class: Agile\InvoiceBundle\Entity\Company
         factory_service: agile_invoice.company_factory
         factory_method: get
+
+    # Context Voter
+    context.voter:
+        class: Agile\InvoiceBundle\Security\Authorization\Voter\ContextVoter
+        arguments:  ["@service_container"]
+        public:     false
+        tags:
+            - { name: security.voter }
 
     agile_user.registration.form.type:
         class: Agile\InvoiceBundle\Form\RegistrationFormType
