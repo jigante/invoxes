@@ -3,6 +3,7 @@
 namespace Agile\InvoiceBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -29,7 +30,6 @@ class ClientController extends Controller
     public function indexAction()
     {
         $company = $this->get('context.company');
-        // $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllByCompany($company);
         $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findAllJoinedToContacts($company);
 
         $numInactiveClients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->countInactiveClients($company);
@@ -99,15 +99,11 @@ class ClientController extends Controller
      */
     public function toggleAction($id)
     {
-        $company = $this->get('context.company');
         $em = $this->getDoctrine()->getManager();
-        $client = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
-            'id' => $id,
-            'company' => $company
-        ));
+        $client = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
 
-        if (!$client) {
-            throw $this->createNotFoundException('Unable to find client ' . $id);
+        if (!$this->get('security.context')->isGranted(array('CONTEXT'), $client)) {
+            throw $this->createNotFoundException('Unable to find client');
         }
 
         // Toggle the $archivedProperty
@@ -178,14 +174,11 @@ class ClientController extends Controller
      */
     public function editAction($id)
     {
-        $company = $this->get('context.company');
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
-            'id' => $id,
-            'company' => $company
-        ));
+        $entity = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
 
-        if (!$entity) {
+        // Show a not found page if the user "CONTEXT" is not allowed to access the current entity
+        if (!$this->get('security.context')->isGranted(array("CONTEXT"), $entity)) {
             throw $this->createNotFoundException('Unable to find Client');
         }
 
@@ -206,15 +199,10 @@ class ClientController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $company = $this->get('context.company');
-
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
-            'id' => $id,
-            'company' => $company
-        ));
+        $entity = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
 
-        if (!$entity) {
+        if (!$this->get('security.context')->isGranted(array('CONTEXT'), $entity)) {
             throw $this->createNotFoundException('Unable to find Client');
         }
 
@@ -242,15 +230,10 @@ class ClientController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $company = $this->get('context.company');
-
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy(array(
-            'id' => $id,
-            'company' => $company
-        ));
+        $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy($id);
 
-        if (!$entity) {
+        if (!$this->get('security.context')->isGranted(array('CONTEXT'), $entity)) {
             throw $this->createNotFoundException('Unable to find Client');
         }
 
