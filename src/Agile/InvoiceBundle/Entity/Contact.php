@@ -306,4 +306,9 @@ class Contact
     {
         return $this->updated;
     }
+
+    public function getCompany()
+    {
+        return $this->client->getCompany();
+    }
 }
