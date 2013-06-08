@@ -6,23 +6,33 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Agile\InvoiceBundle\Form\EventListener\AddClientFieldSubscriber;
+use Agile\InvoiceBundle\Entity\Company;
 
 class ContactType extends AbstractType
 {
+    protected $company;
+
+    public function __construct(Company $company = null)
+    {
+        $this->company = $company;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', null, array('label' => 'First name'))
-            ->add('lastName', null, array('label' => 'Last name'))
+            ->add('firstName', null, array('label' => 'form.first_name', 'translation_domain' => 'AgileInvoiceBundle'))
+            ->add('lastName', null, array('label' => 'form.last_name', 'translation_domain' => 'AgileInvoiceBundle'))
             ->add('title')
             ->add('email')
-            ->add('phoneOffice', null, array('label' => 'Office #'))
-            ->add('mobile', null, array('label' => 'Mobile #'))
-            ->add('fax', null, array('label' => 'Fax #'))
+            ->add('phoneOffice', null, array('label' => 'form.office_number', 'translation_domain' => 'AgileInvoiceBundle'))
+            ->add('mobile', null, array('label' => 'form.mobile_number', 'translation_domain' => 'AgileInvoiceBundle'))
+            ->add('fax', null, array('label' => 'form.fax_number', 'translation_domain' => 'AgileInvoiceBundle'))
         ;
 
         // Mostriamo il menù a tendina per scegliere il cliente solo se il form è nuovo (no editing)
-        $builder->addEventSubscriber(new AddClientFieldSubscriber());
+        if ($this->company ) {
+            $builder->addEventSubscriber(new AddClientFieldSubscriber($this->company));
+        }
         
     }
 

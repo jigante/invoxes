@@ -13,9 +13,9 @@ class RegistrationFormType extends BaseType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('firstName', null, array('label' => 'registration.form.first_name'))
-            ->add('lastName', null, array('label' => 'registration.form.last_name'))
-            ->add('contactPhone', null, array('label' => 'registration.form.contact_phone'))
+            ->add('firstName', null, array('label' => 'form.first_name', 'translation_domain' => 'AgileInvoiceBundle'))
+            ->add('lastName', null, array('label' => 'form.last_name', 'translation_domain' => 'AgileInvoiceBundle'))
+            ->add('contactPhone', null, array('label' => 'form.contact_phone', 'translation_domain' => 'AgileInvoiceBundle'))
         ;
 
         $builder->add('company', new CompanyType());

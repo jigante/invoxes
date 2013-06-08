@@ -1,0 +1,27 @@
+site.title: Fatture Facili
+
+or: or
+signin.with.email_password: "Sign in with Email/Password"
+
+form:
+    first_name: First Name
+    last_name: Last Name
+    contact_phone: Contact Phone
+    company_name: Company Name
+    client: Client
+    office_number: "Office #"
+    mobile_number: "Mobile #"
+    fax_number: "Fax #"
+
+create.my.account: Create My Account
+your.basic.info: Your Basic Info
+
+# Overview page
+create.invoice: Create invoice
+invoice.summary: Invoice Summary
+amount.outstanding: Amount Outstanding
+amount.invoiced.this.month: Amount Invoiced This Month
+payments.received.last.month: Payments Received Last Month
+payments.received.year.to.date: "Payments Received Year-to-Date"
+
+which.client.is.the.invoice.for: Which client is the invoice for?
