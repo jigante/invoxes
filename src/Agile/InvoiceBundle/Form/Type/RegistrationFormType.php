@@ -18,7 +18,7 @@ class RegistrationFormType extends BaseType
             ->add('contactPhone', null, array('label' => 'form.contact_phone', 'translation_domain' => 'AgileInvoiceBundle'))
         ;
 
-        $builder->add('company', new CompanyType());
+        $builder->add('company', new CompanyFormType());
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
