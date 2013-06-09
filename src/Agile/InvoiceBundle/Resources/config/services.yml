@@ -2,7 +2,6 @@ parameters:
 #    agile_invoice.example.class: Agile\InvoiceBundle\Example
 
     agile_invoice.user_factory.class: Agile\InvoiceBundle\Factory\UserFactory
-
     agile_invoice.company_factory.class: Agile\InvoiceBundle\Factory\CompanyFactory
 
 
@@ -41,14 +40,18 @@ services:
         tags:
             - { name: security.voter }
 
+    agile_invoice.contact_form_type:
+        class: Agile\InvoiceBundle\Form\Type\ContactFormType
+        arguments: [@context.company]
+
     agile_user.registration.form.type:
-        class: Agile\InvoiceBundle\Form\RegistrationFormType
+        class: Agile\InvoiceBundle\Form\Type\RegistrationFormType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: agile_user_registration }
 
     agile_user.profile.form.type:
-        class: Agile\InvoiceBundle\Form\ProfileFormType
+        class: Agile\InvoiceBundle\Form\Type\ProfileFormType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: agile_user_profile }
