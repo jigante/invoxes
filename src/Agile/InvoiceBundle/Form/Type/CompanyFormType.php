@@ -1,12 +1,12 @@
 <?php 
 
-namespace Agile\InvoiceBundle\Form;
+namespace Agile\InvoiceBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CompanyType extends AbstractType
+class CompanyFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

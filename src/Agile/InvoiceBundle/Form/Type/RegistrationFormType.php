@@ -1,6 +1,6 @@
 <?php 
 
-namespace Agile\InvoiceBundle\Form;
+namespace Agile\InvoiceBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;

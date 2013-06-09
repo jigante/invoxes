@@ -1,13 +1,13 @@
 <?php 
 
-namespace Agile\InvoiceBundle\Form;
+namespace Agile\InvoiceBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 
-class InvoiceFirstStepType extends AbstractType
+class InvoiceFirstStepFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $option)
     {
@@ -30,7 +30,7 @@ class InvoiceFirstStepType extends AbstractType
 
     public function getName()
     {
-        return 'invoice_first_step';
+        return 'agile_invoice_invoice_first_step';
     }
 
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Agile\InvoiceBundle\Form;
+namespace Agile\InvoiceBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ClientType extends AbstractType
+class ClientFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,6 +26,6 @@ class ClientType extends AbstractType
 
     public function getName()
     {
-        return 'client';
+        return 'agile_invoice_client';
     }
 }

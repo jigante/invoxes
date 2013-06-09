@@ -1,6 +1,6 @@
 <?php
 
-namespace Agile\InvoiceBundle\Form;
+namespace Agile\InvoiceBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Agile\InvoiceBundle\Form\EventListener\AddClientFieldSubscriber;
 use Agile\InvoiceBundle\Entity\Company;
 
-class ContactType extends AbstractType
+class ContactFormType extends AbstractType
 {
     protected $company;
 
@@ -45,6 +45,6 @@ class ContactType extends AbstractType
 
     public function getName()
     {
-        return 'contact';
+        return 'agile_invoice_contact';
     }
 }

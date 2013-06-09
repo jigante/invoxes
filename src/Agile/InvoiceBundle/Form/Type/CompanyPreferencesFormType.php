@@ -1,12 +1,12 @@
 <?php
 
-namespace Agile\InvoiceBundle\Form;
+namespace Agile\InvoiceBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionResolver\OptionResolverInterface;
 
-class CompanyPreferencesType extends AbstractType
+class CompanyPreferencesFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -17,7 +17,7 @@ class CompanyPreferencesType extends AbstractType
 
     public function getName()
     {
-        return 'company_preferences';
+        return 'agile_invoice_company_preferences';
     }
 
     public function setDefaultOptions(OptionResolverInterface $resolver)
