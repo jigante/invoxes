@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Agile\InvoiceBundle\Entity\Client;
-use Agile\InvoiceBundle\Form\ClientType;
+use Agile\InvoiceBundle\Form\Type\ClientFormType;
 
 /**
  * Client controller.
@@ -128,7 +128,7 @@ class ClientController extends Controller
         // Always assign actual company to Client
         $entity->setCompany($this->get('context.company'));
 
-        $form = $this->createForm(new ClientType(), $entity);
+        $form = $this->createForm(new ClientFormType(), $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -157,7 +157,7 @@ class ClientController extends Controller
         $entity = new Client();
         $entity->setCurrency('EUR');
 
-        $form   = $this->createForm(new ClientType(), $entity);
+        $form   = $this->createForm(new ClientFormType(), $entity);
 
         return array(
             'client' => $entity,
@@ -182,7 +182,7 @@ class ClientController extends Controller
             throw $this->createNotFoundException('Unable to find Client');
         }
 
-        $editForm = $this->createForm(new ClientType(), $entity);
+        $editForm = $this->createForm(new ClientFormType(), $entity);
 
         return array(
             'client'      => $entity,
@@ -206,7 +206,7 @@ class ClientController extends Controller
             throw $this->createNotFoundException('Unable to find Client');
         }
 
-        $editForm = $this->createForm(new ClientType(), $entity);
+        $editForm = $this->createForm(new ClientFormType(), $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
