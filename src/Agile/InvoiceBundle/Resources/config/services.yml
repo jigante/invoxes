@@ -3,6 +3,7 @@ parameters:
 
     agile_invoice.user_factory.class: Agile\InvoiceBundle\Factory\UserFactory
     agile_invoice.company_factory.class: Agile\InvoiceBundle\Factory\CompanyFactory
+    agile_invoice.contact_form_type.class: Agile\InvoiceBundle\Form\Type\ContactFormType
 
 
 services:
@@ -41,7 +42,7 @@ services:
             - { name: security.voter }
 
     agile_invoice.contact_form_type:
-        class: Agile\InvoiceBundle\Form\Type\ContactFormType
+        class: %agile_invoice.contact_form_type.class%
         arguments: [@context.company]
 
     agile_user.registration.form.type:
