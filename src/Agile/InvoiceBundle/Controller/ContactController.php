@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Agile\InvoiceBundle\Entity\Contact;
-use Agile\InvoiceBundle\Form\ContactType;
+// use Agile\InvoiceBundle\Form\Type\ContactFormType;
 
 /**
  * Contact controller.
@@ -28,7 +28,8 @@ class ContactController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new Contact();
-        $form = $this->createForm(new ContactType(), $entity);
+        $contactFormType = $this->get('agile_invoice.contact_form_type');
+        $form = $this->createForm($contactFormType, $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -66,7 +67,15 @@ class ContactController extends Controller
             $entity->setClient($client);
         }
 
-        $form   = $this->createForm(new ContactType(), $entity);
+        // If the company has no clients, return to clients page
+        $company = $this->get('context.company');
+        $clients = $company->getClients();
+        if (count($clients) == 0) {
+            return $this->redirect($this->generateUrl('client'));
+        }
+
+        $contactFormType = $this->get('agile_invoice.contact_form_type');
+        $form = $this->createForm($contactFormType, $entity);
 
         return array(
             'contact' => $entity,
@@ -91,7 +100,8 @@ class ContactController extends Controller
             throw $this->createNotFoundException('Unable to find Contact');
         }
 
-        $editForm = $this->createForm(new ContactType(), $entity);
+        $contactFormType = $this->get('agile_invoice.contact_form_type');
+        $editForm = $this->createForm($contactFormType, $entity);
 
         return array(
             'contact'      => $entity,
@@ -116,7 +126,8 @@ class ContactController extends Controller
             throw $this->createNotFoundException('Unable to find Contact');
         }
 
-        $editForm = $this->createForm(new ContactType(), $entity);
+        $contactFormType = $this->get('agile_invoice.contact_form_type');
+        $editForm = $this->createForm($contactFormType, $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
