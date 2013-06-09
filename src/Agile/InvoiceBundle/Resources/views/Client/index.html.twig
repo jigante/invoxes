@@ -12,7 +12,9 @@
 
         <div>
             <a href="{{ path('client_new') }}" class="btn btn-success btn-small">+ Create Client</a>
-            <a href="{{ path('contact_new') }}" class="btn btn-small">+ Add Contact</a>
+            {% if clients|length > 0 %}
+                <a href="{{ path('contact_new') }}" class="btn btn-small">+ Add Contact</a>
+            {% endif %}
         </div>
     </div>
 
