@@ -28,8 +28,8 @@ class ClientControllerTest extends TestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Save')->form(array(
-            'client[name]'  => 'A.C. Verona',
-            'client[address]'  => "via Venezia, 11\n08100 Verona (VR)",
+            'agile_invoice_client[name]'  => 'A.C. Verona',
+            'agile_invoice_client[address]'  => "via Venezia, 11\n08100 Verona (VR)",
         ));
 
         $client->submit($form);
@@ -52,8 +52,8 @@ class ClientControllerTest extends TestCase
 
         $form = $crawler->selectButton('Save')->form(
             array(
-                'client[name]'  => 'A.C. Hellas Verona',
-                'client[address]'  => "via Venezia, 12\n08200 Verona (VR)",
+                'agile_invoice_client[name]'  => 'A.C. Hellas Verona',
+                'agile_invoice_client[address]'  => "via Venezia, 12\n08200 Verona (VR)",
                 ),
             'PUT'
         );
@@ -156,7 +156,7 @@ class ClientControllerTest extends TestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Save')->form(array(
-            'client[name]'  => 'A.C. Hellas Verona',
+            'agile_invoice_client[name]'  => 'A.C. Hellas Verona',
         ));
 
         $crawler = $client->submit($form);
@@ -175,7 +175,7 @@ class ClientControllerTest extends TestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Save')->form(array(
-            'client[name]'  => 'A.C. Hellas Verona',
+            'agile_invoice_client[name]'  => 'A.C. Hellas Verona',
         ));
 
         $client->submit($form);

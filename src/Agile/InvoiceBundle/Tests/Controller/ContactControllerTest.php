@@ -24,8 +24,8 @@ class ContactControllerTest extends TestCase
         $crawler = $client->click($link);
 
         $form = $crawler->selectButton('Save')->form(array(
-            'client[name]' => 'Test Client for contact',
-            'client[address]' => 'Address of Test Client for contact'
+            'agile_invoice_client[name]' => 'Test Client for contact',
+            'agile_invoice_client[address]' => 'Address of Test Client for contact'
         ));
 
         $crawler = $client->submit($form);
@@ -52,8 +52,8 @@ class ContactControllerTest extends TestCase
 
         // Send again the form only with First name and Last Name
         $form = $crawler->selectButton('Save')->form(array(
-            'contact[firstName]' => 'Test Contact First name',
-            'contact[lastName]' => 'Test Contact Last name'
+            'agile_invoice_contact[firstName]' => 'Test Contact First name',
+            'agile_invoice_contact[lastName]' => 'Test Contact Last name'
         ));
         $crawler = $client->submit($form);
 
@@ -80,11 +80,11 @@ class ContactControllerTest extends TestCase
             array(
                 // 'contact[firstName]' => 'Test Contact First name edited',
                 // 'contact[lastName]' => 'Test Contact Last name edited',
-                'contact[title]' => 'Test title',
-                'contact[email]' => 'test@email.it',
-                'contact[phoneOffice]' => 'Test phone office',
-                'contact[mobile]' => 'Test mobile',
-                'contact[fax]' => 'Test fax',
+                'agile_invoice_contact[title]' => 'Test title',
+                'agile_invoice_contact[email]' => 'test@email.it',
+                'agile_invoice_contact[phoneOffice]' => 'Test phone office',
+                'agile_invoice_contact[mobile]' => 'Test mobile',
+                'agile_invoice_contact[fax]' => 'Test fax',
             ),
             'PUT'
         );
