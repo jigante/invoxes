@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Agile\InvoiceBundle\Form\InvoiceFirstStepType;
+use Agile\InvoiceBundle\Form\Type\InvoiceFirstStepFormType;
 use Agile\InvoiceBundle\Entity\Invoice;
 use Agile\InvoiceBundle\Entity\UserSetting;
 
@@ -42,7 +42,7 @@ class InvoiceController extends Controller
 
         // Build the invoice form for the first step creation
         $invoice = new Invoice();
-        $form = $this->createForm(new InvoiceFirstStepType(), $invoice);
+        $form = $this->createForm(new InvoiceFirstStepFormType(), $invoice);
         return array(
             'settingName' => $settingName,
             'tips' => $tips,
