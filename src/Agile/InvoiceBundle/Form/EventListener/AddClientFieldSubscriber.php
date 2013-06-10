@@ -28,6 +28,7 @@ class AddClientFieldSubscriber implements EventSubscriberInterface
     {
         $data = $event->getData();
         $form = $event->getForm();
+        // var_dump($form); exit;
 
         // check if the contact object is new
         if (!$data || !$data->getId()) {
@@ -37,15 +38,14 @@ class AddClientFieldSubscriber implements EventSubscriberInterface
                 'class' => 'AgileInvoiceBundle:Client',
                 'query_builder' => function(EntityRepository $er) {
                     $queryBuilder = $er->createQueryBuilder('c')
-                        ->orderBy('c.name', 'ASC');
-
-                    if ($this->company) {
-                        $queryBuilder
-                            ->where('c.company = :company')
-                            ->setParameter('company', $this->company);
-                    }
+                        ->orderBy('c.name', 'ASC')
+                        ->where('c.company = :company')
+                        ->andWhere('c.archived = 0')
+                        ->setParameter('company', $this->company)
+                    ;
 
                     return $queryBuilder;
+                    // return $er->findActiveClientsQueryBuilder($this->company);
                 },
             ));
         }
