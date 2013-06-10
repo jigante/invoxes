@@ -126,10 +126,10 @@ class ClientControllerTest extends TestCase
         $this->assertGreaterThan(0, $crawler->filter('em:contains("You cannot remove ")')->count());
         $this->assertEquals(0, $crawler->filter('a:contains("Remove ")')->count());
 
-        // So try to delete a client without clients (the last client)
+        // So try to delete a client without contacts (the last client)
         $crawler = $client->request('GET', '/clients');
 
-        $crawler = $client->click($crawler->filter('a:contains("Edit")')->last()->link());
+        $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
 
         $this->assertGreaterThan(0, $crawler->filter('a:contains("Remove ")')->count());
         $this->assertEquals(0, $crawler->filter('em:contains("You cannot remove ")')->count());
@@ -137,6 +137,7 @@ class ClientControllerTest extends TestCase
         //Delete the entity
         $form = $crawler->selectButton('Save')->form(array(), 'DELETE');
         $client->submit($form);
+        // var_dump($client->getResponse()); exit;
 
         $this->assertTrue(
             $client->getResponse()->isRedirect('/clients'),
@@ -156,7 +157,7 @@ class ClientControllerTest extends TestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Save')->form(array(
-            'agile_invoice_client[name]'  => 'A.C. Hellas Verona',
+            'agile_invoice_client[name]'  => 'Inter FGCI',
         ));
 
         $crawler = $client->submit($form);
@@ -175,7 +176,7 @@ class ClientControllerTest extends TestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Save')->form(array(
-            'agile_invoice_client[name]'  => 'A.C. Hellas Verona',
+            'agile_invoice_client[name]'  => 'Inter FGCI',
         ));
 
         $client->submit($form);
@@ -187,7 +188,7 @@ class ClientControllerTest extends TestCase
         $crawler = $client->followRedirect();
 
         // Check the client is in the list of clients
-        $this->assertGreaterThan( 0, $crawler->filter('html:contains("A.C. Hellas Verona")')->count() );
+        $this->assertGreaterThan( 0, $crawler->filter('html:contains("Inter FGCI")')->count() );
     }
 
 }
