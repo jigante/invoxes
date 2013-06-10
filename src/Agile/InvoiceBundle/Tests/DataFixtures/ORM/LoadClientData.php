@@ -28,10 +28,18 @@ class LoadClientData extends AbstractFixture implements OrderedFixtureInterface
         $client2->setCompany($this->getReference('company-diego-armando-maradona'));
         $manager->persist($client2);
 
+        $client3 = new Client();
+        $client3->setName('Buenos Aires FGCA');
+        $client3->setAddress("via dela Victoria, 112\nBuenos Aires (Argentina)");
+        $client3->setCurrency('ARS');
+        $client3->setCompany($this->getReference('company-diego-armando-maradona'));
+        $manager->persist($client3);
+
         $manager->flush();
 
         $this->addReference('client-inter-fgci', $client);
         $this->addReference('client-argentina-football-club', $client2);
+        $this->addReference('client-buenos-aires-fgca', $client3);
 
     }
 

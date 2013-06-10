@@ -6,7 +6,7 @@ use Agile\InvoiceBundle\Tests\TestCase;
 
 class ClientControllerTest extends TestCase
 {
-    
+
     public function testCompleteScenario()
     {
 
@@ -19,6 +19,12 @@ class ClientControllerTest extends TestCase
         // Create a new entry in the database
         $crawler = $client->request('GET', '/clients');
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /clients/");
+
+        $this->assertGreaterThan(
+            0,
+            $crawler->filter('a:contains("+ Add Contact")')->count(),
+            'A company with clients has the button "+ Add Contact" in the index client page'
+        );
 
         $this->assertEquals(1, $crawler->filter('html:contains("Inter FGCI")')->count(), "User 'Walter Zenga' needs to have 'Inter FGCI' in its client list");
 
@@ -96,7 +102,7 @@ class ClientControllerTest extends TestCase
         // First verify that a different cannot toggle a client that belongs to another user
 
         // There has not to be the link "Manage Archived Clients" for anoter user, too
-        $this->login('diego.armando.maradona');
+        $this->logIn('diego.armando.maradona');
         $crawler = $client->request('GET', '/clients');
         $this->assertEquals( 0, $crawler->filter('a:contains("Manage Archived Clients")')->count() );
 
@@ -108,7 +114,7 @@ class ClientControllerTest extends TestCase
         // var_dump($crawler); exit;
 
         // Continue with the default user
-        $this->login();
+        $this->logIn();
         $crawler = $client->request('GET', '/clients');
 
         $crawler = $client->click($link);
@@ -168,7 +174,7 @@ class ClientControllerTest extends TestCase
         );
 
         // But a client with the same name can be created for a different user
-        $this->login('diego.armando.maradona');
+        $this->logIn('diego.armando.maradona');
 
         $crawler = $client->request('GET', '/clients');
         
@@ -189,6 +195,17 @@ class ClientControllerTest extends TestCase
 
         // Check the client is in the list of clients
         $this->assertGreaterThan( 0, $crawler->filter('html:contains("Inter FGCI")')->count() );
+
+        // A company without clients cannot see the button "+ Add Contact" in the index client page
+        $this->logIn('michel.platini');
+
+        $crawler = $client->request('GET', '/clients');
+        $this->assertEquals(
+            0,
+            $crawler->filter('a:contains("+ Add Contact")')->count(),
+            'A company without clients cannot see the button "+ Add Contact" in the index client page'
+        );
+
     }
 
 }

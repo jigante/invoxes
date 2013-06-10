@@ -41,9 +41,15 @@ class ContactControllerTest extends TestCase
 
         $this->assertRegExp('/Add Contact/', $client->getResponse()->getContent());
 
-        $form = $crawler->selectButton('Save')->form();
+        // Select box contains two clients in the list
+        $this->assertCount(2, $crawler->filter('select#agile_invoice_contact_client > option'), 'There have to be two Client options in the add contact form');
+
+        $this->assertCount(1, $crawler->filter('select#agile_invoice_contact_client > option:contains("Inter FGCI")'));
+        $this->assertCount(1, $crawler->filter('select#agile_invoice_contact_client > option:contains("Test Client for contact")'));
+        
 
         // Testiamo l'invio del form vuoto
+        $form = $crawler->selectButton('Save')->form();
         $crawler = $client->submit($form);
 
         // Dobbiamo avere due messaggi di errore "This value should not be blank."
@@ -111,6 +117,41 @@ class ContactControllerTest extends TestCase
 
         $contact = $crawler->filter('.contact-main-info:contains("Test Contact First name Test Contact Last name")');
         $this->assertEquals(0, $contact->count(), 'Il contatto non dovrebbe esistere più');
+
+        // Test the client select list for the add contact page
+        $this->logIn('diego.armando.maradona');
+        $crawler = $client->request('GET', '/clients');
+
+        // Click on link "Buenos Aires FGCA"
+        $link = $crawler->filter('a:contains("Add contact")')->last()->link();
+        $crawler = $client->click($link);
+
+        $this->assertCount(2, $crawler->filter('select#agile_invoice_contact_client > option'), 'There have to be two Client options in the add contact form');
+
+        $this->assertCount(1, $crawler->filter('select#agile_invoice_contact_client > option:contains("Argentina Football Club")'));
+        $this->assertCount(1, $crawler->filter('select#agile_invoice_contact_client > option:contains("Buenos Aires FGCA")'));
+
+        // Check the selectd option
+        $this->assertEquals('selected', $crawler->filter('select#agile_invoice_contact_client > option:contains("Buenos Aires FGCA")')->attr('selected'));
+
+        // An archived client is not shown in add contact select list
+        $crawler = $client->request('GET', '/clients');
+        $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(0)->link());
+
+        // Clicchiamo sul link per archiviare il cliente
+        $crawler = $client->click($crawler->filter('a:contains("Archive")')->eq(0)->link());
+        $crawler = $client->followredirect();
+
+        // Go to add contact page:
+        $crawler = $client->request('GET', '/contacts/new');
+        $this->assertCount(1, $crawler->filter('select#agile_invoice_contact_client > option'), 'There has to be only one non archived Client option in the add contact form');
+        $this->assertCount(0, $crawler->filter('select#agile_invoice_contact_client > option:contains("Argentina Football Club")'));
+
+
+        // A company without clients cannot access the page to add new contact
+        $this->logIn('michel.platini');
+        $crawler = $client->request('GET', '/contacts/new');
+        $this->assertTrue($client->getResponse()->isRedirect('/clients'), 'If the company has no clients has to be redirected to "/clients" page');
 
     }
 }

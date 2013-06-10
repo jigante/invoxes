@@ -75,6 +75,28 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($user2);
         $manager->persist($company2);
 
+        // User 3
+        $user3 = new User();
+        $user3->setFirstName('Michel');
+        $user3->setLastName('Platini');
+        $user3->setEmail('michel@platini.it');
+        $user3->setContactPhone('332456723456');
+        $user3->setUsername('michel.platini');
+        $user3->setEnabled(1);
+
+        $company3 = new Company();
+        $company3->setName('Michel Platini LTD');
+        $user3->setCompany($company3);
+        $company3->setOwner($user3);
+        $company3->setReceiptRecipients($user3->getEmail());
+
+        // Set Password for user3
+        $encoder3 = $factory->getEncoder($user3);
+        $password3 = $encoder3->encodePassword('michel.platini', $user3->getSalt());
+        $user3->setPassword($password3);
+        $manager->persist($user3);
+        $manager->persist($company3);
+
         $manager->flush();
 
         // store reference to Users for assigning clients
@@ -83,6 +105,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $this->addReference('company-walter-zenga', $company);
         $this->addReference('company-diego-armando-maradona', $company2);
+        $this->addReference('company-michel-platini', $company3);
     }
 
     /**
