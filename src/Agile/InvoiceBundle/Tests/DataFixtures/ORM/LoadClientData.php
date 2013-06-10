@@ -18,7 +18,6 @@ class LoadClientData extends AbstractFixture implements OrderedFixtureInterface
         $client->setName('Inter FGCI');
         $client->setAddress("via dei Palmeti, 12\n02100 Milano (MI)");
         $client->setCurrency('EUR');
-        // $client->setUser($this->getReference('user-walter-zenga'));
         $client->setCompany($this->getReference('company-walter-zenga'));
         $manager->persist($client);
 
@@ -26,7 +25,6 @@ class LoadClientData extends AbstractFixture implements OrderedFixtureInterface
         $client2->setName('Argentina Football Club');
         $client2->setAddress("via dei Campeoni, 44\nBuenos Aires (Argentina)");
         $client2->setCurrency('ARS');
-        // $client2->setUser($this->getReference('user-diego-armando-maradona'));
         $client2->setCompany($this->getReference('company-diego-armando-maradona'));
         $manager->persist($client2);
 
