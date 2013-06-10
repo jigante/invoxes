@@ -69,7 +69,7 @@ class ContactController extends Controller
 
         // If the company has no clients, return to clients page
         $company = $this->get('context.company');
-        $clients = $company->getClients();
+        $clients = $this->getDoctrine()->getRepository('AgileInvoiceBundle:Client')->findActive($company);
         if (count($clients) == 0) {
             return $this->redirect($this->generateUrl('client'));
         }

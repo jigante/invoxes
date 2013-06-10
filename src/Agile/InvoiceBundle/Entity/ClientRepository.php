@@ -13,16 +13,6 @@ use Agile\InvoiceBundle\Entity\Company;
  */
 class ClientRepository extends EntityRepository
 {
-    // public function findContacts($client_id)
-    // {
-    //     $query = $this->getEntityManager()->createQuery(
-    //         'SELECT c FROM AgileInvoiceBundle:Contact c WHERE c.client = :client_id ORDER BY c.firstName ASC'
-    //     )->setParameter('client_id', $client_id);
-
-    //     $contacts = $query->getResult();
-
-    //     return $contacts;
-    // }
 
     public function findAllJoinedToContacts(Company $company)
     {
@@ -55,6 +45,17 @@ class ClientRepository extends EntityRepository
         return $clients;
     }
 
+    public function findActive($company)
+    {
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT c FROM AgileInvoiceBundle:Client c WHERE c.company = :company AND c.archived = :archived ORDER BY c.name ASC'
+        )->setParameters(array('company' => $company, 'archived' => 0));
+
+        $clients = $query->getResult();
+
+        return $clients;
+    }
+
     public function countInactiveClients($company)
     {
         $em = $this->getEntityManager();
@@ -72,7 +73,18 @@ class ClientRepository extends EntityRepository
         return $count;
     }
 
-    
+
+    // public function findContacts($client_id)
+    // {
+    //     $query = $this->getEntityManager()->createQuery(
+    //         'SELECT c FROM AgileInvoiceBundle:Contact c WHERE c.client = :client_id ORDER BY c.firstName ASC'
+    //     )->setParameter('client_id', $client_id);
+
+    //     $contacts = $query->getResult();
+
+    //     return $contacts;
+    // }
+
     // public function findAllByCompany(Company $company)
     // {
     //     // $em = $this->getEntityManager();
