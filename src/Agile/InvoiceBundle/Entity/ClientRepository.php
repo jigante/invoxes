@@ -44,30 +44,6 @@ class ClientRepository extends EntityRepository
         return $clients;
     }
 
-    // public function findAllByCompany(Company $company)
-    // {
-    //     // $em = $this->getEntityManager();
-    //     // $query = $em->createQuery(
-    //     //     'SELECT c FROM AgileInvoiceBundle:Client c
-    //     //     WHERE c.archived = :archived AND c.company = :company
-    //     //     ORDER BY c.name ASC'
-    //     // )->setParameters(array('archived' => 0, 'company' => $company,));
-
-    //     $repository = $this->getEntityManager()->getRepository('AgileInvoiceBundle:Client');
-    //     $query = $repository->createQueryBuilder('c')
-    //         ->where('c.archived = :archived')
-    //         ->andWhere('c.company = :company')
-    //         // ->setParameter('archived', 0)
-    //         ->setParameters(array('archived' => 0, 'company' => $company))
-    //         ->orderBy('c.name', 'ASC')
-    //         ->getQuery()
-    //     ;
-
-    //     $clients = $query->getResult();
-
-    //     return $clients;
-    // }
-
     public function findInactive($company)
     {
         $query = $this->getEntityManager()->createQuery(
@@ -95,5 +71,45 @@ class ClientRepository extends EntityRepository
 
         return $count;
     }
+
+    
+    // public function findAllByCompany(Company $company)
+    // {
+    //     // $em = $this->getEntityManager();
+    //     // $query = $em->createQuery(
+    //     //     'SELECT c FROM AgileInvoiceBundle:Client c
+    //     //     WHERE c.archived = :archived AND c.company = :company
+    //     //     ORDER BY c.name ASC'
+    //     // )->setParameters(array('archived' => 0, 'company' => $company,));
+
+    //     $repository = $this->getEntityManager()->getRepository('AgileInvoiceBundle:Client');
+    //     $query = $repository->createQueryBuilder('c')
+    //         ->where('c.archived = :archived')
+    //         ->andWhere('c.company = :company')
+    //         // ->setParameter('archived', 0)
+    //         ->setParameters(array('archived' => 0, 'company' => $company))
+    //         ->orderBy('c.name', 'ASC')
+    //         ->getQuery()
+    //     ;
+
+    //     $clients = $query->getResult();
+
+    //     return $clients;
+    // }
+
+    // public function findActiveClientsQueryBuilder($company)
+    // {
+    //     $em = $this->getEntityManager();
+    //     $queryBuilder = $em->createQueryBuilder()
+    //         ->select('c')
+    //         ->from('AgileInvoiceBundle:Client', 'c')
+    //         ->where('c.company = :company')
+    //         ->andWhere('c.archived = :archived')
+    //         ->orderBy('c.name', 'ASC')
+    //         ->setParameters(array('company' => $company, 'archived' => 0))
+    //     ;
+
+    //     return $queryBuilder;
+    // }
 
 }
