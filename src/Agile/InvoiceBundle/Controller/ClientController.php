@@ -231,7 +231,7 @@ class ClientController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AgileInvoiceBundle:Client')->findOneBy($id);
+        $entity = $em->getRepository('AgileInvoiceBundle:Client')->find($id);
 
         if (!$this->get('security.context')->isGranted(array('CONTEXT'), $entity)) {
             throw $this->createNotFoundException('Unable to find Client');
