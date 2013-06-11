@@ -1,0 +1,39 @@
+{% extends '@AgileInvoice/one-column.html.twig' %}
+{% trans_default_domain 'AgileInvoiceBundle' %}
+
+{% block title %}{{ 'company.settings'|trans }} - {{ parent() }}{% endblock %}
+
+{% block main_title %}{{ 'company.account.settings'|trans }}{% endblock %}
+
+{% block body -%}
+    <div class="settings-container">
+        <h3>{{ 'company.account.preferences'|trans }}</h3>
+        
+        <dl class="settings-list dl-horizontal">
+            <dt>{{ 'company.name'|trans }}</dt>
+            <dd>{{ company.name }}</dd>
+            <dt>{{ 'company.account_owner'|trans }}</dt>
+            <dd>{{ company.owner.firstName ~ ' ' ~ company.owner.lastName }}</dd>
+            <dt>{{ 'company.fiscal_year'|trans }}</dt>
+            <dd>{{ company.fiscalYearStart }}</dd>
+            <dt>{{ 'company.timezone'|trans }}</dt>
+            <dd>{{ company.timezone }}</dd>
+            <dt>{{ 'company.date_format'|trans }}</dt>
+            <dd>{{ company.dateFormat }}</dd>
+            <dt>{{ 'company.currency'|trans }}</dt>
+            <dd>{{ company.currency }}</dd>
+            <dt>{{ 'company.number_format'|trans }}</dt>
+            <dd>{{ company.numberFormat }}</dd>
+            <dt>{{ 'company.currency_symbol'|trans }}</dt>
+            <dd>{{ company.currencyPlacement }}</dd>
+            <dt>{{ 'company.currency_code_suffix'|trans }}</dt>
+            <dd>{{ company.includeCurrencyCode }}</dd>
+            <dt>{{ 'company.color_scheme'|trans }}</dt>
+            <dd>{{ company.colorScheme }}</dd>
+            <dt>{{ 'company.logo'|trans }}</dt>
+            <dd>{{ company.logo }}</dd>
+        </dl>
+
+        <a href="{{ path('company_preferences') }}" class="btn btn-small btn-success">{{ 'company.edit_preferences'|trans }}</a>
+    </div>
+{% endblock %}
