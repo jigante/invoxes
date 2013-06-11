@@ -5408,3 +5408,29 @@ ul.clients-list-inactive li a {
 ul.clients-list-inactive li a:hover {
   background-color: #e0f5fe;
 }
+/* Company Settings page */
+.settings-container h3 {
+  font-size: 14px;
+  line-height: 14px;
+  margin: 0 0 7px;
+}
+.settings-list {
+  margin: 10px 15px;
+  font-size: 12px;
+}
+.settings-list dt {
+  color: #666;
+  font-size: 11px;
+  text-align: left;
+  padding: 5px 0;
+}
+.settings-list dd {
+  border-bottom: 1px solid #ddd;
+  margin: 0;
+  line-height: 20px;
+  min-height: 20px;
+  padding: 5px 0;
+}
+.settings-container a.btn {
+  margin: 1px 15px;
+}
