@@ -65,7 +65,8 @@ class Company
     protected $receipts;
 
     /**
-     * @ORM\Column(name="fiscal_year_start", type="string", length=100)
+     * @ORM\Column(name="fiscal_year_start", type="smallint")
+     * @Assert\Range(min = 1, max = 12)
      */
     protected $fiscalYearStart = 1;
 
@@ -590,5 +591,22 @@ class Company
     {
         return $this->clients;
     }
+
+    /**
+     * Get owner choiches list for preferences form
+     */
+    // public function getOwnerChoices()
+    // {
+    //     $users = $this->getUsers();
+
+    //     $choiches = array();
+    //     foreach ($users as $user) {
+    //         $key = $user->getId();
+    //         $value = '"'.$user->getFirstName().' '.$user->getLastName().'" (' . $user->getEmail() . ')';
+    //         $choiches[$key] = $value;
+    //     }
+
+    //     return $choiches;
+    // }
 
 }
