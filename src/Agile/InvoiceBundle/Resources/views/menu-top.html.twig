@@ -36,8 +36,11 @@
                                     <a href="{{ path('fos_user_profile_edit') }}">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a>
                                 </li>
                                 <li>
+                                    <a href="{{ path('company_account') }}">{{ 'layout.account.settings'|trans }}</a>
+                                </li>
+                                <li>
                                     <a href="{{ path('fos_user_security_logout') }}">
-                                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                        {{ 'layout.logout'|trans }}
                                     </a>
                                 </li>
                             {% else %}
