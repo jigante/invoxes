@@ -17,16 +17,6 @@ use Doctrine\Common\Collections\Criteria;
 class User extends BaseUser
 {
 
-    public function __construct()
-    {
-        // Always call when extending "FOS\UserBundle\Entity\User" if using the constructor
-        parent::__construct();
-
-        $this->settings = new ArrayCollection();
-
-        $this->invoices = new ArrayCollection();
-    }
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -104,6 +94,21 @@ class User extends BaseUser
      * @ORM\Column(type="datetime")
      */
     protected $updated;
+
+    public function __construct()
+    {
+        // Always call when extending "FOS\UserBundle\Entity\User" if using the constructor
+        parent::__construct();
+
+        $this->settings = new ArrayCollection();
+
+        $this->invoices = new ArrayCollection();
+    }
+
+    // public function __toString()
+    // {
+    //     return (string) $this->getFirstName() . ' ' . $this->getLastName();
+    // }
 
     /**
      * Get id
@@ -376,6 +381,11 @@ class User extends BaseUser
         } else {
             return true;
         }
+    }
+
+    public function getChoicheListName()
+    {
+        return '"'.$this->firstName.' '.$this->lastName.'" (' . $this->email . ')';
     }
 
 }
