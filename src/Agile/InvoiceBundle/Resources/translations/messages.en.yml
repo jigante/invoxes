@@ -41,9 +41,12 @@ company:
     timezone: Timezone
     date_format: Date Format
     currency: Currency
+    currency_placement: Currency Placement
     number_format: Number Format
     currency_symbol: Currency Symbol
     currency_code_suffix: Currency Code Suffix
+    include_currency_code: Include Currency Code
     color_scheme: Color Scheme
     logo: Logo
     edit_preferences: Edit Preferences
+    save_preferences: Save Preferences

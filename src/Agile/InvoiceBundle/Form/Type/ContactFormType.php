@@ -20,13 +20,13 @@ class ContactFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', null, array('label' => 'form.first_name', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('lastName', null, array('label' => 'form.last_name', 'translation_domain' => 'AgileInvoiceBundle'))
+            ->add('firstName', null, array('label' => 'form.first_name'))
+            ->add('lastName', null, array('label' => 'form.last_name'))
             ->add('title')
             ->add('email')
-            ->add('phoneOffice', null, array('label' => 'form.office_number', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('mobile', null, array('label' => 'form.mobile_number', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('fax', null, array('label' => 'form.fax_number', 'translation_domain' => 'AgileInvoiceBundle'))
+            ->add('phoneOffice', null, array('label' => 'form.office_number'))
+            ->add('mobile', null, array('label' => 'form.mobile_number'))
+            ->add('fax', null, array('label' => 'form.fax_number'))
         ;
 
         // Mostriamo il menù a tendina per scegliere il cliente solo se il form è nuovo (no editing)

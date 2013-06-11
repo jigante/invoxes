@@ -13,7 +13,7 @@ class CompanyPreferencesFormType extends AbstractType
     {
         $company = $options['data'];
         $builder
-            ->add('name', 'text', array('label' => 'company.name', 'translation_domain' => 'AgileInvoiceBundle'))
+            ->add('name', 'text', array('label' => 'company.name'))
             ->add('owner', 'entity', array(
                 'required' => true,
                 'label' => 'company.account_owner',
@@ -28,15 +28,15 @@ class CompanyPreferencesFormType extends AbstractType
                     ;
                 }
             ))
-            ->add('fiscalYearStart', null, array('label' => 'company.fiscal_year', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('timezone', null, array('label' => 'company.timezone', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('dateFormat', null, array('label' => 'company.date_format', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('currency', null, array('label' => 'company.currency', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('currencyPlacement', null, array('label' => 'company.currency_placement', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('includeCurrencyCode', null, array('label' => 'company.include_currency_code', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('numberFormat', null, array('label' => 'company.number_format', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('colorScheme', null, array('label' => 'company.color_scheme', 'translation_domain' => 'AgileInvoiceBundle'))
-            ->add('logo', null, array('label' => 'company.logo', 'translation_domain' => 'AgileInvoiceBundle'))
+            ->add('fiscalYearStart', null, array('label' => 'company.fiscal_year'))
+            ->add('timezone', null, array('label' => 'company.timezone'))
+            ->add('dateFormat', null, array('label' => 'company.date_format'))
+            ->add('currency', null, array('label' => 'company.currency'))
+            ->add('currencyPlacement', null, array('label' => 'company.currency_placement'))
+            ->add('includeCurrencyCode', null, array('label' => 'company.include_currency_code'))
+            ->add('numberFormat', null, array('label' => 'company.number_format'))
+            ->add('colorScheme', null, array('label' => 'company.color_scheme'))
+            ->add('logo', null, array('label' => 'company.logo'))
         ;
     }
 

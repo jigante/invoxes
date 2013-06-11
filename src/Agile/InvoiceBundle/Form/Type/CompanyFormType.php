@@ -10,7 +10,7 @@ class CompanyFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text', array('label' => 'form.company_name', 'translation_domain' => 'AgileInvoiceBundle'));
+        $builder->add('name', 'text', array('label' => 'company.name'));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

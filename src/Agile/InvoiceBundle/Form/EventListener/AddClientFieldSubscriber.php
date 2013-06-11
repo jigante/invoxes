@@ -34,7 +34,6 @@ class AddClientFieldSubscriber implements EventSubscriberInterface
         if (!$data || !$data->getId()) {
             $form->add('client', 'entity', array(
                 'label' => 'form.client',
-                'translation_domain' => 'AgileInvoiceBundle',
                 'class' => 'AgileInvoiceBundle:Client',
                 'query_builder' => function(EntityRepository $er) {
                     $queryBuilder = $er->createQueryBuilder('c')
