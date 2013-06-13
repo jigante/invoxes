@@ -53,7 +53,7 @@ class CompanyPreferencesFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Agile\InvoiceBundle\Entity\Company',
-            'validation_groups' => array('Preferences'),
+            // 'validation_groups' => array('Preferences'),
         ));
     }
 

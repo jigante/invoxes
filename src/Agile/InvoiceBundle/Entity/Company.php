@@ -25,14 +25,14 @@ class Company
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(groups={"Registration"});
-     * @Assert\Length(min=5, max="100", groups={"Preferences"})
+     * @Assert\Length(min=5, max="100")
      */
     protected $name;
 
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="companyOwner")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
-     * @Assert\NotBlank(groups={"Preferences"});
+     * @Assert\NotBlank();
      */
     protected $owner;
 
@@ -75,13 +75,13 @@ class Company
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(groups={"Preferences"});
-     * @Assert\Choice(callback = "getValidTimezones", groups={"Preferences"})
+     * @Assert\Choice(callback = "getValidTimezones")
      */
     protected $timezone = 'Europe/London';
 
     /**
      * @ORM\Column(name="date_format", type="string", length=100, nullable=true)
-     * @Assert\NotBlank(groups={"Preferences"});
+     * @Assert\NotBlank();
      */
     protected $dateFormat;
 
