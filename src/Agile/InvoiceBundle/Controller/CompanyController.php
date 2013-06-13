@@ -32,6 +32,7 @@ class CompanyController extends Controller
 
     /**
      * @Route("/preferences", name="company_preferences")
+     * @Method("GET")
      * @Template()
      */
     public function preferencesAction()
@@ -52,6 +53,21 @@ class CompanyController extends Controller
      */
     public function preferencesUpdateAction(Request $request)
     {
-        # code...
+        $company = $this->get('context.company');
+
+        $form = $this->createForm(new CompanyPreferencesFormType(), $company);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($company);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('company_account'));
+        }
+
+        return array(
+            'form' => $form->createView(),
+        );
     }
 }
