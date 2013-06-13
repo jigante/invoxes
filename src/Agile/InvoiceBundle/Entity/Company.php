@@ -6,6 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Agile\InvoiceBundle\Utility;
 
 /**
  * @ORM\Entity()
@@ -24,13 +25,14 @@ class Company
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(groups={"Registration"});
-     * @Assert\Length(min=5, max="100", groups={"Registration"})
+     * @Assert\Length(min=5, max="100", groups={"Preferences"})
      */
     protected $name;
 
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="companyOwner")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
+     * @Assert\NotBlank(groups={"Preferences"});
      */
     protected $owner;
 
@@ -71,12 +73,15 @@ class Company
     protected $fiscalYearStart = 1;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(groups={"Preferences"});
+     * @Assert\Choice(callback = "getValidTimezones", groups={"Preferences"})
      */
-    protected $timezone;
+    protected $timezone = 'Europe/London';
 
     /**
      * @ORM\Column(name="date_format", type="string", length=100, nullable=true)
+     * @Assert\NotBlank(groups={"Preferences"});
      */
     protected $dateFormat;
 
@@ -592,21 +597,29 @@ class Company
         return $this->clients;
     }
 
-    /**
-     * Get owner choiches list for preferences form
-     */
-    // public function getOwnerChoices()
-    // {
-    //     $users = $this->getUsers();
+    public function getFiscalYearChoiches()
+    {
+        $months = array(
+            1 => 'months.january',
+            2 => 'months.february',
+            3 => 'months.march',
+            4 => 'months.april',
+            5 => 'months.may',
+            6 => 'months.june',
+            7 => 'months.july',
+            8 => 'months.august',
+            9 => 'months.september',
+            10 => 'months.october',
+            11 => 'months.november',
+            12 => 'months.december',
+        );
 
-    //     $choiches = array();
-    //     foreach ($users as $user) {
-    //         $key = $user->getId();
-    //         $value = '"'.$user->getFirstName().' '.$user->getLastName().'" (' . $user->getEmail() . ')';
-    //         $choiches[$key] = $value;
-    //     }
+        return $months;
+    }
 
-    //     return $choiches;
-    // }
+    public static function getValidTimezones()
+    {
+        return array_keys(Utility::getTimezones());
+    }
 
 }
