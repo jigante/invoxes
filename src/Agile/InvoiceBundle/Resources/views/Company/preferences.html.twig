@@ -16,6 +16,13 @@
         {{ form_row(form.owner, { attr: { 'class': 'input-block-level' }}) }}
         {{ form_row(form.fiscalYearStart, { attr: {'class': 'input-block-level'}, 'help': 'company.fiscal_year.form.help'|trans }) }}
         {{ form_row(form.timezone, { attr: {'class': 'input-block-level'}, 'help': 'company.timezone.form.help'|trans }) }}
+        {{ form_row(form.dateFormat, { attr: { 'class': 'input-block-level' }}) }}
+        {{ form_row(form.currency, { attr: { 'class': 'input-block-level' }}) }}
+        {{ form_row(form.currencyPlacement) }}
+        {{ form_row(form.includeCurrencyCode) }}
+        {{ form_row(form.numberFormat) }}
+        {{ form_row(form.colorScheme) }}
+        {{ form_row(form.logo) }}
 
         {{ form_rest(form) }}
 
