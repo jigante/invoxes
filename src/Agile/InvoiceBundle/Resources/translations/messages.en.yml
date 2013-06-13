@@ -38,7 +38,9 @@ company:
     name: Company Name
     account_owner: Account Owner
     fiscal_year: Fiscal Year
+    fiscal_year.form.help: Customize your fiscal year by choosing the start month. This will add a "This fiscal year" option for all reports.
     timezone: Timezone
+    timezone.form.help: "This will be the default timezone next time you add a user to your account. Changing this will not update everyone's timezone (which can be updated via Manage > People)."
     date_format: Date Format
     currency: Currency
     currency_placement: Currency Placement
@@ -50,3 +52,18 @@ company:
     logo: Logo
     edit_preferences: Edit Preferences
     save_preferences: Save Preferences
+
+months:
+    january: January
+    february: February
+    march: March
+    april: April
+    may: May
+    june: June
+    july: July
+    august: August
+    september: September
+    october: October
+    november: November
+    december: December
+
