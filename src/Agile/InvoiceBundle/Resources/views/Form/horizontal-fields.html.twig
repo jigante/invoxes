@@ -5,6 +5,9 @@
             <div class="controls">
                 {{ form_widget(form) }}
                 {{ form_errors(form) }}
+                {% if help is defined %}
+                    <span class="help">{{ help }}</span>
+                {% endif %}
             </div>
         </div>
     {% endspaceless %}
