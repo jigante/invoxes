@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
+use Agile\InvoiceBundle\Utility;
 
 class CompanyPreferencesFormType extends AbstractType
 {
@@ -15,9 +16,7 @@ class CompanyPreferencesFormType extends AbstractType
         $builder
             ->add('name', 'text', array('label' => 'company.name'))
             ->add('owner', 'entity', array(
-                'required' => true,
                 'label' => 'company.account_owner',
-                'translation_domain' => 'AgileInvoiceBundle',
                 'class' => 'AgileInvoiceBundle:User',
                 'property' => 'choicheListName',
                 'query_builder' => function(EntityRepository $er) use ($company) {
@@ -28,8 +27,18 @@ class CompanyPreferencesFormType extends AbstractType
                     ;
                 }
             ))
-            ->add('fiscalYearStart', null, array('label' => 'company.fiscal_year'))
-            ->add('timezone', null, array('label' => 'company.timezone'))
+            ->add('fiscalYearStart', 'choice', array(
+                'label' => 'company.fiscal_year',
+                'choices' => $company->getFiscalYearChoiches(),
+            ))
+            ->add('timezone', 'choice', array(
+                'label' => 'company.timezone',
+                'choices' => Utility::getTimezones(),
+                'preferred_choices' => array(
+                    'Europe/Rome',
+                    'Europe/London',
+                ),
+            ))
             ->add('dateFormat', null, array('label' => 'company.date_format'))
             ->add('currency', null, array('label' => 'company.currency'))
             ->add('currencyPlacement', null, array('label' => 'company.currency_placement'))
@@ -44,6 +53,7 @@ class CompanyPreferencesFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Agile\InvoiceBundle\Entity\Company',
+            'validation_groups' => array('Preferences'),
         ));
     }
 
