@@ -38,7 +38,7 @@ company:
     name: Company Name
     account_owner: Account Owner
     fiscal_year: Fiscal Year
-    fiscal_year.form.help: Customize your fiscal year by choosing the start month. This will add a "This fiscal year" option for all reports.
+    fiscal_year.form.help: "Customize your fiscal year by choosing the start month. This will add a 'This fiscal year' option for all reports."
     timezone: Timezone
     timezone.form.help: "This will be the default timezone next time you add a user to your account. Changing this will not update everyone's timezone (which can be updated via Manage > People)."
     date_format: Date Format
@@ -66,4 +66,12 @@ months:
     october: October
     november: November
     december: December
+
+date.format:
+    ddmmyyyy.slash: "DD/MM/YYYY (e.g. 25/04/2013)"
+    mmddyyyy.slash: "MM/DD/YYYY (e.g. 04/25/2013)"
+    yyyymmdd.dash: "YYYY-MM-DD (e.g. 2013-04-25)"
+    ddmmyyyy.dot: "DD.MM.YYYY (e.g. 25.04.2013)"
+    yyyymmdd.dot: "YYYY.MM.DD (e.g. 2013.04.25)"
+    yyyymmdd.slash: "YYYY/MM/DD (e.g. 2013/04/25)"
 
