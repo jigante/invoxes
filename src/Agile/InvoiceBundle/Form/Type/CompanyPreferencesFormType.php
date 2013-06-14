@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 use Agile\InvoiceBundle\Utility;
+use Agile\InvoiceBundle\Form\Extension\ChoiceList\CurrencyChoiceList;
 
 class CompanyPreferencesFormType extends AbstractType
 {
@@ -29,7 +30,7 @@ class CompanyPreferencesFormType extends AbstractType
             ))
             ->add('fiscalYearStart', 'choice', array(
                 'label' => 'company.fiscal_year',
-                'choices' => $company->getFiscalYearChoiches(),
+                'choices' => Utility::getMonths(),
             ))
             ->add('timezone', 'choice', array(
                 'label' => 'company.timezone',
@@ -39,8 +40,14 @@ class CompanyPreferencesFormType extends AbstractType
                     'Europe/London',
                 ),
             ))
-            ->add('dateFormat', null, array('label' => 'company.date_format'))
-            ->add('currency', null, array('label' => 'company.currency'))
+            ->add('dateFormat', 'choice', array(
+                'label' => 'company.date_format',
+                'choices' => Utility::getDateFormats(),
+
+            ))
+            ->add('currency', 'currency', array(
+                'label' => 'company.currency',
+            ))
             ->add('currencyPlacement', null, array('label' => 'company.currency_placement'))
             ->add('includeCurrencyCode', null, array('label' => 'company.include_currency_code'))
             ->add('numberFormat', null, array('label' => 'company.number_format'))
