@@ -82,8 +82,9 @@ class Company
     /**
      * @ORM\Column(name="date_format", type="string", length=100, nullable=true)
      * @Assert\NotBlank();
+     * @Assert\Choice(callback = "getValidDateFormats")
      */
-    protected $dateFormat;
+    protected $dateFormat = '%d/%m/%Y';
 
     /**
      * @ORM\Column(type="string", length=3)
@@ -597,29 +598,19 @@ class Company
         return $this->clients;
     }
 
-    public function getFiscalYearChoiches()
+    public static function getValidMonths()
     {
-        $months = array(
-            1 => 'months.january',
-            2 => 'months.february',
-            3 => 'months.march',
-            4 => 'months.april',
-            5 => 'months.may',
-            6 => 'months.june',
-            7 => 'months.july',
-            8 => 'months.august',
-            9 => 'months.september',
-            10 => 'months.october',
-            11 => 'months.november',
-            12 => 'months.december',
-        );
-
-        return $months;
+        return array_keys(Utility::getMonths());
     }
 
     public static function getValidTimezones()
     {
         return array_keys(Utility::getTimezones());
+    }
+
+    public static function getValidDateFormats()
+    {
+        return array_keys(Utility::getDateFormats());
     }
 
 }
