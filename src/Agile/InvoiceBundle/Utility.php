@@ -2,13 +2,60 @@
 
 namespace Agile\InvoiceBundle;
 
+use Symfony\Component\Intl\Intl;
+
 class Utility
 {
+
     /**
-     * Return an array of timezones where key is PHP time zone and value is human representation
-     * 
+     * Return an array of months
+     *
      * @return array
      */
+    public static function getMonths()
+    {
+        $months = array(
+            1 => 'months.january',
+            2 => 'months.february',
+            3 => 'months.march',
+            4 => 'months.april',
+            5 => 'months.may',
+            6 => 'months.june',
+            7 => 'months.july',
+            8 => 'months.august',
+            9 => 'months.september',
+            10 => 'months.october',
+            11 => 'months.november',
+            12 => 'months.december',
+        );
+
+        return $months;
+    }
+
+    /**
+    * Return an array of date formats
+    * 
+    * @return array
+    */
+    public static function getDateFormats()
+    {
+        $dateFormats = array(
+            '%d/%m/%Y' => 'date.format.ddmmyyyy.slash',
+            '%m/%d/%Y' => 'date.format.mmddyyyy.slash',
+            '%Y-%m-%d' => 'date.format.yyyymmdd.dash',
+            '%d.%m.%Y' => 'date.format.ddmmyyyy.dot',
+            '%Y.%m.%d' => 'date.format.yyyymmdd.dot',
+            '%Y/%m/%d' => 'date.format.yyyymmdd.slash',
+        );
+
+        return $dateFormats;
+    }
+
+    /**
+    * Return an array of timezones where key is PHP time zone and value is human representation
+    * 
+    * @return array
+    */
     public static function getTimezones()
     {
         $timezones = array(
@@ -128,5 +175,5 @@ class Utility
 
         return $timezones;
     }
-    
+
 }
