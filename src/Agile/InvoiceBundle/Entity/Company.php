@@ -74,20 +74,19 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank(groups={"Preferences"});
      * @Assert\Choice(callback = "getValidTimezones")
      */
     protected $timezone = 'Europe/London';
 
     /**
-     * @ORM\Column(name="date_format", type="string", length=100, nullable=true)
-     * @Assert\NotBlank();
+     * @ORM\Column(name="date_format", type="string", length=100)
      * @Assert\Choice(callback = "getValidDateFormats")
      */
     protected $dateFormat = '%d/%m/%Y';
 
     /**
      * @ORM\Column(type="string", length=3)
+     * @Assert\Choice(callback = "getValidCurrencySymbols")
      */
     protected $currency = 'EUR';
 
@@ -611,6 +610,11 @@ class Company
     public static function getValidDateFormats()
     {
         return array_keys(Utility::getDateFormats());
+    }
+    
+    public static function getValidCurrencySymbols()
+    {
+        return Utility::getCurrencySymbols();
     }
 
 }
