@@ -24,7 +24,7 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank(groups={"Registration"});
+     * @Assert\NotBlank(groups={"Registration", "Preferences"});
      * @Assert\Length(min=5, max="100")
      */
     protected $name;
@@ -32,7 +32,7 @@ class Company
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="companyOwner")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id", onDelete="SET NULL")
-     * @Assert\NotBlank();
+     * @Assert\NotBlank(groups={"Preferences"});
      */
     protected $owner;
 

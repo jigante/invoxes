@@ -17,6 +17,7 @@ class CompanyFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Agile\InvoiceBundle\Entity\Company',
+            'validation_groups' => array('Registration'),
         ));
     }
 
