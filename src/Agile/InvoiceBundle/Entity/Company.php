@@ -289,6 +289,17 @@ class Company
     }
 
     /**
+     * Get fiscalYearStartMonth
+     *
+     * @return string 
+     */
+    public function getFiscalYearStartMonth()
+    {
+        $months = Utility::getMonths();
+        return $months[$this->fiscalYearStart];
+    }
+
+    /**
      * Set timezone
      *
      * @param string $timezone
@@ -309,6 +320,12 @@ class Company
     public function getTimezone()
     {
         return $this->timezone;
+    }
+
+    public function getTimezoneCity()
+    {
+        $timezoneParts = explode('/', $this->timezone);
+        return $timezoneParts[1];
     }
 
     /**

@@ -14,11 +14,11 @@
             <dt>{{ 'company.account_owner'|trans }}</dt>
             <dd>{{ company.owner.firstName ~ ' ' ~ company.owner.lastName }}</dd>
             <dt>{{ 'company.fiscal_year'|trans }}</dt>
-            <dd>{{ company.fiscalYearStart }}</dd>
+            <dd>{{ 'company.fiscal_year.starts.in'|trans }} {{ company.fiscalYearStartMonth|trans }}</dd>
             <dt>{{ 'company.timezone'|trans }}</dt>
-            <dd>{{ company.timezone }}</dd>
+            <dd>{{ company.timezoneCity }}</dd>
             <dt>{{ 'company.date_format'|trans }}</dt>
-            <dd>{{ company.dateFormat }}</dd>
+            <dd>{{ 'now'|date(company.dateFormat) }}</dd>
             <dt>{{ 'company.currency'|trans }}</dt>
             <dd>{{ company.currency }}</dd>
             <dt>{{ 'company.number_format'|trans }}</dt>

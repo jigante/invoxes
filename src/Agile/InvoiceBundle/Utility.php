@@ -40,12 +40,12 @@ class Utility
     public static function getDateFormats()
     {
         $dateFormats = array(
-            '%d/%m/%Y' => 'date.format.ddmmyyyy.slash',
-            '%m/%d/%Y' => 'date.format.mmddyyyy.slash',
-            '%Y-%m-%d' => 'date.format.yyyymmdd.dash',
-            '%d.%m.%Y' => 'date.format.ddmmyyyy.dot',
-            '%Y.%m.%d' => 'date.format.yyyymmdd.dot',
-            '%Y/%m/%d' => 'date.format.yyyymmdd.slash',
+            'd/m/Y' => 'date.format.ddmmyyyy.slash',
+            'm/d/Y' => 'date.format.mmddyyyy.slash',
+            'Y-m-d' => 'date.format.yyyymmdd.dash',
+            'd.m.Y' => 'date.format.ddmmyyyy.dot',
+            'Y.m.d' => 'date.format.yyyymmdd.dot',
+            'Y/m/d' => 'date.format.yyyymmdd.slash',
         );
 
         return $dateFormats;
