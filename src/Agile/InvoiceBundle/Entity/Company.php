@@ -91,9 +91,9 @@ class Company
     protected $currency = 'EUR';
 
     /**
-     * @ORM\Column(name="currency_placement", type="string", length=100, nullable=true)
+     * @ORM\Column(name="currency_placement", type="boolean")
      */
-    protected $currencyPlacement;
+    protected $currencyPlacement = 1;
 
     /**
      * @ORM\Column(name="include_currency_code", type="boolean")
