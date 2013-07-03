@@ -5434,3 +5434,7 @@ ul.clients-list-inactive li a:hover {
 .settings-container a.btn {
   margin: 1px 15px;
 }
+/* Utilities */
+.hide-span span {
+  display: none;
+}
