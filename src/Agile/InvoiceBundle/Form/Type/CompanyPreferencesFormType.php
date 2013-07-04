@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 use Agile\InvoiceBundle\Utility\Utils as Utility;
-use Agile\InvoiceBundle\Form\Extension\ChoiceList\CurrencyChoiceList;
 
 class CompanyPreferencesFormType extends AbstractType
 {
