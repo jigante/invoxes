@@ -244,4 +244,21 @@ class Utility
         return $currenySymbols;
     }
 
+    /**
+    * Return an array of number formats
+    * 
+    * @return array
+    */
+    public static function getNumberFormats()
+    {
+        $numberFormats = array(
+            ',.' => '1,234.56',
+            '.,' => '1.234,56',
+            '&#x27;.' => '1\'234.56', /* single quote + comma */
+            '&#x20;,' => '1 234,56', /* space + comma */
+        );
+
+        return $numberFormats;
+    }
+
 }
