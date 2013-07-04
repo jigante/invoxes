@@ -20,13 +20,25 @@
             <dt>{{ 'company.date_format'|trans }}</dt>
             <dd>{{ 'now'|date(company.dateFormat) }}</dd>
             <dt>{{ 'company.currency'|trans }}</dt>
-            <dd>{{ company.currency }}</dd>
+            <dd>{{ company.currencyNameAndSymbol }}</dd>
             <dt>{{ 'company.number_format'|trans }}</dt>
-            <dd>{{ company.numberFormat }}</dd>
+            <dd>{{ company.formattedNumber(1234.56)|raw }}</dd>
             <dt>{{ 'company.currency_symbol'|trans }}</dt>
-            <dd>{{ company.currencyPlacement }}</dd>
+            <dd class="hide-span">
+                {{ 
+                    company.currencyPlacement ?
+                    'company.currency_placement.before_text'|trans|raw :
+                    'company.currency_placement.after_text'|trans|raw
+                }}
+            </dd>
             <dt>{{ 'company.currency_code_suffix'|trans }}</dt>
-            <dd>{{ company.includeCurrencyCode }}</dd>
+            <dd class="hide-span">
+                {{ 
+                    company.includeCurrencyCode ? 
+                    'company.currency_code_suffix.always_include'|trans|raw :
+                    'company.currency_code_suffix.never_include'|trans|raw
+                }}
+            </dd>
             <dt>{{ 'company.color_scheme'|trans }}</dt>
             <dd>{{ company.colorScheme }}</dd>
             <dt>{{ 'company.logo'|trans }}</dt>
