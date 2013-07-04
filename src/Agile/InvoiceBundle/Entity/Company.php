@@ -6,7 +6,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Agile\InvoiceBundle\Utility;
+use Agile\InvoiceBundle\Utility\Utils as Utility;
+use Symfony\Component\Intl\Intl;
 
 /**
  * @ORM\Entity()
@@ -82,7 +83,7 @@ class Company
      * @ORM\Column(name="date_format", type="string", length=100)
      * @Assert\Choice(callback = "getValidDateFormats")
      */
-    protected $dateFormat = '%d/%m/%Y';
+    protected $dateFormat = 'd/m/Y';
 
     /**
      * @ORM\Column(type="string", length=3)
@@ -92,18 +93,20 @@ class Company
 
     /**
      * @ORM\Column(name="currency_placement", type="boolean")
+     * @Assert\Choice(choices = {"0", "1"})
      */
     protected $currencyPlacement = 1;
 
     /**
      * @ORM\Column(name="include_currency_code", type="boolean")
+     * @Assert\Choice(choices = {"0", "1"})
      */
     protected $includeCurrencyCode = 0;
 
     /**
      * @ORM\Column(name="number_format", type="string", length=100, nullable=true)
      */
-    protected $numberFormat;
+    protected $numberFormat = '.,';
 
     /**
      * @ORM\Column(name="color_scheme", type="string", length=100, nullable=true)
@@ -375,6 +378,23 @@ class Company
     }
 
     /**
+     * Get currency name and symbol
+     *
+     * @return string 
+     */
+    public function getCurrencyNameAndSymbol()
+    {
+        $currencySymbol =  $this->currency;
+
+        $currencyName = Intl::getCurrencyBundle()->getCurrencyName($currencySymbol);
+        if ($currencyName) {
+            return $currencyName.' - '.$currencySymbol;
+        } else {
+            return $currencySymbol;
+        }
+    }
+
+    /**
      * Set currencyPlacement
      *
      * @param string $currencyPlacement
@@ -441,6 +461,21 @@ class Company
     public function getNumberFormat()
     {
         return $this->numberFormat;
+    }
+
+    /**
+     * Get number format demo
+     *
+     * @return string 
+     */
+    public function getFormattedNumber($number)
+    {
+        $decimals = 2;
+        $decPoint = substr($this->numberFormat, -1);
+        $thousandsSep = substr($this->numberFormat, 0, -1);
+        $formattedNumber = number_format($number, $decimals, $decPoint, $thousandsSep);
+
+        return $formattedNumber;
     }
 
     /**
