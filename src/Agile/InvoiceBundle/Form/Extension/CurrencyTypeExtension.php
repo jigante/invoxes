@@ -4,7 +4,7 @@ namespace Agile\InvoiceBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Agile\InvoiceBundle\Utility;
+use Agile\InvoiceBundle\Utility\Utils as Utility;
 use Symfony\Component\Intl\Intl;
 
 class CurrencyTypeExtension extends AbstractTypeExtension
