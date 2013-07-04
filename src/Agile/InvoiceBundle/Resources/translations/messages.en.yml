@@ -45,9 +45,13 @@ company:
     date_format: Date Format
     currency: Currency
     currency_placement: Currency Placement
+    currency_placement.before_text: "Place before the amount <span class='muted'>(e.g. €345)</span>"
+    currency_placement.after_text: "Place after the amount <span class='muted'>(e.g. 345€)</span>"
     number_format: Number Format
     currency_symbol: Currency Symbol
     currency_code_suffix: Currency Code Suffix
+    currency_code_suffix.always_include: "Always include currency code suffix <span class='muted'>(e.g. $345 USD)</span>"
+    currency_code_suffix.never_include: "Never include currency code suffix <span class='muted'>(e.g. $345)</span>"
     include_currency_code: Include Currency Code
     color_scheme: Color Scheme
     logo: Logo
