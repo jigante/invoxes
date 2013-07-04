@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
-use Agile\InvoiceBundle\Utility;
+use Agile\InvoiceBundle\Utility\Utils as Utility;
 use Agile\InvoiceBundle\Form\Extension\ChoiceList\CurrencyChoiceList;
 
 class CompanyPreferencesFormType extends AbstractType
@@ -48,9 +48,31 @@ class CompanyPreferencesFormType extends AbstractType
             ->add('currency', 'currency', array(
                 'label' => 'company.currency',
             ))
-            ->add('currencyPlacement', null, array('label' => 'company.currency_placement'))
-            ->add('includeCurrencyCode', null, array('label' => 'company.include_currency_code'))
-            ->add('numberFormat', null, array('label' => 'company.number_format'))
+            ->add('currencyPlacement', 'choice', array(
+                'label' => 'company.currency_placement',
+                'choices' => array(
+                    '1' => 'company.currency_placement.before_text',
+                    '0' => 'company.currency_placement.after_text',
+                ),
+                'expanded' => true,
+                'multiple' => false,
+            ))
+            ->add('includeCurrencyCode', 'choice', array(
+                'label' => 'company.include_currency_code',
+                'choices' => array(
+                    '1' => 'company.currency_code_suffix.always_include',
+                    '0' => 'company.currency_code_suffix.never_include',
+                ),
+                'expanded' => true,
+                'multiple' => false,  
+            ))
+            ->add('numberFormat', 'choice', array(
+                'label' => 'company.number_format',
+                'choices' => Utility::getNumberFormats(),
+                'expanded' => true,
+                'multiple' => false,
+
+            ))
             ->add('colorScheme', null, array('label' => 'company.color_scheme'))
             ->add('logo', null, array('label' => 'company.logo'))
         ;
