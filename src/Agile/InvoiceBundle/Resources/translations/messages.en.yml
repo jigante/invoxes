@@ -54,8 +54,8 @@ company:
     number_format: Number Format
     currency_symbol: Currency Symbol
     currency_code_suffix: Currency Code Suffix
-    currency_code_suffix.always_include: "Always include currency code suffix <span class='muted'>(e.g. $345 USD)</span>"
-    currency_code_suffix.never_include: "Never include currency code suffix <span class='muted'>(e.g. $345)</span>"
+    currency_code_suffix.always_include: "Always include currency code suffix <span class='muted'>(e.g. €345 EUR)</span>"
+    currency_code_suffix.never_include: "Never include currency code suffix <span class='muted'>(e.g. €345)</span>"
     include_currency_code: Include Currency Code
     color_scheme: Color Scheme
     logo: Logo
