@@ -32,10 +32,13 @@ class ClientControllerTest extends TestCase
 
         $crawler = $client->click($crawler->selectLink('+ Create Client')->link());
 
+        $this->assertEquals(1, $crawler->filter('option:contains("Account default (Euro - EUR)")')->count(), "The default option does not conain 'Account default...' suggestion");
+
         // Fill in the form and submit it
         $form = $crawler->selectButton('Save')->form(array(
             'agile_invoice_client[name]'  => 'A.C. Verona',
             'agile_invoice_client[address]'  => "via Venezia, 11\n08100 Verona (VR)",
+            'agile_invoice_client[currency]'  => "GBP",
         ));
 
         $client->submit($form);
@@ -56,10 +59,13 @@ class ClientControllerTest extends TestCase
 
         $this->assertGreaterThan( 0, $crawler->filter('html:contains("Edit Client")')->count() );
 
+        $this->assertEquals(0, $crawler->filter('option:contains("Account default (Euro - EUR)")')->count(), "The default option conains 'Account default...' suggestion");
+
         $form = $crawler->selectButton('Save')->form(
             array(
                 'agile_invoice_client[name]'  => 'A.C. Hellas Verona',
                 'agile_invoice_client[address]'  => "via Venezia, 12\n08200 Verona (VR)",
+                'agile_invoice_client[currency]'  => "EUR",
                 ),
             'PUT'
         );
