@@ -76,3 +76,11 @@ months:
     november: November
     december: December
 
+date.format:
+    ddmmyyyy.slash.%date%: DD/MM/YYYY (e.g. %date%)
+    mmddyyyy.slash.%date%: MM/DD/YYYY (e.g. %date%)
+    yyyymmdd.dash.%date%: YYYY-MM-DD (e.g. %date%)
+    ddmmyyyy.dot.%date%: DD.MM.YYYY (e.g. %date%)
+    yyyymmdd.dot.%date%: YYYY.MM.DD (e.g. %date%)
+    yyyymmdd.slash.%date%: YYYY/MM/DD (e.g. %date%)
+
