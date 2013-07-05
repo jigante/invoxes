@@ -154,7 +154,8 @@ class ClientController extends Controller
     public function newAction()
     {
         $entity = new Client();
-        $entity->setCurrency('EUR');
+        $company = $this->get('context.company');
+        $entity->setCurrency($company->getCurrency());
 
         $form   = $this->createForm(new ClientFormType(), $entity);
 
