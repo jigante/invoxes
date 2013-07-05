@@ -37,15 +37,36 @@ class Utils
     * 
     * @return array
     */
-    public static function getDateFormats()
+    public static function getDateFormats($translator)
     {
+        // Reference date is on 23 of April to not create confusiones between day and month
+        $referencaDate = mktime(0, 0, 0, 4, 23, date('Y'));
+
         $dateFormats = array(
-            'd/m/Y' => 'date.format.ddmmyyyy.slash',
-            'm/d/Y' => 'date.format.mmddyyyy.slash',
-            'Y-m-d' => 'date.format.yyyymmdd.dash',
-            'd.m.Y' => 'date.format.ddmmyyyy.dot',
-            'Y.m.d' => 'date.format.yyyymmdd.dot',
-            'Y/m/d' => 'date.format.yyyymmdd.slash',
+            'd/m/Y' => $translator->trans(
+                'date.format.ddmmyyyy.slash.%date%',
+                array('%date%' => date('d/m/Y', $referencaDate))
+            ),
+            'm/d/Y' => $translator->trans(
+                'date.format.mmddyyyy.slash.%date%',
+                array('%date%' => date('m/d/Y', $referencaDate))
+            ),
+            'Y-m-d' => $translator->trans(
+                'date.format.yyyymmdd.dash.%date%',
+                array('%date%' => date('Y-m-d', $referencaDate))
+            ),
+            'd.m.Y' => $translator->trans(
+                'date.format.ddmmyyyy.dot.%date%',
+                array('%date%' => date('d.m.Y', $referencaDate))
+            ),
+            'Y.m.d' => $translator->trans(
+                'date.format.yyyymmdd.dot.%date%',
+                array('%date%' => date('Y.m.d', $referencaDate))
+            ),
+            'Y/m/d' => $translator->trans(
+                'date.format.yyyymmdd.slash.%date%',
+                array('%date%' => date('Y/m/d', $referencaDate))
+            ),
         );
 
         return $dateFormats;

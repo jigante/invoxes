@@ -10,6 +10,13 @@ use Agile\InvoiceBundle\Utility\Utils as Utility;
 
 class CompanyPreferencesFormType extends AbstractType
 {
+    protected $translator;
+
+    public function __construct($translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $company = $options['data'];
@@ -41,7 +48,7 @@ class CompanyPreferencesFormType extends AbstractType
             ))
             ->add('dateFormat', 'choice', array(
                 'label' => 'company.date_format',
-                'choices' => Utility::getDateFormats(),
+                'choices' => Utility::getDateFormats($this->translator),
 
             ))
             ->add('currency', 'currency', array(

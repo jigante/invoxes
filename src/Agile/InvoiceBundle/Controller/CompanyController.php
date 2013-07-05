@@ -39,7 +39,7 @@ class CompanyController extends Controller
     {
         $company = $this->get('context.company');
 
-        $form = $this->createForm(new CompanyPreferencesFormType(), $company);
+        $form = $this->createForm(new CompanyPreferencesFormType($this->get('translator')), $company);
 
         return array(
             'form' => $form->createView(),
