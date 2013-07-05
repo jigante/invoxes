@@ -18,13 +18,16 @@ class CompanyControllerTest extends TestCase
         $crawler = $client->request('GET', '/company/account');
         $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /company/account");
 
+        // Reference date is on 23 of April to not create confusiones between day and month
+        $referencaDate = mktime(0, 0, 0, 4, 23, date('Y'));
+
         // Verify all the the defaults data for company preferences are set
         $this->assertEquals(11, $crawler->filter('dl.settings-list dd')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("Walter Zenga LTD")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("Walter Zenga")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("Starts in January")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("London")')->count());
-        $this->assertGreaterThan(0, $crawler->filter('dd:contains("'.date('d/m/Y').'")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('dd:contains("'.date('d/m/Y', $referencaDate).'")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("Euro - EUR")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("1.234,56")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("Place before the amount")')->count());
@@ -56,7 +59,7 @@ class CompanyControllerTest extends TestCase
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("Walter Zenga")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("Starts in April")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("Rome")')->count());
-        $this->assertGreaterThan(0, $crawler->filter('dd:contains("'.date('Y/m/d').'")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('dd:contains("'.date('Y/m/d', $referencaDate).'")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("British Pound Sterling - GBP")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("1\'234.56")')->count());
         $this->assertGreaterThan(0, $crawler->filter('dd:contains("Place after the amount")')->count());
