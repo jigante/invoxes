@@ -18,7 +18,7 @@
             <dt>{{ 'company.timezone'|trans }}</dt>
             <dd>{{ company.timezoneCity }}</dd>
             <dt>{{ 'company.date_format'|trans }}</dt>
-            <dd>{{ 'now'|date(company.dateFormat) }}</dd>
+            <dd>{{ reference_date|date(company.dateFormat) }}</dd>
             <dt>{{ 'company.currency'|trans }}</dt>
             <dd>{{ company.currencyNameAndSymbol }}</dd>
             <dt>{{ 'company.number_format'|trans }}</dt>
