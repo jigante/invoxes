@@ -13,6 +13,7 @@ services:
 
     agile_invoice.currency_type_extension:
         class: Agile\InvoiceBundle\Form\Extension\CurrencyTypeExtension
+        arguments: [@translator]
         tags:
             - { name: form.type_extension, alias: currency }
 
