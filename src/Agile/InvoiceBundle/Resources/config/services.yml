@@ -1,6 +1,7 @@
 parameters:
 #    agile_invoice.example.class: Agile\InvoiceBundle\Example
 
+    agile_invoice.currency_type_extension.class: Agile\InvoiceBundle\Form\Extension\CurrencyTypeExtension
     agile_invoice.user_factory.class: Agile\InvoiceBundle\Factory\UserFactory
     agile_invoice.company_factory.class: Agile\InvoiceBundle\Factory\CompanyFactory
     agile_invoice.contact_form_type.class: Agile\InvoiceBundle\Form\Type\ContactFormType
@@ -12,7 +13,7 @@ services:
 #        arguments: [@service_id, "plain_value", %parameter%]
 
     agile_invoice.currency_type_extension:
-        class: Agile\InvoiceBundle\Form\Extension\CurrencyTypeExtension
+        class: %agile_invoice.currency_type_extension.class%
         arguments: [@translator]
         tags:
             - { name: form.type_extension, alias: currency }
