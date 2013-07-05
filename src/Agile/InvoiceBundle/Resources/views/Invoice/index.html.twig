@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block body -%}
-    <div id="invoice-first-step" style="display:block">
+    <div id="invoice-first-step" class="well well-info" style="display:block">
 
         <form action="{{ path('invoice_new') }}" method="get">
             {{ form_widget(form) }}
