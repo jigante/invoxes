@@ -5,6 +5,7 @@ parameters:
     agile_invoice.user_factory.class: Agile\InvoiceBundle\Factory\UserFactory
     agile_invoice.company_factory.class: Agile\InvoiceBundle\Factory\CompanyFactory
     agile_invoice.contact_form_type.class: Agile\InvoiceBundle\Form\Type\ContactFormType
+    agile_invoice.company_preferences_form_type.class: Agile\InvoiceBundle\Form\Type\CompanyPreferencesFormType
 
 
 services:
@@ -51,6 +52,10 @@ services:
     agile_invoice.contact_form_type:
         class: %agile_invoice.contact_form_type.class%
         arguments: [@context.company]
+
+    agile_invoice.company_preferences_form_type:
+        class: %agile_invoice.company_preferences_form_type.class%
+        arguments: [@translator]
 
     agile_user.registration.form.type:
         class: Agile\InvoiceBundle\Form\Type\RegistrationFormType

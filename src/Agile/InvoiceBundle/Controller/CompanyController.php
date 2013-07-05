@@ -27,6 +27,7 @@ class CompanyController extends Controller
 
         return array(
             'company' => $company,
+            'reference_date' => mktime(0, 0, 0, 4, 23, date('Y')),
         );
     }
 
@@ -39,7 +40,7 @@ class CompanyController extends Controller
     {
         $company = $this->get('context.company');
 
-        $form = $this->createForm(new CompanyPreferencesFormType($this->get('translator')), $company);
+        $form = $this->createForm($this->get('agile_invoice.company_preferences_form_type'), $company);
 
         return array(
             'form' => $form->createView(),
@@ -55,7 +56,7 @@ class CompanyController extends Controller
     {
         $company = $this->get('context.company');
 
-        $form = $this->createForm(new CompanyPreferencesFormType(), $company);
+        $form = $this->createForm($this->get('agile_invoice.company_preferences_form_type'), $company);
         $form->bind($request);
 
         if ($form->isValid()) {
