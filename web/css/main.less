@@ -22,9 +22,25 @@ body {
 @navbarLinkColorHover:            #fff;
 @navbarLinkColorActive:           #fff;
 @navbarLinkBackgroundActive:      darken(@navbarBackground, 5%);
-@tableBackgroundHover:            #F0F0F0;        
+@tableBackgroundHover:            #F0F0F0;       
 
 label.required { font-weight: bold; }
+
+.form-horizontal .control-group {
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.form-horizontal .control-label {
+    text-align: left;
+}
+
+.form-horizontal span.help {
+    color: #888;
+    font-size: @baseFontSize * 0.85;
+    line-height: @baseLineHeight * 0.75;
+}
 
 div.upper_side_link { float:right; }
 
