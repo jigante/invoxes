@@ -5447,6 +5447,11 @@ ul.clients-list-inactive li a:hover {
 .settings-container a.btn {
   margin: 1px 15px;
 }
+/* Wells*/
+.well.well-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
 /* Utilities */
 .hide-span span {
   display: none;
