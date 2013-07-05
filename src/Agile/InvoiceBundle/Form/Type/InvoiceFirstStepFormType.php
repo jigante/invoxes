@@ -12,10 +12,12 @@ class InvoiceFirstStepFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $option)
     {
         $builder->add('client', 'entity', array(
-            // 'label' => $this->get('translator')->trans('which.client.is.the.invoice.for'),
+            'label' => 'which.client.is.the.invoice.for',
             'class' => 'AgileInvoiceBundle:Client',
             'query_builder' => function(EntityRepository $er) {
                 return $er->createQueryBuilder('c')
+                    ->where('c.archived = :archived')
+                    ->setParameter('archived', 0)
                     ->orderBy('c.name', 'ASC');
             },
         ));
