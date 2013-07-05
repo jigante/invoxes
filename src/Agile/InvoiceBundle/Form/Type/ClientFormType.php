@@ -10,10 +10,21 @@ class ClientFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // Check if the client object is new
+        // to show the account default currency
+        if (!$options['data']->getId() /*isNew()*/) {
+            $viewAccountDefaultCurrency = $options['data']->getCurrency();
+        } else {
+            $viewAccountDefaultCurrency = null;
+        }         
+
         $builder
             ->add('name')
             ->add('address', 'textarea', array('required' => false))
-            ->add('currency', 'hidden')
+            ->add('currency', 'currency', array(
+                'label' => 'preferred.currency',
+                'view_account_default_currency' => $viewAccountDefaultCurrency,
+            ))
         ;
     }
 
