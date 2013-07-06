@@ -4,6 +4,8 @@ parameters:
     agile_invoice.currency_type_extension.class: Agile\InvoiceBundle\Form\Extension\CurrencyTypeExtension
     agile_invoice.user_factory.class: Agile\InvoiceBundle\Factory\UserFactory
     agile_invoice.company_factory.class: Agile\InvoiceBundle\Factory\CompanyFactory
+    agile_invoice.user_setting_manager.class: Agile\InvoiceBundle\Model\UserSettingManager
+    agile_invoice.user_setting.class: Agile\InvoiceBundle\Entity\UserSetting
     agile_invoice.contact_form_type.class: Agile\InvoiceBundle\Form\Type\ContactFormType
     agile_invoice.company_preferences_form_type.class: Agile\InvoiceBundle\Form\Type\CompanyPreferencesFormType
 
@@ -48,6 +50,13 @@ services:
         public:     false
         tags:
             - { name: security.voter }
+
+    agile_invoice.user_setting_manager:
+        class: %agile_invoice.user_setting_manager.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %agile_invoice.user_setting.class%
+            - @context.user
 
     agile_invoice.contact_form_type:
         class: %agile_invoice.contact_form_type.class%
