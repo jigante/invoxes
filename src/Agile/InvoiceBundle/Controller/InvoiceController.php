@@ -29,22 +29,16 @@ class InvoiceController extends Controller
      */
     public function indexAction()
     {
-        $settingName = UserSetting::DISABLE_INVOICE_PAGE_TIPS;
-        $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-
-        $isActiveSetting = $em->getRepository('AgileInvoiceBundle:UserSetting')->isActive(
-            $user,
-            $settingName
-        );
-
+        $disableInvoicePageTips = UserSetting::DISABLE_INVOICE_PAGE_TIPS;
+        $userSetting = $this->get('agile_invoice.user_setting_manager');
+        $isActiveSetting = $userSetting->isActive($disableInvoicePageTips);
         $tips = array('show' => $isActiveSetting);
 
         // Build the invoice form for the first step creation
         $invoice = new Invoice();
         $form = $this->createForm(new InvoiceFirstStepFormType(), $invoice);
         return array(
-            'settingName' => $settingName,
+            'settingName' => $disableInvoicePageTips,
             'tips' => $tips,
             'form' => $form->createView(),
         );

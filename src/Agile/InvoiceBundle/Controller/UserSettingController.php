@@ -26,10 +26,8 @@ class UserSettingController extends Controller
         // Is it an Ajax request?
         if ($request->isXmlHttpRequest()) {
             // Set the user setting
-            $em = $this->getDoctrine()->getManager();
-            $setting = $em->getRepository('AgileInvoiceBundle:UserSetting')->setUserSetting(
-                $user, $settingName, $settingValue
-            );
+            $userSetting = $this->get('agile_invoice.user_setting_manager');
+            $setting = $userSetting->set($settingName, $settingValue);
 
             return Response::create('Ok');
         } else {
