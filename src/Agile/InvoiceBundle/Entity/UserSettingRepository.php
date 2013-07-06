@@ -7,26 +7,6 @@ use Doctrine\ORM\EntityRepository;
 class UserSettingRepository extends EntityRepository
 {
     /**
-     * Set the setting value
-     */
-    public function setUserSetting($user, $settingName, $settingValue)
-    {
-        $em = $this->getEntityManager();
-        $userSetting = $this->retrieveUserSetting($user, $settingName);
-
-        if (is_null($userSetting)) {
-            $userSetting = new UserSetting();
-            $userSetting->setUser($user);
-            $userSetting->setName($settingName);
-        }
-
-        $userSetting->setValue($settingValue);
-
-        $em->persist($userSetting);
-        $em->flush();
-    }
-
-    /**
      * Is the setting active or inactive?
      */
     public function isActive($user, $settingName)
@@ -67,6 +47,26 @@ class UserSettingRepository extends EntityRepository
         return !$this->isActive($user, $settingName);
     }
 
+    /**
+     * Set the setting value
+     */
+    public function set($user, $settingName, $settingValue)
+    {
+        $em = $this->getEntityManager();
+        $userSetting = $this->retrieveUserSetting($user, $settingName);
+
+        if (is_null($userSetting)) {
+            $userSetting = new UserSetting();
+            $userSetting->setUser($user);
+            $userSetting->setName($settingName);
+        }
+
+        $userSetting->setValue($settingValue);
+
+        $em->persist($userSetting);
+        $em->flush();
+    }
+    
     /**
      * Retrieve a user setting given the "user" and the "setting name"
      */
