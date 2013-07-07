@@ -9,9 +9,9 @@ use Doctrine\ORM\EntityRepository;
 
 class InvoiceFirstStepFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $option)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $company = $option['company'];
+        $company = $options['company'];
 
         $builder->add('client', 'entity', array(
             'label' => 'which.client.is.the.invoice.for',
