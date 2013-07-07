@@ -10,16 +10,11 @@ use Agile\InvoiceBundle\Utility\Utils as Utility;
 
 class CompanyPreferencesFormType extends AbstractType
 {
-    protected $translator;
-
-    public function __construct($translator)
-    {
-        $this->translator = $translator;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $company = $options['data'];
+        $translator = $options['translator'];
         $builder
             ->add('name', 'text', array('label' => 'company.name'))
             ->add('owner', 'entity', array(
@@ -48,7 +43,7 @@ class CompanyPreferencesFormType extends AbstractType
             ))
             ->add('dateFormat', 'choice', array(
                 'label' => 'company.date_format',
-                'choices' => Utility::getDateFormats($this->translator),
+                'choices' => Utility::getDateFormats($translator),
 
             ))
             ->add('currency', 'currency', array(
@@ -90,6 +85,8 @@ class CompanyPreferencesFormType extends AbstractType
             'data_class' => 'Agile\InvoiceBundle\Entity\Company',
             'validation_groups' => array('Preferences'),
         ));
+
+        $resolver->setRequired(array('translator'));
     }
 
     public function getName()

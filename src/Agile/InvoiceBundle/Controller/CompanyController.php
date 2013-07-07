@@ -39,8 +39,8 @@ class CompanyController extends Controller
     public function preferencesAction()
     {
         $company = $this->get('context.company');
-
-        $form = $this->createForm($this->get('agile_invoice.company_preferences_form_type'), $company);
+        $translator = $this->get('translator');
+        $form = $this->createForm(new CompanyPreferencesFormType(), $company, array('translator' => $translator));
 
         return array(
             'form' => $form->createView(),
@@ -55,8 +55,8 @@ class CompanyController extends Controller
     public function preferencesUpdateAction(Request $request)
     {
         $company = $this->get('context.company');
-
-        $form = $this->createForm($this->get('agile_invoice.company_preferences_form_type'), $company);
+        $translator = $this->get('translator');
+        $form = $this->createForm(new CompanyPreferencesFormType(), $company, array('translator' => $translator));
         $form->bind($request);
 
         if ($form->isValid()) {

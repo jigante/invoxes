@@ -6,7 +6,6 @@ parameters:
     agile_invoice.company_factory.class: Agile\InvoiceBundle\Factory\CompanyFactory
     agile_invoice.user_setting_manager.class: Agile\InvoiceBundle\Model\UserSettingManager
     agile_invoice.user_setting.class: Agile\InvoiceBundle\Entity\UserSetting
-    agile_invoice.company_preferences_form_type.class: Agile\InvoiceBundle\Form\Type\CompanyPreferencesFormType
 
 
 services:
@@ -56,10 +55,6 @@ services:
             - @doctrine.orm.default_entity_manager
             - %agile_invoice.user_setting.class%
             - @context.user
-
-    agile_invoice.company_preferences_form_type:
-        class: %agile_invoice.company_preferences_form_type.class%
-        arguments: [@translator]
 
     agile_user.registration.form.type:
         class: Agile\InvoiceBundle\Form\Type\RegistrationFormType
