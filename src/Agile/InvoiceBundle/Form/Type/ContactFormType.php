@@ -12,11 +12,6 @@ class ContactFormType extends AbstractType
 {
     protected $company;
 
-    public function __construct(Company $company = null)
-    {
-        $this->company = $company;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -30,9 +25,7 @@ class ContactFormType extends AbstractType
         ;
 
         // Mostriamo il menù a tendina per scegliere il cliente solo se il form è nuovo (no editing)
-        if ($this->company ) {
-            $builder->addEventSubscriber(new AddClientFieldSubscriber($this->company));
-        }
+        $builder->addEventSubscriber(new AddClientFieldSubscriber($options['company']));
         
     }
 
@@ -41,6 +34,8 @@ class ContactFormType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Agile\InvoiceBundle\Entity\Contact'
         ));
+
+        $resolver->setRequired(array('company'));
     }
 
     public function getName()

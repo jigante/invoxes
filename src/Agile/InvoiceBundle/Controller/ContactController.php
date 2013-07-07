@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Agile\InvoiceBundle\Entity\Contact;
-// use Agile\InvoiceBundle\Form\Type\ContactFormType;
+use Agile\InvoiceBundle\Form\Type\ContactFormType;
 
 /**
  * Contact controller.
@@ -28,8 +28,8 @@ class ContactController extends Controller
     public function createAction(Request $request)
     {
         $entity  = new Contact();
-        $contactFormType = $this->get('agile_invoice.contact_form_type');
-        $form = $this->createForm($contactFormType, $entity);
+        $company = $this->get('context.company');
+        $form = $this->createForm(new ContactFormType(), $entity, array('company' => $company));
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -74,8 +74,7 @@ class ContactController extends Controller
             return $this->redirect($this->generateUrl('client'));
         }
 
-        $contactFormType = $this->get('agile_invoice.contact_form_type');
-        $form = $this->createForm($contactFormType, $entity);
+        $form = $this->createForm(new ContactFormType, $entity, array('company' => $company));
 
         return array(
             'contact' => $entity,
@@ -100,8 +99,8 @@ class ContactController extends Controller
             throw $this->createNotFoundException('Unable to find Contact');
         }
 
-        $contactFormType = $this->get('agile_invoice.contact_form_type');
-        $editForm = $this->createForm($contactFormType, $entity);
+        $company = $this->get('context.company');
+        $editForm = $this->createForm(new ContactFormType(), $entity, array('company' => $company));
 
         return array(
             'contact'      => $entity,
@@ -126,8 +125,8 @@ class ContactController extends Controller
             throw $this->createNotFoundException('Unable to find Contact');
         }
 
-        $contactFormType = $this->get('agile_invoice.contact_form_type');
-        $editForm = $this->createForm($contactFormType, $entity);
+        $company = $this->get('context.company');
+        $editForm = $this->createForm(new ContactFormType(), $entity, array('company' => $company));
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
