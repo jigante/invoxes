@@ -2,7 +2,6 @@
 
 namespace Agile\InvoiceBundle\Model;
 
-use Agile\InvoiceBundle\Model\BaseModelManager;
 use Doctrine\ORM\EntityManager;
 use Agile\InvoiceBundle\Entity\User;
 
