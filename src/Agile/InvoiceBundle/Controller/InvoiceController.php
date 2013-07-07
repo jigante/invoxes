@@ -36,7 +36,11 @@ class InvoiceController extends Controller
 
         // Build the invoice form for the first step creation
         $invoice = new Invoice();
-        $form = $this->createForm(new InvoiceFirstStepFormType(), $invoice);
+        $form = $this->createForm(
+            new InvoiceFirstStepFormType(),
+            $invoice,
+            array('company' => $this->get('context.company'))
+        );
         return array(
             'settingName' => $disableInvoicePageTips,
             'tips' => $tips,
