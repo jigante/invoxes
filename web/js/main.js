@@ -61,6 +61,8 @@ var links = {
     init: function() {
         this.submitByHrefMethod();
         this.confirmByMconfirmHeader();
+        this.showHiddenDiv();
+        this.focusField();
     },
 
     // If there is a link with the data attribute "data-href-method"
@@ -101,6 +103,24 @@ var links = {
 
             return confirm(confirmMessage);
 
+        });
+    },
+
+    showHiddenDiv: function () {
+        $('[data-show-div]').on('click', function (e) {
+            e.preventDefault();
+            var link = $(this);
+            showDiv = link.data('show-div');
+            $('#'+showDiv).show();
+        });
+    },
+
+    focusField: function() {
+         $('[data-focus-field]').on('click', function (e) {
+            e.preventDefault();
+            var link = $(this);
+            focusField = link.data('focus-field');
+            $('#'+focusField).focus();
         });
     }
 
