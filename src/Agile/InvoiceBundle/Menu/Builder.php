@@ -14,17 +14,17 @@ class Builder extends ContainerAware
         $menu->setChildrenAttribute('class', 'nav');
 
         $menu->addChild('Home', array('route' => 'home'));
-        $menu->addChild('Fatture', array('route' => 'invoice'));
+        $menu->addChild('Invoices', array('route' => 'invoice'));
         $menu->addChild('Report', array('route' => 'invoice_archive'));
 
-        $menu->addChild('Clienti', array('route' => 'client'));
-        $menu['Clienti']->addChild('Create New Client', array('route' => 'client_new'));
-        $menu['Clienti']->setDisplayChildren(false);
+        $menu->addChild('Clients', array('route' => 'client'));
+        $menu['Clients']->addChild('Create New Client', array('route' => 'client_new'));
+        $menu['Clients']->setDisplayChildren(false);
 
-        $menu->addChild('Progetti', array('route' => 'projects'));
-        $menu->addChild('Ricorrenti', array('route' => 'recurring_invoices'));
-        $menu->addChild('Preventivi', array('route' => 'estimates'));
-        $menu->addChild('Configura', array('route' => 'invoice_configure'));
+        $menu->addChild('Projects', array('route' => 'projects'));
+        $menu->addChild('Recurring', array('route' => 'recurring_invoices'));
+        $menu->addChild('Estimates', array('route' => 'estimates'));
+        $menu->addChild('Configure', array('route' => 'invoice_configure'));
 
         return $menu;
     }
