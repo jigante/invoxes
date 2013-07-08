@@ -45,6 +45,27 @@ class InvoiceControllerTest extends TestCase
 
     }
 
+    public function testFirstStepInvoiceForm()
+    {
+        $client = $this->client;
+
+        $this->logIn();
+
+        $crawler = $client->request('GET', '/invoices');
+
+        // Contains only 2 clients, the active ones
+        $this->assertEquals(2, $crawler->filter('div#agile_invoice_invoice_first_step select option')->count());
+        $this->assertEquals(1, $crawler->filter('option:contains("Catania FGCI")')->count());
+        $this->assertEquals(1, $crawler->filter('option:contains("Inter FGCI")')->count());
+
+        // Des not contain archived clients
+        $this->assertEquals(0, $crawler->filter('option:contains("Palermo FGCI")')->count());
+
+        // Des not contain clients from other companies
+        $this->assertEquals(0, $crawler->filter('option:contains("Argentina Football Club")')->count());
+
+    }
+
 
     public function testInvoiceTips()
     {
