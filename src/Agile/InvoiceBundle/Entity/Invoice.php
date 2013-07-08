@@ -39,6 +39,7 @@ class Invoice
     /**
      * @ORM\ManyToOne(targetEntity="Client", inversedBy="invoices")
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     protected $client;
 
