@@ -9,12 +9,12 @@
 {% block main_title %}
     Invoices Overview
 
-    <a href="{{ path('invoice_new') }}" class="btn btn-success btn-small">+ {{ 'create.invoice'|trans }}</a>
+    <a href="#" data-show-div="invoice-first-step" data-focus-field="agile_invoice_invoice_first_step_client" class="btn btn-success btn-small">+ {{ 'create.invoice'|trans }}</a>
 
 {% endblock %}
 
 {% block body -%}
-    <div id="invoice-first-step" class="well well-info" style="display:block">
+    <div id="invoice-first-step" class="well well-info" style="display:none">
 
         <form action="{{ path('invoice_new') }}" method="get">
             {{ form_widget(form) }}
