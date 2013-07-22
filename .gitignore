@@ -11,3 +11,4 @@
 
 *.DS_Store
 /FattureOnline.ormdesigner2
+.elasticbeanstalk/
