@@ -1,3 +1,5 @@
 # robotstxt.org/
+# TODO: enable in prod when project is complete
 
 User-agent: *
+Disallow: /
