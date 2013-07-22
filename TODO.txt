@@ -1,0 +1,1 @@
+- Allow bots spidering when the project is complete
