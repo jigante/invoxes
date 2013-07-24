@@ -8,7 +8,7 @@ set :app_path,    "app"
 
 # SCM info
 # set :repository,  "#{domain}:/var/repos/#{application}.git"
-set :repository,  "git@github.com:jigante/fatture-online.git"
+set :repository,  "git@github.com:jigante/invoxes.git"
 set :scm,         :git
 set :deploy_via, :remote_cache
 
