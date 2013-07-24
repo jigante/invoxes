@@ -42,7 +42,7 @@ class ContactControllerTest extends TestCase
         $this->assertRegExp('/Add Contact/', $client->getResponse()->getContent());
 
         // Select box contains two clients in the list
-        $this->assertCount(2, $crawler->filter('select#agile_invoice_contact_client > option'), 'There have to be two Client options in the add contact form');
+        $this->assertCount(3, $crawler->filter('select#agile_invoice_contact_client > option'), 'There have to be three Client options in the add contact form');
 
         $this->assertCount(1, $crawler->filter('select#agile_invoice_contact_client > option:contains("Inter FGCI")'));
         $this->assertCount(1, $crawler->filter('select#agile_invoice_contact_client > option:contains("Test Client for contact")'));
