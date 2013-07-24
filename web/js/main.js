@@ -1,3 +1,13 @@
+// angular.module('myApp', []).config(function($interpolateProvider){
+//         $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+//     }
+// );
+
+var myApp = angular.module('myApp', [], function($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
+});
+
 var userSettings = {
     // ajaxSet : null,
 
