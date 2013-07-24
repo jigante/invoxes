@@ -1,8 +1,8 @@
-set :application, "Fatture Facili"
+set :application, "Invoxes - Dev"
 # set :domain,      "#{application}.com"
-set :domain,      "fatturefacili.it"
+set :domain,      "dev.invoxes.com"
 # set :deploy_to,   "/var/www/#{domain}"
-set :deploy_to,   "/var/www/fatturefacili.it/application"
+set :deploy_to,   "/var/www/dev.invoxes.com/application"
 set :app_path,    "app"
 # set :web_path, "web"
 
@@ -26,7 +26,7 @@ set :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
 set :use_composer, true
 
 # User details for the production server
-set :user, "fatturefacili"
+set :user, "dev_invoxes"
 set :use_sudo, false
 ssh_options[:port] = 7822
 
