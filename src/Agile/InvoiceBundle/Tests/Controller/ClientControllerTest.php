@@ -49,9 +49,6 @@ class ClientControllerTest extends TestCase
 
         $crawler = $client->followRedirect();
 
-        // Ora la pagina indice dei clienti non contiene il link "Manage Archived Clients"
-        $this->assertEquals( 0, $crawler->filter('a:contains("Manage Archived Clients")')->count() );
-
         $this->assertGreaterThan( 0, $crawler->filter('html:contains("A.C. Verona")')->count() );
 
         // Edit the entity
@@ -105,7 +102,7 @@ class ClientControllerTest extends TestCase
 
         $link = $crawler->filter('ul.clients-list-inactive li a')->eq(0)->link();
 
-        // First verify that a different cannot toggle a client that belongs to another user
+        // First verify that a user cannot toggle a client that belongs to another user
 
         // There has not to be the link "Manage Archived Clients" for anoter user, too
         $this->logIn('diego.armando.maradona');
@@ -133,7 +130,7 @@ class ClientControllerTest extends TestCase
         $crawler = $client->followredirect();
 
         // The entity "client" can't be deleted when it has contacts
-        $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(1)->link());
+        $crawler = $client->click($crawler->filter('a:contains("Edit")')->eq(2)->link());
 
         $this->assertGreaterThan(0, $crawler->filter('em:contains("You cannot remove ")')->count());
         $this->assertEquals(0, $crawler->filter('a:contains("Remove ")')->count());
