@@ -21,7 +21,7 @@ class DefaultControllerTest extends TestCase
         $crawler = $client->followRedirect();
 
         // Click on registration button
-        $link = $crawler->selectLink('Try Fatture Online for free')->link();
+        $link = $crawler->selectLink('Try Invoxes for free')->link();
         $crawler = $client->click($link);
 
         $newAccountArray = array(

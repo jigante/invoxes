@@ -1,7 +1,7 @@
 # Password resetting
 resetting:
     request:
-        username: "What email address do you use to sign into Fatture facili?"
+        username: "What email address do you use to sign into Invoxes?"
 
 # Global strings
 layout:
