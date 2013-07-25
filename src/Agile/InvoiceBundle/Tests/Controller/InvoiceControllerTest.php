@@ -48,13 +48,12 @@ class InvoiceControllerTest extends TestCase
     public function testFirstStepInvoiceForm()
     {
         $client = $this->client;
-
         $this->logIn();
-
         $crawler = $client->request('GET', '/invoices');
 
+        // var_dump($client->getResponse()->getContent()); exit;
         // Contains only 2 clients, the active ones
-        $this->assertEquals(2, $crawler->filter('div#agile_invoice_invoice_first_step select option')->count());
+        $this->assertEquals(2, $crawler->filter('select#agile_invoice_invoice_first_step_client_company_client option')->count());
         $this->assertEquals(1, $crawler->filter('option:contains("Catania FGCI")')->count());
         $this->assertEquals(1, $crawler->filter('option:contains("Inter FGCI")')->count());
 
@@ -63,6 +62,22 @@ class InvoiceControllerTest extends TestCase
 
         // Des not contain clients from other companies
         $this->assertEquals(0, $crawler->filter('option:contains("Argentina Football Club")')->count());
+    }
+
+    public function testInvoiceNew()
+    {
+        $client = $this->client;
+        $this->login();
+        $crawler = $client->request('GET', '/invoices');
+
+        $form = $crawler->selectButton('Next Step')->form();
+        $crawler = $client->submit($form);
+
+        $this->assertRegExp(
+            '/Invoice for Catania FGCI/',
+            $client->getResponse()->getContent(),
+            'The invoice page has to contain "Invoice for Catania FGCI"'
+        );
 
     }
 
