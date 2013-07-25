@@ -17,7 +17,12 @@
     <div id="invoice-first-step" class="well well-info" style="display:none">
 
         <form action="{{ path('invoice_new') }}" method="get">
-            {{ form_widget(form) }}
+
+            {{ form_errors(form) }}
+
+            {{ form_row(form.client.company_client) }}
+
+            {{ form_rest(form) }}
 
             <input type="submit" value="Next Step" class="btn btn-success btn-small " />
             <a href="#" class="btn btn-small">Cancel</a>

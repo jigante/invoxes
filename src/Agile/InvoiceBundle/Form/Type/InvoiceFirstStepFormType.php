@@ -13,23 +13,17 @@ class InvoiceFirstStepFormType extends AbstractType
     {
         $company = $options['company'];
 
-        $builder->add('client', 'entity', array(
-            'label' => 'which.client.is.the.invoice.for',
-            'class' => 'AgileInvoiceBundle:Client',
-            'query_builder' => function(EntityRepository $er) use ($company) {
-                return $er->createQueryBuilder('c')
-                    ->where('c.archived = :archived')
-                    ->andWhere('c.company = :company')
-                    ->setParameters(array('archived' => 0, 'company' => $company))
-                    ->orderBy('c.name', 'ASC');
-            },
+        $builder->add('client', new CompanyClientFormType(), array(
+            'company' => $company,
         ));
+
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Agile\InvoiceBundle\Entity\Invoice',
+            'cascade_validation' => true,
         ));
 
         $resolver->setRequired(array('company'));
