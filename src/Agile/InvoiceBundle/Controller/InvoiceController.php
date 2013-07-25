@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Agile\InvoiceBundle\Form\Type\InvoiceFirstStepFormType;
+use Agile\InvoiceBundle\Form\Type\InvoiceFormType;
 use Agile\InvoiceBundle\Entity\Invoice;
 use Agile\InvoiceBundle\Entity\UserSetting;
 
@@ -55,9 +56,29 @@ class InvoiceController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
-        
+        $requestParams = $request->query->get('agile_invoice_invoice_first_step');
+        $clientId = $requestParams['client']['company_client'];
+
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AgileInvoiceBundle:Client')->find($clientId);
+
+        if (!$this->get('security.context')->isGranted(array('CONTEXT'), $client)) {
+            throw $this->createNotFoundException('Unable to find client');
+        }
+
+        $invoice = new Invoice();
+        $form = $this->createForm(
+            new InvoiceFormType(),
+            $invoice,
+            array('company' => $this->get('context.company'))
+        );
+
+        return array(
+            'form' => $form->createView(),
+            'client' => $client,
+        );
     }
 
     /**
