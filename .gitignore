@@ -1,5 +1,4 @@
 /web/bundles/
-/web/js/vendor/*
 /app/bootstrap.php.cache
 /app/cache/*
 /app/logs/*
